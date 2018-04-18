@@ -1,0 +1,22 @@
+/*这个类选择器重写了bootstrap的jumbotron类*/
+.jumbotron
+{
+    background-color: white;
+}
+
+.screen_style
+{
+    margin-top: 80px;
+    margin-bottom: 100px;
+}
+
+
+.cap_style
+{
+    text-align: center;
+}
+
+.btn_style
+{
+    margin-top: 20px;
+}

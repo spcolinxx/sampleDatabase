@@ -1,0 +1,23 @@
+.jumbotron
+{
+    background-color: white;
+}
+
+.screen_style
+{
+    margin-top: 50px;
+}
+
+.cap_style
+{
+    text-align: center;
+}
+.lb_style
+{
+    text-align: right;
+}
+
+.btn_style
+{
+    margin-top: 20px;
+}

@@ -1,0 +1,294 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>样本信息搜索结果</title>
+
+    <link rel="stylesheet" href="{{ url_for('sample.static',filename="css/search_rst.css") }}">
+    <script type="text/javascript" src="{{ url_for('sample.static',filename='js/search_rst.js') }}"></script>
+{% endblock %}
+
+{% block pagecontent %}
+
+
+<div class="container-fluid col-md-6 col-md-offset-3">
+   <div class="jumbotron screen_style">
+      <div class="container-fluid ">
+          <div class="row col-md-6 col-md-offset-3">
+              <p class="cap_style">样本详细信息</p>
+
+          </div>
+          <div class="row col-md-8 col-md-offset-2">
+            <span>唯一标识码：</span>
+            <span name="smp_uni_id">{{ search_rst[0] }}</span>
+        </div>
+
+        <div class="row col-md-8 col-md-offset-2">
+            <span>样本编码：</span>
+            <span name="inv_id">{{ search_rst[1] }}</span>
+        </div>
+        <div class="row col-md-8 col-md-offset-2">
+            <span>样本类别：</span>
+            <span name="smp_cate">{{ search_rst[2] }}</span>
+        </div>
+           <div class="row col-md-8 col-md-offset-2">
+            <span>入库日期：</span>
+            <span name="ent_date">{{ search_rst[3] }}</span>
+        </div>
+           <div class="row col-md-8 col-md-offset-2">
+            <span>保存温度：</span>
+               <span >{{ search_rst[4] }}</span>
+        </div>
+           <div class="row col-md-8 col-md-offset-2">
+            <span>母本编码：</span>
+               <span >{{ search_rst[5] }}</span>
+        </div>
+           <div class="row col-md-8 col-md-offset-2">
+            <span>分管数：</span>
+               <span >{{ search_rst[6] }}</span>
+        </div>
+           <div class="row col-md-8 col-md-offset-2">
+            <span>样本量：</span>
+               <span >{{ search_rst[7] }}</span>
+        </div>
+           <div class="row col-md-8 col-md-offset-2">
+            <span>量单位：</span>
+               <span >{{ search_rst[8] }}</span>
+        </div>
+           <div class="row col-md-8 col-md-offset-2">
+            <span>知情同意：</span>
+               <span >{{ search_rst[9] }}</span>
+        </div>
+           <div class="row col-md-8 col-md-offset-2">
+            <span>样本别称：</span>
+               <span >{{ search_rst[10] }}</span>
+        </div>
+
+           <div class="row col-md-8 col-md-offset-2">
+            <span>样本描述：</span>
+               <span >{{ search_rst[11] }}</span>
+        </div>
+           <div class="row col-md-8 col-md-offset-2">
+            <span>关键词：</span>
+               <span >{{ search_rst[12] }}</span>
+        </div>
+           <div class="row col-md-8 col-md-offset-2">
+            <span>样本用途：</span>
+               <span >{{ search_rst[13] }}</span>
+        </div>
+           <div class="row col-md-8 col-md-offset-2">
+            <span>采集部位：</span>
+               <span >{{ search_rst[14] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>分析前变量：</span>
+        <span >{{ search_rst[15] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>采集动因：</span>
+        <span >{{ search_rst[16] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>采集时间：</span>
+        <span >{{ search_rst[17] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>采集计划：</span>
+        <span >{{ search_rst[18] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>采集机构：</span>
+        <span >{{ search_rst[19] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>其他采集者：</span>
+        <span >{{ search_rst[20] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>保存机构名称：</span>
+        <span >{{ search_rst[21] }}</span>
+        </div>
+
+    <div class="row col-md-8 col-md-offset-2">
+            <span>法人机构名称：</span>
+        <span >{{ search_rst[22] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>法人机构代码：</span>
+        <span >{{ search_rst[23] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>法人机构类型：</span>
+        <span >{{ search_rst[24] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>保存机构简介：</span>
+        <span >{{ search_rst[25] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>使用许可：</span>
+        <span >{{ search_rst[26] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>共享方式：</span>
+        <span >{{ search_rst[27] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>通信地址：</span>
+        <span >{{ search_rst[28] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>邮政编码：</span>
+        <span >{{ search_rst[29] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>管理员：</span>
+        <span >{{ search_rst[30] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>联系电话：</span>
+        <span >{{ search_rst[31] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>电子信箱：</span>
+        <span >{{ search_rst[32] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>捐献者匿名编号：</span>
+        <span >{{ search_rst[33] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>性别：</span>
+        <span >{{ search_rst[34] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>年龄：</span>
+        <span >{{ search_rst[35] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>民族：</span>
+        <span >{{ search_rst[36] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>籍贯：</span>
+        <span >{{ search_rst[37] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>出生地：</span>
+        <span >{{ search_rst[38] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>国籍：</span>
+        <span >{{ search_rst[39] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>职业：</span>
+        <span >{{ search_rst[40] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>教育程度：</span>
+        <span >{{ search_rst[41] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>婚姻状况：</span>
+        <span >{{ search_rst[42] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>捐献途径：</span>
+        <span >{{ search_rst[43] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>疾病类目名称：</span>
+        <span >{{ search_rst[44] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>疾病类目代码：</span>
+        <span >{{ search_rst[45] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>主要诊断：</span>
+        <span >{{ search_rst[46] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>现病史：</span>
+        <span >{{ search_rst[47] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>检验记录：</span>
+        <span >{{ search_rst[48] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>随访记录：</span>
+        <span >{{ search_rst[49] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>影像资料：</span>
+        <span >{{ search_rst[50] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>病例报告：</span>
+        <span >{{ search_rst[51] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>家系信息：</span>
+        <span >{{ search_rst[52] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>课题名称：</span>
+        <span >{{ search_rst[53] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>课题编号：</span>
+        <span >{{ search_rst[54] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>课题级别：</span>
+        <span >{{ search_rst[55] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>资助机构：</span>
+        <span >{{ search_rst[56] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>纳入标准：</span>
+        <span >{{ search_rst[57] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>课题关键词：</span>
+        <span >{{ search_rst[58] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>收集目的：</span>
+        <span >{{ search_rst[59] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>收集方法：</span>
+        <span >{{ search_rst[60] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>收集数量：</span>
+        <span >{{ search_rst[61] }}</span>
+        </div>
+    <div class="row col-md-8 col-md-offset-2">
+            <span>起止时间：</span>
+        <span >{{ search_rst[62] }}</span>
+        </div>
+
+
+          <div class="bt_cont_style row col-md-8 col-md-offset-2">
+            <a class="col-md-3  btn btn-primary" href="{{ url_for('sample.render_update') }}" role="button">修改</a>
+              <a class="col-md-3 col-md-offset-5 btn btn-primary" onclick="confm()" role="button">删除</a>
+        </div>
+
+
+    </div>
+
+   </div>
+</div>
+
+
+
+
+
+{% endblock %}
+
+

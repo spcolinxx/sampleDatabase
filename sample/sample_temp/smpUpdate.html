@@ -1,0 +1,608 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>样本信息修改</title>
+
+    <link rel="stylesheet" href="{{ url_for('sample.static',filename='css/smpUpdate.css') }}">
+
+    <script type="text/javascript" src="{{ url_for('sample.static',filename='js/smpUpdate.js') }}"></script>
+
+{% endblock %}
+
+
+{% block pagecontent %}
+    <div class="container-fluid col-md-6 col-md-offset-3">
+        <div class="jumbotron screen_style">
+            <div class="container-fluid">
+                <div class="row ">
+                    <p class="cap_style">样本信息修改</p>
+                </div>
+                <div class="row">
+                    <form name="upform" action="" method="post" onsubmit="return (check()&&(confirm('确认更新这条样本记录？')));">
+                        <div class="container-fluid col-md-10 " >
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label " >唯一标识码:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="sam_uni_id"  readonly="readonly" value="{{ search_rst[0] }}">
+                                </div>
+
+                            </div>
+
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label " >样本编码:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="inv_id"  value="{{ search_rst[1] }}">
+                                </div>
+
+                            </div>
+
+                            <div class="row  form-group" >
+                                <label  class="col-md-4 control-label">原样本类别代码:</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="smp_cate" readonly="readonly" value="{{ search_rst[2] }}">
+                                </div>
+                            </div>
+
+                            <div class="row  form-group" >
+                                <label  class="col-md-4 control-label">一级:</label>
+                                <div class="col-md-8">
+                                     <select id="l1" class="form-control col-md-6" name="l1" onchange="cate_comb()">
+                                         {% for i in l1 %}
+                                             <option value="{{ i[0] }}">{{ i[1] }}</option>
+                                         {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row  form-group" >
+                                <label  class="col-md-4 control-label">二级:</label>
+                                <div class="col-md-8">
+                                    <select id="l2" class="form-control col-md-6" name="l2" onchange="cate_comb()">
+                                         {% for i in l2 %}
+                                             <option value="{{ i[0] }}">{{ i[1] }}</option>
+                                         {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row  form-group" >
+                                <label  class="col-md-4 control-label">三级:</label>
+                                <div class="col-md-8">
+                                    <select id="l3" class="form-control col-md-6" name="l3" onchange="cate_comb()">
+                                         {% for i in l3 %}
+                                             <option value="{{ i[0] }}">{{ i[1] }}</option>
+                                         {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row  form-group" >
+                                <label  class="col-md-4 control-label">四级:</label>
+                                <div class="col-md-8">
+                                    <select id="l4" class="form-control col-md-6" name="l4" onchange="cate_comb()">
+                                         {% for i in l4 %}
+                                             <option value="{{ i[0] }}">{{ i[1] }}</option>
+                                         {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row  form-group" >
+                                <label  class="col-md-4 control-label">现样本类别代码:</label>
+                                <div class="col-md-8">
+                                    <input id="new_cate_code" type="text" class="form-control" name="new_cate_code" readonly="readonly" >
+                                </div>
+                            </div>
+
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label"> 入库日期:</label>
+                                <div class="col-md-8">
+                                    <select  name="submit_year">
+                                        <option value="{{ in_date[0] }}">{{ in_date[0] }}</option>
+                                        {% for i in in_year_ls %}
+                                            <option value="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="year">年</label>
+
+                                    <select name="submit_month">
+                                        <option value="{{ in_date[1] }}">{{ in_date[1] }}</option>
+                                        {% for i in in_month_ls %}
+                                            <option value="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="month">月</label>
+
+                                    <select name="submit_day">
+                                        <option value="{{ in_date[2] }}">{{ in_date[2] }}</option>
+
+                                        {% for i in in_day_ls %}
+                                            <option value="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="day">日</label>
+                                </div>
+                            </div>
+
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">保存温度:</label>
+                                <div class="col-md-7">
+                                    <select class="form-control col-md-6" name="temperature">
+                                        <option value="{{ temp }}">{{ temp }}</option>
+                                        {% for i in temp_ls %}
+                                            <option value="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class="row  form-group">
+                                    <label  class="col-md-4 control-label ">母本编码:</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" name="parent_id"  value="{{ search_rst[5] }}">
+
+                                    </div>
+                            </div>
+
+
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">分管数:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="same_batch_count" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                         value="{{ search_rst[6] }}">
+                                </div>
+
+                            </div>
+
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">样本量:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="smp_count" onkeyup="value=value.replace(/[^\d]/g,'')" value="{{ search_rst[7] }}">
+                                </div>
+
+
+                            </div>
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">量单位:</label>
+                                <div class="col-md-8">
+{#                                    <select class="form-control" name="unit" ></select>#}
+                                    <input type="text" class="form-control" name="unit"  value="{{ search_rst[8] }}">
+                                </div>
+
+                            </div>
+
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">知情同意:</label>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="awareness" id="">
+                                        <option value="{{ agr[0] }}">{{ agr[1] }}</option>
+                                        <option value="{{ nagr[0] }}">{{ nagr[1] }}</option>
+                                    </select>
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">样本别称:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="smp_name" value="{{ search_rst[10] }}">
+                                </div>
+
+
+                            </div>
+
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">样本描述:</label>
+                                <div class="col-md-8">
+                                    <textarea class="form-control" name="smp_desc" rows="3">{{ search_rst[11] }}</textarea>
+                                </div>
+
+
+                            </div>
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">关键词:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="keyword" value="{{ search_rst[12] }}">
+                                </div>
+
+
+                            </div>
+
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">样本用途:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="uses" value="{{ search_rst[13] }}">
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="row  form-group">
+                                    <label  class="col-md-4 control-label ">采集部位:</label>
+                                    <div class="col-md-8">
+                                      <input type="text" class="form-control" name="part" value="{{ search_rst[14] }}">
+                                    </div>
+
+
+                                </div>
+
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">分析前变量:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="pre_variable" value="{{ search_rst[15] }}">
+                                </div>
+
+
+                            </div>
+
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">采集动因:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="reason" value="{{ search_rst[16] }}">
+                                </div>
+
+
+                            </div>
+
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">采集时间:</label>
+                                <div class="col-md-8">
+                                    <select  name="collect_year">
+                                        <option value="{{ ac_date[0] }}">{{ac_date[0] }}</option>#}
+                                        {% for i in ac_year %}
+                                            <option value="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="year">年</label>
+
+                                    <select name="collect_month">
+                                    <option value="{{ ac_date[1] }}">{{ ac_date[1] }}</option>#}
+                                        {% for i in ac_month %}
+                                            <option value="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="month">月</label>
+
+                                    <select name="collect_day">
+                                    <option value="{{ ac_date[2] }}">{{ac_date[2] }}</option>#}
+                                        {% for i in ac_day %}
+                                            <option value="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="day">日</label>
+                                </div>
+
+
+                            </div>
+
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">采集计划:</label>
+                                <div class="col-md-8">
+                                    <textarea name="collect_plan" class="form-control" rows="3">{{ search_rst[18] }}</textarea>
+                                </div>
+
+
+                            </div>
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">采集机构:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="collect_org" value="{{ search_rst[19] }}">
+                                </div>
+
+
+                            </div>
+
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">其他采集者:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="other_collector" value="{{ search_rst[20] }}">
+                                </div>
+                            </div>
+
+                            <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">保存机构名称:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="org_name" value="{{ search_rst[21] }}">
+                                </div>
+                            </div>
+
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">法人机构名称:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="jur_name" value="{{ search_rst[22] }}">
+                                </div>
+                            </div>
+
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">法人机构代码:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="jur_id" value="{{ search_rst[23] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">法人机构类型:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="jur_type" value="{{ search_rst[24] }}">
+                                </div>
+                            </div>
+
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">保存机构简介:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="org_intro" value="{{ search_rst[25] }}">
+                                </div>
+                            </div>
+
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">使用许可:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="agr" value="{{ search_rst[26] }}">
+                                </div>
+                            </div>
+
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">共享方式:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="share_way" value="{{ search_rst[27] }}">
+                                </div>
+                            </div>
+
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">通信地址:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="adr" value="{{ search_rst[28] }}">
+                                </div>
+                            </div>
+
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">邮政编码:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="post_code" value="{{ search_rst[29] }}">
+                                </div>
+                            </div>
+
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">管理员:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="manager" value="{{ search_rst[30] }}">
+                                </div>
+                            </div>
+
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">联系电话:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="tel" value="{{ search_rst[31] }}">
+                                </div>
+                            </div>
+
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">电子信箱:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="email" value="{{ search_rst[32] }}">
+                                </div>
+                            </div>
+
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">捐献者匿名编号:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="donor_id" value="{{ search_rst[33] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">性别:</label>
+                                <div class="col-md-8">
+                                    <select class="form-control col-md-6" name="sex">
+                                        {% for i in sx %}
+                                            <option value="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+
+                                    </select>
+
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">年龄:</label>
+                                <div class="col-md-8">
+                                    <select class="form-control col-md-6" name="age">
+                                        <option value="{{ age }}">{{ age }}</option>
+                                        {% for i in age_ls %}
+                                            <option value="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">民族:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="eth_group" value="{{ search_rst[36] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">籍贯:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="nativ_pla" value="{{ search_rst[37] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">出生地:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="bir_pla" value="{{ search_rst[38] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">国籍:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="nation" value="{{ search_rst[39] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">职业:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="occup" value="{{ search_rst[40] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">教育程度:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="edu" value="{{ search_rst[41] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">婚姻状况:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="mari" value="{{ search_rst[42] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">捐献途径:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="donate_way" value="{{ search_rst[43] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">疾病类目名称:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="dise_name" value="{{ search_rst[44] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">疾病类目代码:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="dise_id" value="{{ search_rst[45] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">主要诊断:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="diag" value="{{ search_rst[46] }}">
+                                </div>
+                            </div>
+
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">现病史:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="dise_his" value="{{ search_rst[47] }}">
+                                </div>
+                            </div>
+
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">检验记录:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="exam_rec" value="{{ search_rst[48] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">随访记录:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="itv_rec" value="{{ search_rst[49] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">影像资料:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="media_rec" value="{{ search_rst[50] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">病例报告:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="medi_rec" value="{{ search_rst[51] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">家系信息:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="fam_his" value="{{ search_rst[52] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">课题名称:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="prj_name" value="{{ search_rst[53] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">课题编号:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="prj_id" value="{{ search_rst[54] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">课题级别:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="prj_level" value="{{ search_rst[55] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">资助机构:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="spon_org" value="{{ search_rst[56] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">纳入标准:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="in_std" value="{{ search_rst[57] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">课题关键词:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="prj_kw" value="{{ search_rst[58] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">收集目的:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="aim" value="{{ search_rst[59] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">收集方法:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="collect_way" value="{{ search_rst[60] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">收集数量:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="collect_count" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                         value="{{ search_rst[61] }}">
+                                </div>
+                            </div>
+                        <div class="row  form-group">
+                                <label  class="col-md-4 control-label ">起止时间:</label>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control" name="be_end_time" value="{{ search_rst[62] }}">
+                                </div>
+                            </div>
+
+
+
+                            <div class="row form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button id="bt" type="submit" class="btn btn-primary btn-block btn_style" >确认修改</button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </form>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

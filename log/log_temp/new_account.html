@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+    <link rel="stylesheet" href="{{ url_for('log.static',filename='css/new_account.css') }}">
+    <script type="text/javascript" src="{{ url_for('log.static',filename='js/new_account.js') }}"></script>
+
+
+{% endblock %}
+
+{% block pagecontent %}
+    <div class="container-fluid col-md-6 col-md-offset-3">
+        <div class="jumbotron screen_style">
+            <div class="container-fluid">
+                <div class="row col-md-8 col-md-offset-2">
+                    <p class="cap_style">添加新用户</p>
+                </div>
+                <div class="row col-md-10 col-md-offset-1">
+                    <form class="form-horizontal" action="" method="post" onsubmit="return check()">
+                        <div class="form-group">
+                            <label  class="col-md-4 control-label lb_style">新账号：</label>
+                            <div class="col-md-8">
+                              <input type="text" class="form-control" id="new_account" name="new_account" placeholder="请输入新账号">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-md-4 control-label lb_style">密码：</label>
+                            <div class="col-md-8">
+                              <input type="password" class="form-control" id="psd" name="psd" placeholder="请输入密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-md-4 control-label lb_style">再次输入密码：</label>
+                            <div class="col-md-8">
+                              <input type="password" class="form-control" id="psd_rp" name="psd_rp" placeholder="再次输入密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-md-4 control-label lb_style">权限等级：</label>
+                            <div class="col-md-8">
+                                <select name="account_lv" id="account_lv" class="form-control">
+                                    <option value="1">普通用户</option>
+                                    <option value="0">管理员</option>
+                                </select>
+                            </div>
+                        </div>
+                         <div class="col-md-10 col-md-offset-1">
+                                {% for message in get_flashed_messages() %}
+                                    <div class="alert alert-warning">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                            {{ message }}
+                                    </div>
+                                {% endfor %}
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button  type="submit" class="btn btn-primary btn-block btn_style" >添加新用户</button>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}

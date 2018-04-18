@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>批量添加样本</title>
+
+    <link rel="stylesheet" href="{{ url_for('sample.static',filename='css/batchAdd.css') }}">
+{#    <script type="text/javascript" src="{{ url_for('sample.static',filename='js/batchAdd.js') }}"></script>#}
+
+{% endblock %}
+
+
+{% block pagecontent %}
+
+
+
+
+<div class="container col-md-8 col-md-offset-2">
+   <div class="jumbotron screen_style">
+       <div class="container-fluid">
+           <div class="row">
+               <p class="cap_style">批量添加样本</p>
+           </div>
+            <div class="row">
+                <form action="" enctype='multipart/form-data' method="POST">
+                    <div class="form-group">
+
+                        <input  name="file_input" id="file_input" type="file" style="display: none">
+
+                        <label for="lastname" class="input_display col-md-2 col-md-offset-2 control-label">选择源文件:</label>
+                        <div class="col-md-4">
+                             <input id="file_name" class="form-control col-md-4" type="text" readonly="readonly">
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-primary" onclick="$('input[id=file_input]').click();">浏览...</a>
+
+                        </div>
+
+
+
+                        <script type="text/javascript">
+                        $('input[id=file_input]').change(function() {
+                        $('#file_name').val($(this).val());
+                        });
+                        </script>
+
+
+                    </div>
+
+                    <div class="col-md-10 col-md-offset-1" style="margin-top: 30px;">
+                                {% for message in get_flashed_messages() %}
+                                    <div class="alert alert-warning">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                            {{ message }}
+                                    </div>
+                                {% endfor %}
+                        </div>
+
+
+
+                    <div class="row form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                            <button  type="submit" class="btn btn-primary btn-block btn_style" > 添加样本</button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+
+
+       </div>
+   </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+.jumbotron
+{
+    background-color: white;
+}
+
+.screen_style
+{
+    margin-top: 80px;
+}
+
+.cap_style
+{
+    text-align: center;
+}
+
+.file_input_style
+{
+    display: none;
+}
+
+.input_display
+{
+    text-align: right;
+
+}
+
+.btn_style
+{
+    margin-top: 40px;
+}
