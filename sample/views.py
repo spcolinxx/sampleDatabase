@@ -4,10 +4,10 @@ import datetime
 from flask import request
 from . import read_file
 import xlrd
-from . import data_review
 from . import db_op
 from flask.ext.login import LoginManager,login_user, logout_user,login_required
 from . import schema_validate
+import exts
 
 
 @sample.route('/sample/addSample')
@@ -41,26 +41,22 @@ def render_batchAdd():
                     for j in i[1]:
                         flash("第"+str(i[0]+1)+"条记录错误信息："+str(j))
             else:
+                sp_rst=db_op.sp_data(excel_data)
+                sampleinfo_data=sp_rst[0]
+                orginfo_data=sp_rst[1]
+                donorinfo_data=sp_rst[2]
+                projectinfo_data=sp_rst[3]
 
-                # rst=data_review.dup_check(excel_data)
-                #
-                # if rst!=False:
-                #     flash("样本"+rst+"为资源库中已有样本，请检查后再添加！")
-                # else:
-                #     sp_rst=db_op.sp_data(excel_data)
-                #     sampleinfo_data=sp_rst[0]
-                #     orginfo_data=sp_rst[1]
-                #     donorinfo_data=sp_rst[2]
-                #     projectinfo_data=sp_rst[3]
-                #
-                #
-                #     orginfo_data=db_op.org_dup_rm(orginfo_data)
-                #     donorinfo_data=db_op.donor_dup_rm(donorinfo_data)
-                #     projectinfo_data=db_op.proj_dup_rm(projectinfo_data)
+                sqldb=exts.create_sqldb_conn()
 
+                db_op.sampleinfo_insert(sampleinfo_data,sqldb)
+                db_op.orginfo_insert(orginfo_data,sqldb)
+                db_op.donorinfo_insert(donorinfo_data,sqldb)
+                db_op.projectinfo_insert(projectinfo_data,sqldb)
 
-                    db_op.info_insert(excel_data)
-                    flash("批量样本添加完成！")
+                sqldb.close()
+
+                flash("批量样本添加完成！")
 
 
             return redirect(url_for('sample.render_batchAdd'))

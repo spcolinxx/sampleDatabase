@@ -1,6 +1,6 @@
 from flask import Flask,url_for
 from sample import sample as sample_blueprint
-from exts import db
+from exts import ormdb
 from log import log as log_blueprint
 from models import User_info
 from flask.ext.login import LoginManager,login_user, logout_user,login_required
@@ -10,7 +10,7 @@ from flask.ext.login import LoginManager,login_user, logout_user,login_required
 import config
 
 app = Flask(__name__)
-db.init_app(app)
+ormdb.init_app(app)
 
 @app.route('/')
 def hello_world():

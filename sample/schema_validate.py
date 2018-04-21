@@ -3,7 +3,7 @@ from io import StringIO
 etree=html.etree
 
 
-schema_doc=etree.parse("/Users/liuchunpu/sampleDatabase/sample/scm.xsd")
+schema_doc=etree.parse("/home/lcp/sampleDatabase/sample/scm.xsd")
 xmlschema=etree.XMLSchema(schema_doc)
 item_list=["invId","samCateName","entDate","storMeth","parentId","batchCount","samQTY","unit","consent",
            "samTitle","samDesc","keyWord","samUse","organ","sPreC","acquiFor","acquiDate",
