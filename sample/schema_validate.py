@@ -1,9 +1,10 @@
 from lxml import html
 from io import StringIO
+import sys
 etree=html.etree
 
 
-schema_doc=etree.parse("/home/lcp/sampleDatabase/sample/scm.xsd")
+schema_doc=etree.parse(sys.path[0]+"/sample/scm.xsd")
 xmlschema=etree.XMLSchema(schema_doc)
 item_list=["invId","samCateName","entDate","storMeth","parentId","batchCount","samQTY","unit","consent",
            "samTitle","samDesc","keyWord","samUse","organ","sPreC","acquiFor","acquiDate",

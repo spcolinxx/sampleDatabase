@@ -27,7 +27,6 @@ def render_login():
         else:
             session['user_id']=user.user_account
             session['user_lv']=user.user_lv
-            # g.usr=user.user_account
             login_user(user)
 
             return redirect(url_for('sample.render_search'))

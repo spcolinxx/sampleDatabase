@@ -1,59 +1,115 @@
 from exts import ormdb
 from models import SampleInfo,OrgInfo,DonorInfo,ProjectInfo,Cate_code
+import threading
 
 def sp_data(dt):
+    # sampleinfo_data=[]
+    # orginfo_data=[]
+    # projectinfo_data=[]
+    # donorinfo_data=[]
+
+    # for i in dt:
+    #     tmp=i[0:22]
+    #     tmp.append(i[33])
+    #     tmp.append(i[54])
+    #     sampleinfo_data.append(tmp)
+    #
+    #     orginfo_data.append(i[21:33])
+    #
+    #     tmp=i[33:53]
+    #     tmp.append(i[21])
+    #     donorinfo_data.append(tmp)
+    #
+    #     tmp=i[53:]
+    #     tmp.append(i[21])
+    #     projectinfo_data.append(tmp)
+    #
+    # return [sampleinfo_data,orginfo_data,donorinfo_data,projectinfo_data]
+
+
+    return [get_sampleinfo_data(dt),get_orginfo_data(dt),get_donorinfo_data(dt),get_projectinfo_data(dt)]
+
+
+
+def get_sampleinfo_data(dt):
     sampleinfo_data=[]
-    orginfo_data=[]
-    projectinfo_data=[]
-    donorinfo_data=[]
     for i in dt:
-        tmp=i[0:22]
+        tmp = i[0:22]
         tmp.append(i[33])
         tmp.append(i[54])
         sampleinfo_data.append(tmp)
 
-        orginfo_data.append(i[21:33])
+    return sampleinfo_data
 
-        tmp=i[33:53]
+def get_orginfo_data(dt):
+    orginfo_data=[]
+    for i in dt:
+        orginfo_data.append(i[21:33])
+    return orginfo_data
+
+def get_donorinfo_data(dt):
+    donorinfo_data=[]
+    for i in dt:
+        tmp = i[33:53]
         tmp.append(i[21])
         donorinfo_data.append(tmp)
+    return donorinfo_data
 
-        tmp=i[53:]
+
+def get_projectinfo_data(dt):
+    projectinfo_data=[]
+    for i in dt:
+        tmp = i[53:]
         tmp.append(i[21])
         projectinfo_data.append(tmp)
 
-    return [sampleinfo_data,orginfo_data,donorinfo_data,projectinfo_data]
+    return projectinfo_data
+
+
+
 
 
 
 
 def sampleinfo_insert(dt,sqldb):
-    cursor=sqldb.cursor()
-    sql="insert ignore into sampleinfo values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-    cursor.executemany(sql,dt)
-    sqldb.commit()
-    cursor.close()
+    try:
+        cursor=sqldb.cursor()
+        sql="insert ignore  into sampleinfo values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        cursor.executemany(sql,dt)
+        sqldb.commit()
+        cursor.close()
+    except:
+        pass
 
 def orginfo_insert(dt,sqldb):
-    cursor=sqldb.cursor()
-    sql="insert ignore into orginfo values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-    cursor.executemany(sql,dt)
-    sqldb.commit()
-    cursor.close()
+    try:
+        cursor=sqldb.cursor()
+        sql="insert ignore  into orginfo values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        cursor.executemany(sql,dt)
+        sqldb.commit()
+        cursor.close()
+    except:
+        pass
 
 def donorinfo_insert(dt,sqldb):
-    cursor=sqldb.cursor()
-    sql="insert ignore into donorinfo values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-    cursor.executemany(sql,dt)
-    sqldb.commit()
-    cursor.close()
+    try:
+        cursor=sqldb.cursor()
+        sql="insert ignore  into donorinfo values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        cursor.executemany(sql,dt)
+        sqldb.commit()
+        cursor.close()
+    except:
+        pass
 
 def projectinfo_insert(dt,sqldb):
-    cursor=sqldb.cursor()
-    sql="insert ignore into projectinfo values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-    cursor.executemany(sql,dt)
-    sqldb.commit()
-    cursor.close()
+    try:
+        cursor=sqldb.cursor()
+        sql="insert ignore  into projectinfo values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        cursor.executemany(sql,dt)
+        sqldb.commit()
+        cursor.close()
+    except:
+        pass
 
 
 

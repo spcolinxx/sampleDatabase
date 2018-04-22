@@ -15,14 +15,20 @@
     {#    bootstrap中为保持触屏元素缩放设置的标签 #}
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{{ url_for('log.static',filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('sample.static',filename='css/sam_base.css') }}">
 
     {% block head %}
 
     {% endblock %}
 </head>
 <body>
-
+<div class="container-fluid userinfo_dis">
+    <div class="row col-md-12">
+        <span class="glyphicon glyphicon-user  col-md-offset-10"></span> <span>{{ session['user_id'] }}</span>
+        &nbsp;&nbsp;&nbsp;
+        <span class="glyphicon glyphicon-log-out"></span> <span><a class="logout_style" href="{{ url_for('log.render_login') }}">退出登录</a></span>
+    </div>
+</div>
 
 {#头部展示部分#}
 <div class="container-fluid head_style">
