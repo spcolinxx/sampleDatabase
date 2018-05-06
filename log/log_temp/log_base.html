@@ -29,7 +29,7 @@
     <div class="row col-md-12">
         <span class="glyphicon glyphicon-user  col-md-offset-10"></span> <span>{{ session['user_id'] }}</span>
         &nbsp;&nbsp;&nbsp;
-        <span class="glyphicon glyphicon-log-out"></span> <span><a class="logout_style" href="{{ url_for('log.render_login') }}">退出登录</a></span>
+        <span class="glyphicon glyphicon-log-out"></span> <span><a class="logout_style" href="{{ url_for('log.render_logout') }}">退出登录</a></span>
     </div>
 </div>
 
@@ -54,7 +54,12 @@
 <div class="container-fluid navbar navbar-default">
     <div class="row col-md-offset-1">
         <ul class="nav navbar-nav">
-            <li class="dropdown ">
+
+
+            <li  ><a onclick="batch_add_check({{ session['user_lv'] }})">批量添加样本</a></li>
+            <li  ><a href="{{ url_for('sample.render_search') }}">样本信息搜索</a></li>
+            <li style="width: 800px">&nbsp;</li>
+             <li class="dropdown ">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     用户管理
                     <b class="caret"></b>
@@ -66,9 +71,6 @@
 
                 </ul>
             </li>
-
-            <li  ><a onclick="batch_add_check({{ session['user_lv'] }})">批量添加样本</a></li>
-            <li  ><a href="{{ url_for('sample.render_search') }}">样本信息搜索</a></li>
 
         </ul>
     </div>

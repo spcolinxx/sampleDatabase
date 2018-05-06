@@ -10,11 +10,17 @@ from . import schema_validate
 import exts
 import datetime
 
-@sample.route('/sample/addSample')
-@login_required
-def render_addSample():
-    current_year=datetime.datetime.now().year
-    return render_template('addSample.html',current_year=current_year)
+# @sample.route('/sample/addSample')
+# @login_required
+# def render_addSample():
+#     current_year=datetime.datetime.now().year
+#     return render_template('addSample.html',current_year=current_year)
+
+
+
+
+
+
 
 @sample.route('/sample/batchAdd',methods=['GET','POST'])
 @login_required
@@ -22,18 +28,13 @@ def render_batchAdd():
     if request.method=='GET':
         return render_template('batchAdd.html')
     else:
-        t1=datetime.datetime.now()
         file=request.files['file_input']
         file_trans=xlrd.open_workbook(filename=None,file_contents=file.read())
-        t2 = datetime.datetime.now()
-        print("接受excel的时间：")
-        print(t2 - t1)
+
         read_rst=read_file.read_file(file_trans)
 
 
-        t3=datetime.datetime.now()
-        print("将excel转化为数组的时间")
-        print(t3-t2)
+
         if read_rst[0]==False:
             for i in read_rst[1]:
                 flash(i)
@@ -49,41 +50,29 @@ def render_batchAdd():
                     for j in i[1]:
                         flash("第"+str(i[0]+1)+"条记录错误信息："+str(j))
             else:
-                t4=datetime.datetime.now()
-                print("验证excel内容所花费的时间为：")
-                print(t4-t3)
-                t5=datetime.datetime.now()
+
                 sp_rst=db_op.sp_data(excel_data)
                 sampleinfo_data=sp_rst[0]
                 orginfo_data=sp_rst[1]
                 donorinfo_data=sp_rst[2]
                 projectinfo_data=sp_rst[3]
-                t6=datetime.datetime.now()
-                print("将数据划分的时间花费为：")
-                print(t6-t5)
 
 
-                t7=datetime.datetime.now()
 
                 sqldb=exts.create_sqldb_conn()
 
-                # db_op.sampleinfo_insert(sampleinfo_data,sqldb)
-                # db_op.orginfo_insert(orginfo_data,sqldb)
-                # db_op.donorinfo_insert(donorinfo_data,sqldb)
-                # db_op.projectinfo_insert(projectinfo_data,sqldb)
+                db_op.sampleinfo_insert(sampleinfo_data,sqldb)
+                db_op.orginfo_insert(orginfo_data,sqldb)
+                db_op.donorinfo_insert(donorinfo_data,sqldb)
+                db_op.projectinfo_insert(projectinfo_data,sqldb)
 
 
                 sqldb.close()
 
-                t8=datetime.datetime.now()
-                print("数据库时间为：")
-                print(t8-t7)
                 flash("批量样本添加完成！")
 
-                t9=datetime.datetime.now()
-                print("过程总时间为：")
-                print(t9-t1)
-        return redirect(url_for('sample.render_batchAdd'))
+
+            return redirect(url_for('sample.render_batchAdd'))
 
 
 
@@ -111,7 +100,67 @@ def render_search():
 
             return  render_template('search_rst.html' ,search_rst=search_rst)
 
+@sample.route('/sample/ele_search',methods=['POST','GET'])
+@login_required
+def render_ele_search():
+    search_item = ["样本编码", "样本类别", "入库日期", "保存温度", "母本编码", "分管数", "样本量", "量单位", "知情同意", "样本别称", "样本描述", "关键词", "样本用途",
+                   "采集部位", "分析前变量"
+        , "采集动因", "采集时间", "采集计划", "采集机构", "其他采集者", "保存机构名称", "法人机构名称", "法人机构代码", "法人机构类型", "保存机构简介", "使用许可", "共享方式",
+                   "通信地址",
+                   "邮政编码", "管理员", "联系电话", "电子信箱", "捐献者匿名编号", "性别"
+        , "年龄", "民族", "籍贯", "出生地", "国籍", "职业", "教育程度", "婚姻状况", "捐献途径", "疾病类目名称", "疾病类目代码", "主要诊断", "现病史", "检验记录",
+                   "随访记录", "影像资料", "病例报告", "家系信息"
+        , "课题名称", "课题编号", "课题级别", "资助机构", "纳入标准", "课题关键词", "收集目的", "收集方法", "收集数量", "起止时间"]
+    if request.method=='GET':
 
+        return render_template('ele_search.html',search_item=search_item)
+
+    else:
+        dt=request.form.to_dict()
+        item_name=list(dt.keys())
+        item_value=list(dt.values())
+
+        if len(item_name)>0:
+
+            sqldb = exts.create_sqldb_conn()
+
+            search_rst=db_op.ele_search(item_name,item_value,sqldb)
+            ln=len(search_rst)
+
+
+            sqldb.close()
+
+            if ln>0:
+
+                return render_template('search_rst.html',search_rst=search_rst[0],rst=search_rst,ln=ln)
+            else:
+                flash("无符合条件的记录！")
+
+                return  redirect(url_for('sample.render_ele_search'))
+        else:
+            flash("请添加搜索关键词！")
+
+            return redirect(url_for('sample.render_ele_search'))
+
+
+
+@sample.route('/to_update',methods=['POST','GET'])
+def to_update():
+    inv_id=request.form.get("inv_id")
+    org_name=request.form.get("org_name")
+    session["inv_id"]=inv_id
+    session["org_name"]=org_name
+
+
+    return ""
+
+@sample.route('/to_delete',methods=['POST','GET'])
+def to_delete():
+
+    sam_uni_id=request.form.get('sam_uni_id')
+    session['sam_uni_id']=sam_uni_id
+
+    return ""
 
 
 
@@ -365,6 +414,7 @@ def render_update():
 @sample.route('/sample/smpdelete/',methods=['POST','GET'])
 @login_required
 def render_delete():
+
     if request.method=='GET':
         sam_uni_id=session.get('sam_uni_id')
         smp=db_op.uni_search(sam_uni_id)
@@ -390,7 +440,7 @@ def render_delete():
 
         flash("样本已删除！")
 
-        return redirect(url_for('sample.render_search'))
+        return redirect(url_for('sample.render_ele_search'))
 
 
 

@@ -17,3 +17,20 @@
 {
     margin-top: 30px;
 }
+.pg_div
+{
+    margin-top: 40px;
+}
+.pg_bt
+{
+    border: none;
+}
+.pg_input
+{
+    width: 30px;
+}
+.pg_font_style
+{
+    font-size: 10px;
+    color:lightslategrey;
+}

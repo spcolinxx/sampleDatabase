@@ -1,6 +1,8 @@
 from exts import ormdb
 from models import SampleInfo,OrgInfo,DonorInfo,ProjectInfo,Cate_code
 import threading
+import datetime
+
 
 def sp_data(dt):
     # sampleinfo_data=[]
@@ -111,8 +113,28 @@ def projectinfo_insert(dt,sqldb):
     except:
         pass
 
+def ele_search(key,value,sqldb):
+
+    cursor=sqldb.cursor()
+    sql="select * from sampleinfo JOIN orginfo ON sampleinfo.org_name=orginfo.org_name JOIN donorinfo ON sampleinfo.don_id=donorinfo.don_id JOIN " \
+        "projectinfo ON sampleinfo.proj_id=projectinfo.prj_id where "
+    ln=len(key)
+    for i in range(ln):
+        if i<ln-1:
+            sql=sql+key[i]+"="+"'"+value[i]+"'"+" "+"and"+" "
+        else:
+            sql = sql + key[i] + "=" + "'" + value[i] + "'"
 
 
+
+    cursor.execute(sql)
+    sqldb.commit()
+    rst=list(cursor.fetchall())
+    cursor.close()
+
+
+
+    return rst
 
 def search_org():
     orgls=[]

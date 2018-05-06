@@ -8,7 +8,6 @@ from flask.ext.login import LoginManager,login_user, logout_user,login_required
 
 @log.route('/login/',methods=['GET','POST'])
 def render_login():
-    session['user_id']=""
     session['user_lv']=""
     if request.method=='GET':
         return render_template('log_in.html')
@@ -25,7 +24,6 @@ def render_login():
             flash('密码错误！')
             return render_template('log_in.html')
         else:
-            session['user_id']=user.user_account
             session['user_lv']=user.user_lv
             login_user(user)
 
@@ -89,3 +87,11 @@ def render_lv_change():
             flash("修改权限成功！")
 
             return redirect(url_for('log.render_lv_change'))
+
+
+
+@log.route('/logout',methods=['GET','POST'])
+@login_required
+def render_logout():
+    logout_user()
+    return redirect(url_for('log.render_login'))

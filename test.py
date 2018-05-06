@@ -1,29 +1,19 @@
-import threading,queue,datetime
+import exts
 
-start_time=datetime.datetime.now()
+cnn=exts.create_sqldb_conn()
+cursor=cnn.cursor()
+sql='select * from sampleinfo JOIN orginfo ON sampleinfo.org_name=orginfo.org_name JOIN donorinfo ON sampleinfo.don_id=donorinfo.don_id JOIN ' \
+    'projectinfo ON sampleinfo.proj_id=projectinfo.prj_id where sam_cate_name="GNG0"'
 
-myqueue=queue.Queue(maxsize=-1)
+cursor.execute(sql)
 
-def print_char():
-    myqueue.put("a")
+rst=cursor.fetchall()
 
+for i in rst:
+    print(len(i))
+    print(i)
+cursor.close()
+cnn.close()
 
-
-
-def print_num():
-    myqueue.put("1")
-
-t1=threading.Thread(target=print_num,args=())
-t2=threading.Thread(target=print_char,args=())
-
-t1.start()
-t2.start()
-t1.join()
-t2.join()
-
-print(myqueue.get())
-print(myqueue.get())
-
-end_time=datetime.datetime.now()
-
-print((end_time-start_time))
+# 日期问题用js解决，忽略日期select的名字，那样select就不会提交
+# 不同表中字段名重复问题：直接将html标签名改为表名+标签名
