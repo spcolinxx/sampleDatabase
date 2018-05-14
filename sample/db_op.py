@@ -1,33 +1,11 @@
 from exts import ormdb
 from models import SampleInfo,OrgInfo,DonorInfo,ProjectInfo,Cate_code
-import threading
-import datetime
 
 
+
+
+#将62个项分为4个表的各个项
 def sp_data(dt):
-    # sampleinfo_data=[]
-    # orginfo_data=[]
-    # projectinfo_data=[]
-    # donorinfo_data=[]
-
-    # for i in dt:
-    #     tmp=i[0:22]
-    #     tmp.append(i[33])
-    #     tmp.append(i[54])
-    #     sampleinfo_data.append(tmp)
-    #
-    #     orginfo_data.append(i[21:33])
-    #
-    #     tmp=i[33:53]
-    #     tmp.append(i[21])
-    #     donorinfo_data.append(tmp)
-    #
-    #     tmp=i[53:]
-    #     tmp.append(i[21])
-    #     projectinfo_data.append(tmp)
-    #
-    # return [sampleinfo_data,orginfo_data,donorinfo_data,projectinfo_data]
-
 
     return [get_sampleinfo_data(dt),get_orginfo_data(dt),get_donorinfo_data(dt),get_projectinfo_data(dt)]
 
@@ -76,42 +54,59 @@ def get_projectinfo_data(dt):
 def sampleinfo_insert(dt,sqldb):
     try:
         cursor=sqldb.cursor()
-        sql="insert ignore  into sampleinfo values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        # sql="insert ignore  into sampleinfo values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+
+        sql="replace into sampleinfo values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+
         cursor.executemany(sql,dt)
         sqldb.commit()
         cursor.close()
-    except:
-        pass
+    except Exception as e:
+        print(e)
+
 
 def orginfo_insert(dt,sqldb):
     try:
         cursor=sqldb.cursor()
-        sql="insert ignore  into orginfo values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        # sql="insert ignore  into orginfo values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        sql="replace into orginfo values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+
         cursor.executemany(sql,dt)
         sqldb.commit()
         cursor.close()
-    except:
-        pass
+    except Exception as e:
+        print(e)
+
 
 def donorinfo_insert(dt,sqldb):
     try:
         cursor=sqldb.cursor()
-        sql="insert ignore  into donorinfo values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        # sql="insert ignore  into donorinfo values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        sql="replace  into donorinfo values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+
         cursor.executemany(sql,dt)
         sqldb.commit()
         cursor.close()
-    except:
-        pass
+    except Exception as e:
+        print(e)
+
 
 def projectinfo_insert(dt,sqldb):
     try:
         cursor=sqldb.cursor()
-        sql="insert ignore  into projectinfo values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        # sql="insert ignore  into projectinfo values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        sql="replace into projectinfo values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+
         cursor.executemany(sql,dt)
         sqldb.commit()
         cursor.close()
-    except:
-        pass
+    except Exception as e:
+        print(e)
+
+
+
+
+
 
 def ele_search(key,value,sqldb):
 
@@ -121,20 +116,23 @@ def ele_search(key,value,sqldb):
     ln=len(key)
     for i in range(ln):
         if i<ln-1:
-            sql=sql+key[i]+"="+"'"+value[i]+"'"+" "+"and"+" "
+            sql=sql+key[i]+' '+"like"+' '+"'%"+value[i]+"%'"+" "+"and"+" "
         else:
-            sql = sql + key[i] + "=" + "'" + value[i] + "'"
+            sql = sql + key[i]+' ' + "like" +' '+ "'%" + value[i] + "%'"
 
 
 
     cursor.execute(sql)
     sqldb.commit()
     rst=list(cursor.fetchall())
+    search_rst=[]
+    for i in rst:
+        search_rst.append(list(i))
+
+
     cursor.close()
 
-
-
-    return rst
+    return search_rst
 
 def search_org():
     orgls=[]
@@ -392,22 +390,43 @@ def org_exist_check(org_name):
 
 
 
-def delete_dn_info(dn_id,org_name):
-    dn=DonorInfo.query.filter(DonorInfo.don_id==dn_id,DonorInfo.org_name==org_name).first()
-    ormdb.session.delete(dn)
-    ormdb.session.commit()
+def delete_dn_info(dn_id,org_name,sqldb):
+
+    sql="delete from donorinfo where don_id='%s' and org_name='%s'"
+    cursor=sqldb.cursor()
+    cursor.execute(sql % (dn_id,org_name))
+    sqldb.commit()
+    cursor.close()
 
 
-def delete_org_info(org_name):
-    org=OrgInfo.query.filter(OrgInfo.org_name==org_name).first()
-    ormdb.session.delete(org)
-    ormdb.session.commit()
+
+    # dn=DonorInfo.query.filter(DonorInfo.don_id==dn_id,DonorInfo.org_name==org_name).first()
+    # ormdb.session.delete(dn)
+    # ormdb.session.commit()
 
 
-def delete_prj_info(prj_id,org_name):
-    prj=ProjectInfo.query.filter(ProjectInfo.prj_id==prj_id,ProjectInfo.org_name==org_name).first()
-    ormdb.session.delete(prj)
-    ormdb.session.commit()
+def delete_org_info(org_name,sqldb):
+    sql = "delete from orginfo where org_name='%s'"
+    cursor = sqldb.cursor()
+    cursor.execute(sql % (org_name))
+    sqldb.commit()
+    cursor.close
+
+    # org=OrgInfo.query.filter(OrgInfo.org_name==org_name).first()
+    # ormdb.session.delete(org)
+    # ormdb.session.commit()
+
+
+def delete_prj_info(prj_id,org_name,sqldb):
+    sql = "delete from projectinfo where prj_id='%s' and org_name='%s' "
+    cursor = sqldb.cursor()
+    cursor.execute(sql % (prj_id,org_name))
+    sqldb.commit()
+    cursor.close
+
+    # prj=ProjectInfo.query.filter(ProjectInfo.prj_id==prj_id,ProjectInfo.org_name==org_name).first()
+    # ormdb.session.delete(prj)
+    # ormdb.session.commit()
 
 
 

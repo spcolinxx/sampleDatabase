@@ -240,7 +240,7 @@ function add_ele() {
         var inner_div=document.createElement('div');
         inner_div.setAttribute('class','col-md-7');
         var ele_input=document.createElement('input');
-        ele_input.setAttribute('name','uni_amou');
+        ele_input.setAttribute('name','unit_amou');
         ele_input.setAttribute('type','text');
         ele_input.setAttribute('class','form-control');
 
@@ -264,8 +264,8 @@ function add_ele() {
         var aware_select=document.createElement('select');
         aware_select.setAttribute('name','consent');
         aware_select.setAttribute('class','form-control');
-        aware_select.options.add(new Option('同意',true));
-        aware_select.options.add(new Option('不同意',false));
+        aware_select.options.add(new Option('同意',1));
+        aware_select.options.add(new Option('不同意',0));
         inner_div.appendChild(aware_select)
 
         ele_div.appendChild(ele_label);
@@ -834,7 +834,7 @@ function add_ele() {
         var inner_div=document.createElement('div');
         inner_div.setAttribute('class','col-md-7');
         var ele_input=document.createElement('input');
-        ele_input.setAttribute('name','sampelinfo.donor_id');
+        ele_input.setAttribute('name','sample.don_id');
         ele_input.setAttribute('type','text');
         ele_input.setAttribute('class','form-control');
 
@@ -942,7 +942,7 @@ function add_ele() {
         var inner_div=document.createElement('div');
         inner_div.setAttribute('class','col-md-7');
         var ele_input=document.createElement('input');
-        ele_input.setAttribute('name','birth_pla');
+        ele_input.setAttribute('name','bir_pla');
         ele_input.setAttribute('type','text');
         ele_input.setAttribute('class','form-control');
 
@@ -1274,7 +1274,7 @@ function add_ele() {
         var inner_div=document.createElement('div');
         inner_div.setAttribute('class','col-md-7');
         var ele_input=document.createElement('input');
-        ele_input.setAttribute('name','sampleinfo.prj_id');
+        ele_input.setAttribute('name','sampleinfo.proj_id');
         ele_input.setAttribute('type','text');
         ele_input.setAttribute('class','form-control');
 
@@ -1432,7 +1432,7 @@ function add_ele() {
 
         fm.appendChild(ele_div);
     }
-    else if(item=="起始时间")
+    else if(item=="起止时间")
     {
         var ele_div=document.createElement('div');
         ele_div.setAttribute('class','form-group');

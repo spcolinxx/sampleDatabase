@@ -26,6 +26,8 @@ def get_valid_str(smp):
         if smp!='':
             content_str=content_str+"<"+item_list[i]+">"+str(smp[i])+"</"+item_list[i]+">"
 
+    print(hd_str+content_str+tl_str)
+
     valid_str=StringIO(hd_str+content_str+tl_str)
 
 

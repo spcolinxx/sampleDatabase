@@ -16,12 +16,13 @@ def read_file(file):
 
         # 去掉字段名中的空格
         xls_cap=table.row_values(0)
+
         try:
             for i in xls_cap:
                 i.replace(' ','')
 
         except:
-            return [False,["excel文件格式有问题，请按照标准格式导入excel文件！"]]
+            return [False,["excel文件格式有问题，请按照规范格式导入excel文件！"]]
 
         # comp_item=["样本编码","入库日期","保存温度","样本量","知情同意","样本别称","采集部位","保存机构名称","法人机构名称","法人机构代码"
         #     ,"捐献者匿名编号","性别","年龄","课题编号"]
@@ -37,7 +38,7 @@ def read_file(file):
         for i in comp_item:
             if i not in xls_cap:
                 complete_cap=False
-                err_info.append("'"+i+"'必选字段缺失，请检查！")
+                err_info.append("'"+i+"'字段缺失，请检查！")
 
         if complete_cap==False:
             return [False,err_info]
@@ -58,25 +59,40 @@ def read_file(file):
             ln=len(ls)
 
             for i in range(ln):
+                pass
                 if ls[i][9]==0:
                     ls[i][9]=False
                 else:
                     ls[i][9]=True
 
-                if int(ls[i][6])==ls[i][6]:
-                    ls[i][6]=int(ls[i][6])
+                try:
+                    if int(ls[i][6])==ls[i][6]:
+                        ls[i][6]=int(ls[i][6])
+                except:
+                    pass
 
-                if int(ls[i][7])==ls[i][7]:
-                    ls[i][7]=int(ls[i][7])
+                try:
+                    if int(ls[i][7])==ls[i][7]:
+                        ls[i][7]=int(ls[i][7])
+                except:
+                    pass
 
-                if int(ls[i][31])==ls[i][31]:
-                    ls[i][31]=int(ls[i][31])
+                try:
+                    if int(ls[i][31])==ls[i][31]:
+                        ls[i][31]=int(ls[i][31])
+                except:
+                    pass
+                try:
+                    if int(ls[i][35])==ls[i][35]:
+                        ls[i][35]=int(ls[i][35])
+                except:
+                    pass
 
-                if int(ls[i][35])==ls[i][35]:
-                    ls[i][35]=int(ls[i][35])
-                if int(ls[i][61])==ls[i][61]:
-                    ls[i][61]=int(ls[i][61])
-
+                try:
+                    if int(ls[i][61])==ls[i][61]:
+                        ls[i][61]=int(ls[i][61])
+                except:
+                    pass
 
 
             return [True,ls]

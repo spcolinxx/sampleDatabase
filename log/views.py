@@ -27,7 +27,7 @@ def render_login():
             session['user_lv']=user.user_lv
             login_user(user)
 
-            return redirect(url_for('sample.render_search'))
+            return redirect(url_for('sample.render_ele_search'))
 
 @log.route('/auth/new_account/',methods=['POST','GET'])
 @login_required

@@ -4,7 +4,7 @@
     <title>批量添加样本</title>
 
     <link rel="stylesheet" href="{{ url_for('sample.static',filename='css/batchAdd.css') }}">
-{#    <script type="text/javascript" src="{{ url_for('sample.static',filename='js/batchAdd.js') }}"></script>#}
+    <script type="text/javascript" src="{{ url_for('sample.static',filename='js/batchAdd.js') }}"></script>
 
 {% endblock %}
 
@@ -21,7 +21,7 @@
                <p class="cap_style">批量添加样本</p>
            </div>
             <div class="row">
-                <form action="" enctype='multipart/form-data' method="POST">
+                <form action="" enctype='multipart/form-data' method="POST" onsubmit="return sub_check()">
                     <div class="form-group">
 
                         <input  name="file_input" id="file_input" type="file" style="display: none">
@@ -59,7 +59,7 @@
 
                     <div class="row form-group">
                         <div class="col-md-6 col-md-offset-3">
-                            <button  type="submit" class="btn btn-primary btn-block btn_style" > 添加样本</button>
+                            <button  type="submit" class="btn btn-primary btn-block btn_style" > 检查并添加样本</button>
 
                         </div>
 

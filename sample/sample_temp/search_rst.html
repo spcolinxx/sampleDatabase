@@ -12,11 +12,12 @@
 
 <div id="top" class="container-fluid col-md-6 col-md-offset-3">
    <div class="jumbotron screen_style">
-      <div class="container-fluid ">
-          <div class="row col-md-6 col-md-offset-3">
+            <div class="row col-md-6 col-md-offset-3">
               <p class="cap_style" >样本详细信息</p>
 
-          </div>
+             </div>
+      <div class="container-fluid">
+        <div class="col-md-offset-2">
           <div class="row col-md-8 col-md-offset-2">
             <span>唯一标识码：</span>
             <span id="sam_uni_id" name="smp_uni_id">{{ search_rst[0] }}</span>
@@ -268,17 +269,20 @@
             <span>收集数量：</span>
         <span id="total_amt">{{ search_rst[65] }}</span>
         </div>
-    <div class="row col-md-8 col-md-offset-2">
+        <div class="row col-md-8 col-md-offset-2">
             <span>起止时间：</span>
         <span id="be_end_time">{{ search_rst[66] }}</span>
+        </div>
+
+
         </div>
 
 
           <div class="bt_cont_style row col-md-8 col-md-offset-2">
 {#            <a class="col-md-3  btn btn-primary" href="{{ url_for('sample.render_update') }}" role="button">修改</a>#}
 
-              <a class="col-md-3  btn btn-primary" onclick="to_update()" role="button">修改</a>
-              <a class="col-md-3 col-md-offset-5 btn btn-primary" onclick="confm()" role="button">删除</a>
+              <a class="col-md-3  btn btn-primary" onclick="update_lv_check({{ session['user_lv'] }})" role="button">修改</a>
+              <a class="col-md-3 col-md-offset-5 btn btn-primary" onclick="delete_lv_check({{ session['user_lv'] }})" role="button">删除</a>
         </div>
           <div class="col-md-12  pg_div">
               <button type="button" class="btn btn-default btn-sm pg_bt" onclick="previous_item()">
@@ -293,7 +297,7 @@
                   <span class="glyphicon glyphicon-arrow-right"><a href="#top">下一条</a></span>
                 </button>
           </div>
-          <div class="col-md-12">
+          <div class="col-md-12" style="margin-top: 10px;">
                 <span class="col-md-offset-9">第</span>
               <select name="" id="target_idx">
                   {% for i in range(ln) %}
@@ -328,8 +332,30 @@
 
     var rst_ln={{ ln }};
 
+    function update_lv_check(lv) {
+        if (lv==1)
+        {
+            alert("当前用户没有修改样本信息的权限！");
+        }
+        else
+        {
+            to_update();
+        }
 
+    }
 
+    function delete_lv_check(lv) {
+
+        if (lv==1)
+        {
+            alert("当前用户没有删除样本信息的权限！");
+        }
+        else
+        {
+            confm();
+        }
+
+    }
 
 
     function next_item() {

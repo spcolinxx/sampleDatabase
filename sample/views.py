@@ -39,6 +39,8 @@ def render_batchAdd():
             for i in read_rst[1]:
                 flash(i)
 
+
+
             return redirect(url_for('sample.render_batchAdd'))
         else:
             excel_data=read_rst[1]
@@ -56,7 +58,6 @@ def render_batchAdd():
                 orginfo_data=sp_rst[1]
                 donorinfo_data=sp_rst[2]
                 projectinfo_data=sp_rst[3]
-
 
 
                 sqldb=exts.create_sqldb_conn()
@@ -120,6 +121,8 @@ def render_ele_search():
         item_name=list(dt.keys())
         item_value=list(dt.values())
 
+
+
         if len(item_name)>0:
 
             sqldb = exts.create_sqldb_conn()
@@ -128,9 +131,16 @@ def render_ele_search():
             ln=len(search_rst)
 
 
+
             sqldb.close()
 
             if ln>0:
+
+                for i in search_rst:
+                    if i[9] == 0:
+                        i[9] = "不同意"
+                    else:
+                        i[9] = "同意"
 
                 return render_template('search_rst.html',search_rst=search_rst[0],rst=search_rst,ln=ln)
             else:
@@ -171,6 +181,7 @@ def render_update():
 
 
         search_rst = db_op.search_info(session.get('inv_id'),session.get('org_name'))
+        print(search_rst)
         current_year = datetime.datetime.now().year
 
 
@@ -273,6 +284,8 @@ def render_update():
         ps_ls=[]
         ps_ls.append(request.form.get('sam_uni_id'))
         ps_ls.append(request.form.get('inv_id'))
+
+
         if request.form.get('new_cate_code')=="":
 
             ps_ls.append(request.form.get('smp_cate'))
@@ -371,43 +384,68 @@ def render_update():
             if org!=None:
                 db_op.orginfo_update(ps_ls)
             else:
-                db_op.org_info_insert(ps_ls)
+                sqldb = exts.create_sqldb_conn()
+
+                org_data = ps_ls[21:33]
+                db_op.orginfo_insert([org_data],sqldb)
+
+                sqldb.close()
+
 
             don=db_op.donor_search(ps_ls[33],ps_ls[21])
 
             if don!=None:
                 db_op.donorinfo_update(ps_ls)
             else:
-                db_op.dn_info_insert(ps_ls)
+                sqldb = exts.create_sqldb_conn()
+
+                donor_data=ps_ls[33:53]
+                donor_data.append(ps_ls[21])
+                db_op.donorinfo_insert([donor_data],sqldb)
+
+                sqldb.close()
+
 
             proj=db_op.proj_search(ps_ls[54],ps_ls[21])
 
             if proj!=None:
                 db_op.projinfo_update(ps_ls)
             else:
-                db_op.prj_info_insert(ps_ls)
+                sqldb = exts.create_sqldb_conn()
 
-
+                prj_data=ps_ls[53:]
+                prj_data.append(ps_ls[21])
+                db_op.projectinfo_insert([prj_data],sqldb)
+                sqldb.close()
 
 
             dn_exist=db_op.donor_exist_check(don_id,org_name)
 
             if dn_exist==None:
-                db_op.delete_dn_info(don_id,org_name)
+                sqldb = exts.create_sqldb_conn()
+
+                db_op.delete_dn_info(don_id,org_name,sqldb)
+
+                sqldb.close()
 
 
             proj_exist=db_op.proj_exist_check(proj_id,org_name)
             if proj_exist==None:
-                db_op.delete_prj_info(proj_id,org_name)
+                sqldb = exts.create_sqldb_conn()
+                db_op.delete_prj_info(proj_id,org_name,sqldb)
+                sqldb.close()
 
 
             org_exist=db_op.org_exist_check(org_name)
             if org_exist==None:
-                db_op.delete_org_info(org_name)
+                sqldb = exts.create_sqldb_conn()
+                db_op.delete_org_info(org_name,sqldb)
+                sqldb.close()
+
 
             flash("样本信息修改完成！")
 
-            return redirect(url_for('sample.render_search'))
+            return redirect(url_for('sample.render_ele_search'))
 
 
 
@@ -426,16 +464,29 @@ def render_delete():
         db_op.delete_sampleinfo(sam_uni_id)
 
         dn_exist = db_op.donor_exist_check(don_id, org_name)
+
         if dn_exist == None:
-            db_op.delete_dn_info(don_id, org_name)
+            sqldb = exts.create_sqldb_conn()
+
+            db_op.delete_dn_info(don_id, org_name, sqldb)
+
+            sqldb.close()
+
+            # db_op.delete_dn_info(don_id, org_name)
 
         proj_exist = db_op.proj_exist_check(proj_id, org_name)
         if proj_exist == None:
-            db_op.delete_prj_info(proj_id, org_name)
+            sqldb = exts.create_sqldb_conn()
+            db_op.delete_prj_info(proj_id, org_name, sqldb)
+            sqldb.close()
+            # db_op.delete_prj_info(proj_id, org_name)
 
         org_exist = db_op.org_exist_check(org_name)
         if org_exist == None:
-            db_op.delete_org_info(org_name)
+            sqldb = exts.create_sqldb_conn()
+            db_op.delete_org_info(org_name, sqldb)
+            sqldb.close()
+            # db_op.delete_org_info(org_name)
 
 
         flash("样本已删除！")

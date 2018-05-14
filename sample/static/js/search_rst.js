@@ -10,8 +10,7 @@ function confm() {
 
 function to_update() {
 
-
-
+    // alert(document.getElementById("inv_id").innerHTML+"    "+document.getElementById("org_name").innerHTML);
 
     $.ajax({
                     type: "POST",

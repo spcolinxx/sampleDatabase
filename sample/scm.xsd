@@ -279,9 +279,9 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			<!-- 知情同意，必填项 -->
 			<xs:element name="consent" minOccurs="1">
 				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					    <xs:enumeration value="True" />
-                        <xs:enumeration value="False" />
+					<xs:restriction base="xs:boolean">
+					   <!--  <xs:enumeration value="False" />
+                        <xs:enumeration value="True" /> -->
 					</xs:restriction>
 				</xs:simpleType>	
 			</xs:element>
