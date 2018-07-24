@@ -2,7 +2,7 @@
 {
      background-color: rgb(121,149,204);
     color:white;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .logout_style
@@ -29,6 +29,13 @@
     margin-bottom: 30px;
 }
 
+.ul_style
+{
+    font-size: 20px;
+}
+
+
+
 .ln
 {
     height:8px;
@@ -45,7 +52,7 @@
 {
     font-size: 10px;
     text-align:center;
-    color: grey;
+    color:grey;
 }
 .navbar
 {

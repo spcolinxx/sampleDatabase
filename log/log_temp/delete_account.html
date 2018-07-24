@@ -1,0 +1,112 @@
+{% extends "log_base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('log.static',filename="css/delete_account.css") }}">
+
+
+{% endblock %}
+
+
+{% block pagecontent %}
+<div class="container-fluid col-md-6 col-md-offset-3">
+    <div class="jumbotron screen_style">
+        <div class="container-fluid">
+            <div class="row col-md-6 col-md-offset-3">
+                <p class="cap_style">删除用户</p>
+            </div>
+            <div class="row col-md-10 col-md-offset-1">
+                <form class="form-horizontal" action="" method="post" onsubmit="return delete_check()">
+
+                    <div class="form-group">
+                        <label for="" class="col-md-4 control-label lb_style">注销用户账号：</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="delete_account" name="delete_account" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-md-4 control-label lb_style">再次输入账号：</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="account_rp" name="account_rp" >
+                        </div>
+                    </div>
+
+                     <div class="col-md-10 col-md-offset-1">
+                        {% for message in get_flashed_messages() %}
+                            <div class="alert alert-warning">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    {{ message }}
+                            </div>
+                        {% endfor %}
+                     </div>
+
+
+
+
+                    <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button  type="submit" class="btn btn-primary btn-block btn_style" >删除</button>
+                            </div>
+                    </div>
+
+                    <script type="text/javascript">
+                        function delete_check() {
+
+                            if (document.getElementById('delete_account').value=="")
+                            {
+                                alert("请输入要删除的用户账号!");
+                                return false;
+                            }
+
+                             if (document.getElementById('account_rp').value=="")
+                            {
+                                alert("请再次输入要删除的用户账号!");
+                                return false;
+                            }
+
+                            var rst=confirm("确认删除该用户账号？");
+                            if (rst==true)
+                            {
+                                var account="{{ session['user_id'] }}";
+
+                                if (account==document.getElementById('delete_account').value)
+                                {
+                                    alert("不允许删除当前登录用户账号！");
+                                    return false;
+                                }
+                                else
+                                {
+                                    if(document.getElementById('delete_account').value!=document.getElementById('account_rp').value)
+                                    {
+                                        alert("两次输入用户账号不一致，请检查！");
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        return true;
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                return false;
+                            }
+
+
+                        }
+                        </script>
+                </form>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{% endblock %}

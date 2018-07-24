@@ -14,264 +14,268 @@
    <div class="jumbotron screen_style">
             <div class="row col-md-6 col-md-offset-3">
               <p class="cap_style" >样本详细信息</p>
-
-             </div>
+            </div>
       <div class="container-fluid">
         <div class="col-md-offset-2">
           <div class="row col-md-8 col-md-offset-2">
             <span>唯一标识码：</span>
-            <span id="sam_uni_id" name="smp_uni_id">{{ search_rst[0] }}</span>
+            <span id="sam_uni_id" name="smp_uni_id">{{ search_rst[1] }}</span>
         </div>
 
         <div class="row col-md-8 col-md-offset-2">
             <span>样本编码：</span>
-            <span id="inv_id" name="inv_id">{{ search_rst[1] }}</span>
+            <span id="inv_id" name="inv_id">{{ search_rst[2] }}</span>
         </div>
         <div class="row col-md-8 col-md-offset-2">
             <span>样本类别：</span>
-            <span id="sam_cate_name" name="smp_cate">{{ search_rst[2] }}</span>
+            <span id="sam_cate_name" name="smp_cate">{{ search_rst[3] }}</span>
         </div>
            <div class="row col-md-8 col-md-offset-2">
             <span>入库日期：</span>
-            <span id="ent_date" name="ent_date">{{ search_rst[3] }}</span>
+            <span id="ent_date" name="ent_date">{{ search_rst[4] }}</span>
         </div>
            <div class="row col-md-8 col-md-offset-2">
             <span>保存温度：</span>
-               <span id="stor_meth">{{ search_rst[4] }}</span>
+               <span id="stor_meth">{{ search_rst[5] }}</span>
         </div>
            <div class="row col-md-8 col-md-offset-2">
             <span>母本编码：</span>
-               <span id="parent_id">{{ search_rst[5] }}</span>
+               <span id="parent_id">{{ search_rst[6] }}</span>
         </div>
            <div class="row col-md-8 col-md-offset-2">
             <span>分管数：</span>
-               <span id="batch_count">{{ search_rst[6] }}</span>
+               <span id="batch_count">{{ search_rst[7] }}</span>
         </div>
            <div class="row col-md-8 col-md-offset-2">
             <span>样本量：</span>
-               <span id="sam_qty">{{ search_rst[7] }}</span>
+               <span id="sam_qty">{{ search_rst[8] }}</span>
         </div>
            <div class="row col-md-8 col-md-offset-2">
             <span>量单位：</span>
-               <span id="unit_amou">{{ search_rst[8] }}</span>
+               <span id="unit_amou">{{ search_rst[9] }}</span>
         </div>
            <div class="row col-md-8 col-md-offset-2">
             <span>知情同意：</span>
-               <span id="consent">{{ search_rst[9] }}</span>
+               <span id="consent">{{ search_rst[10] }}</span>
         </div>
            <div class="row col-md-8 col-md-offset-2">
             <span>样本别称：</span>
-               <span id="sam_title" >{{ search_rst[10] }}</span>
+               <span id="sam_title" >{{ search_rst[11] }}</span>
         </div>
 
            <div class="row col-md-8 col-md-offset-2">
             <span>样本描述：</span>
-               <span id="sam_desc">{{ search_rst[11] }}</span>
+               <span id="sam_desc">{{ search_rst[12] }}</span>
         </div>
            <div class="row col-md-8 col-md-offset-2">
             <span>关键词：</span>
-               <span id="sam_keyword">{{ search_rst[12] }}</span>
+               <span id="sam_keyword">{{ search_rst[13] }}</span>
         </div>
            <div class="row col-md-8 col-md-offset-2">
             <span>样本用途：</span>
-               <span id="sam_uses">{{ search_rst[13] }}</span>
+               <span id="sam_uses">{{ search_rst[14] }}</span>
         </div>
            <div class="row col-md-8 col-md-offset-2">
             <span>采集部位：</span>
-               <span id="acqui_pos">{{ search_rst[14] }}</span>
+               <span id="acqui_pos">{{ search_rst[15] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>分析前变量：</span>
-        <span id="s_pre_c">{{ search_rst[15] }}</span>
+        <span id="s_pre_c">{{ search_rst[16] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>采集动因：</span>
-        <span id="acqui_mot">{{ search_rst[16] }}</span>
+        <span id="acqui_mot">{{ search_rst[17] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>采集时间：</span>
-        <span id="acqui_time">{{ search_rst[17] }}</span>
+        <span id="acqui_time">{{ search_rst[18] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>采集计划：</span>
-        <span id="acqui_plan">{{ search_rst[18] }}</span>
+        <span id="acqui_plan">{{ search_rst[19] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>采集机构：</span>
-        <span id="acqui_org">{{ search_rst[19] }}</span>
+        <span id="acqui_org">{{ search_rst[20] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>其他采集者：</span>
-        <span id="acqui_assis">{{ search_rst[20] }}</span>
+        <span id="acqui_assis">{{ search_rst[21] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>保存机构名称：</span>
-        <span id="org_name">{{ search_rst[24] }}</span>
+        <span id="org_name">{{ search_rst[22] }}</span>
         </div>
 
     <div class="row col-md-8 col-md-offset-2">
             <span>法人机构名称：</span>
-        <span id="jur_per_name">{{ search_rst[25] }}</span>
+        <span id="jur_per_name">{{ search_rst[23] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>法人机构代码：</span>
-        <span id="jur_per_id">{{ search_rst[26] }}</span>
+        <span id="jur_per_id">{{ search_rst[24] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>法人机构类型：</span>
-        <span id="jur_per_type">{{ search_rst[27] }}</span>
+        <span id="jur_per_type">{{ search_rst[25] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>保存机构简介：</span>
-        <span id="org_intro">{{ search_rst[28] }}</span>
+        <span id="org_intro">{{ search_rst[26] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>使用许可：</span>
-        <span id="use_agr">{{ search_rst[29] }}</span>
+        <span id="use_agr">{{ search_rst[27] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>共享方式：</span>
-        <span id="share_rule">{{ search_rst[30] }}</span>
+        <span id="share_rule">{{ search_rst[28] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>通信地址：</span>
-        <span id="adr">{{ search_rst[31] }}</span>
+        <span id="adr">{{ search_rst[29] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>邮政编码：</span>
-        <span id="post_code">{{ search_rst[32] }}</span>
+        <span id="post_code">{{ search_rst[30] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>管理员：</span>
-        <span id="manager_name">{{ search_rst[33] }}</span>
+        <span id="manager_name">{{ search_rst[31] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>联系电话：</span>
-        <span id="tel">{{ search_rst[34] }}</span>
+        <span id="tel">{{ search_rst[32] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>电子信箱：</span>
-        <span id="email">{{ search_rst[35] }}</span>
+        <span id="email">{{ search_rst[33] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>捐献者匿名编号：</span>
-        <span id="don_id">{{ search_rst[36] }}</span>
+        <span id="don_id">{{ search_rst[34] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>性别：</span>
-        <span id="col_obj">{{ search_rst[37] }}</span>
+        <span id="col_obj">{{ search_rst[35] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>年龄：</span>
-        <span id="date_of_bir">{{ search_rst[38] }}</span>
+        <span id="date_of_bir">{{ search_rst[36] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>民族：</span>
-        <span id="eth_gro">{{ search_rst[39] }}</span>
+        <span id="eth_gro">{{ search_rst[37] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>籍贯：</span>
-        <span id="nativ_pla">{{ search_rst[40] }}</span>
+        <span id="nativ_pla">{{ search_rst[38] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>出生地：</span>
-        <span id="bir_pla">{{ search_rst[41] }}</span>
+        <span id="bir_pla">{{ search_rst[39] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>国籍：</span>
-        <span id="nation">{{ search_rst[42] }}</span>
+        <span id="nation">{{ search_rst[40] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>职业：</span>
-        <span id="occup">{{ search_rst[43] }}</span>
+        <span id="occup">{{ search_rst[41] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>教育程度：</span>
-        <span id="edu_lev">{{ search_rst[44] }}</span>
+        <span id="edu_lev">{{ search_rst[42] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>婚姻状况：</span>
-        <span id="mari_sta">{{ search_rst[45] }}</span>
+        <span id="mari_sta">{{ search_rst[43] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>捐献途径：</span>
-        <span id="donate_way">{{ search_rst[46] }}</span>
+        <span id="donate_way">{{ search_rst[44] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>疾病类目名称：</span>
-        <span id="dise_name">{{ search_rst[47] }}</span>
+        <span id="dise_name">{{ search_rst[45] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>疾病类目代码：</span>
-        <span id="dise_id">{{ search_rst[48] }}</span>
+        <span id="dise_id">{{ search_rst[46] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>主要诊断：</span>
-        <span id="dig_desc">{{ search_rst[49] }}</span>
+        <span id="dig_desc">{{ search_rst[47] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>现病史：</span>
-        <span id="dise_his">{{ search_rst[50] }}</span>
+        <span id="dise_his">{{ search_rst[48] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>检验记录：</span>
-        <span id="exa_rec">{{ search_rst[51] }}</span>
+        <span id="exa_rec">{{ search_rst[49] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>随访记录：</span>
-        <span id="inter_rec">{{ search_rst[52] }}</span>
+        <span id="inter_rec">{{ search_rst[50] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>影像资料：</span>
-        <span id="media_rec">{{ search_rst[53] }}</span>
+        <span id="media_rec">{{ search_rst[51] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>病例报告：</span>
-        <span id="medi_rep">{{ search_rst[54] }}</span>
+        <span id="medi_rep">{{ search_rst[52] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>家系信息：</span>
-        <span id="fam_his">{{ search_rst[55] }}</span>
+        <span id="fam_his">{{ search_rst[53] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>课题名称：</span>
-        <span id="prj_name">{{ search_rst[57] }}</span>
+        <span id="prj_name">{{ search_rst[54] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>课题编号：</span>
-        <span id="prj_id">{{ search_rst[58] }}</span>
+        <span id="prj_id">{{ search_rst[55] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>课题级别：</span>
-        <span id="prj_level">{{ search_rst[59] }}</span>
+        <span id="prj_level">{{ search_rst[56] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>资助机构：</span>
-        <span id="spon_org">{{ search_rst[60] }}</span>
+        <span id="spon_org">{{ search_rst[57] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>纳入标准：</span>
-        <span id="in_level">{{ search_rst[61] }}</span>
+        <span id="in_level">{{ search_rst[58] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>课题关键词：</span>
-        <span id="prj_keyword">{{ search_rst[62] }}</span>
+        <span id="prj_keyword">{{ search_rst[59] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>收集目的：</span>
-        <span id="aim">{{ search_rst[63] }}</span>
+        <span id="aim">{{ search_rst[60] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>收集方法：</span>
-        <span id="mtd">{{ search_rst[64] }}</span>
+        <span id="mtd">{{ search_rst[61] }}</span>
         </div>
     <div class="row col-md-8 col-md-offset-2">
             <span>收集数量：</span>
-        <span id="total_amt">{{ search_rst[65] }}</span>
+        <span id="total_amt">{{ search_rst[62] }}</span>
         </div>
         <div class="row col-md-8 col-md-offset-2">
-            <span>起止时间：</span>
-        <span id="be_end_time">{{ search_rst[66] }}</span>
+            <span>课题开始时间：</span>
+        <span id="be_time">{{ search_rst[63] }}</span>
+        </div>
+
+            <div class="row col-md-8 col-md-offset-2">
+            <span>课题结束时间：</span>
+        <span id="end_time">{{ search_rst[64] }}</span>
         </div>
 
 
@@ -298,7 +302,7 @@
                 </button>
           </div>
           <div class="col-md-12" style="margin-top: 10px;">
-                <span class="col-md-offset-9">第</span>
+                <span class="col-md-offset-8">第</span>
               <select name="" id="target_idx">
                   {% for i in range(ln) %}
                       <option value="{{ loop.index }}">{{ loop.index }} </option>
@@ -333,26 +337,42 @@
     var rst_ln={{ ln }};
 
     function update_lv_check(lv) {
-        if (lv==1)
+        if (lv!=0)
         {
             alert("当前用户没有修改样本信息的权限！");
         }
         else
         {
-            to_update();
+            var inv_id=document.getElementById('inv_id').innerText;
+            var org_name=document.getElementById('org_name').innerText;
+            var jur_per_id=document.getElementById('jur_per_id').innerText;
+
+            window.location="/sample/smpUpdate/"+inv_id+"/"+org_name+"/"+jur_per_id;
+
         }
 
     }
 
     function delete_lv_check(lv) {
 
-        if (lv==1)
+        if (lv!=0)
         {
             alert("当前用户没有删除样本信息的权限！");
         }
         else
         {
-            confm();
+            var rst=confirm("确定要删除该样本信息？");
+            if (rst==true)
+            {
+                var inv_id=document.getElementById('inv_id').innerText;
+                var org_name=document.getElementById('org_name').innerText;
+                var jur_per_id=document.getElementById('jur_per_id').innerText;
+
+                window.location="/sample/smpdelete/"+inv_id+"/"+org_name+"/"+jur_per_id;
+
+
+            }
+
         }
 
     }
@@ -427,73 +447,77 @@
             var aim=document.getElementById('aim');
             var mtd=document.getElementById('mtd');
             var total_amt=document.getElementById('total_amt');
-            var be_end_time=document.getElementById('be_end_time');
+            var be_time=document.getElementById('be_time');
+            var end_time=document.getElementById('end_time');
 
-            sam_uni_id.innerHTML=rst_list[next_item-1][0];
-            inv_id.innerHTML=rst_list[next_item-1][1];
-            sam_cate_name.innerHTML=rst_list[next_item-1][2];
-            ent_date.innerHTML=rst_list[next_item-1][3];
-            stor_meth.innerHTML=rst_list[next_item-1][4];
-            parent_id.innerHTML=rst_list[next_item-1][5];
-            batch_count.innerHTML=rst_list[next_item-1][6];
-            sam_qty.innerHTML=rst_list[next_item-1][7];
-            unit_amou.innerHTML=rst_list[next_item-1][8];
-             consent.innerHTML=rst_list[next_item-1][9];
-             sam_title.innerHTML=rst_list[next_item-1][10];
-             sam_desc.innerHTML=rst_list[next_item-1][11];
-             sam_keyword.innerHTML=rst_list[next_item-1][12];
-             sam_uses.innerHTML=rst_list[next_item-1][13];
-             acqui_pos.innerHTML=rst_list[next_item-1][14];
-             s_pre_c.innerHTML=rst_list[next_item-1][15];
-             acqui_mot.innerHTML=rst_list[next_item-1][16];
-             acqui_time.innerHTML=rst_list[next_item-1][17];
-             acqui_plan.innerHTML=rst_list[next_item-1][18];
-             acqui_org.innerHTML=rst_list[next_item-1][19];
-             acqui_assis.innerHTML=rst_list[next_item-1][20];
-             org_name.innerHTML=rst_list[next_item-1][24];
-             jur_per_name.innerHTML=rst_list[next_item-1][25];
-             jur_per_id.innerHTML=rst_list[next_item-1][26];
-             jur_per_type.innerHTML=rst_list[next_item-1][27];
-             org_intro.innerHTML=rst_list[next_item-1][28];
-             use_agr.innerHTML=rst_list[next_item-1][29];
-             share_rule.innerHTML=rst_list[next_item-1][30];
-             adr.innerHTML=rst_list[next_item-1][31];
-             post_code.innerHTML=rst_list[next_item-1][32];
-             manager_name.innerHTML=rst_list[next_item-1][33];
-             tel.innerHTML=rst_list[next_item-1][34];
-             email.innerHTML=rst_list[next_item-1][35];
-             don_id.innerHTML=rst_list[next_item-1][36];
-             col_obj.innerHTML=rst_list[next_item-1][37];
-             date_of_bir.innerHTML=rst_list[next_item-1][38];
-             eth_gro.innerHTML=rst_list[next_item-1][39];
-             nativ_pla.innerHTML=rst_list[next_item-1][40];
-             bir_pla.innerHTML=rst_list[next_item-1][41];
-             nation.innerHTML=rst_list[next_item-1][42];
-             occup.innerHTML=rst_list[next_item-1][43];
-             edu_lev.innerHTML=rst_list[next_item-1][44];
-             mari_sta.innerHTML=rst_list[next_item-1][45];
-             donate_way.innerHTML=rst_list[next_item-1][46];
-             dise_name.innerHTML=rst_list[next_item-1][47];
-             dise_id.innerHTML=rst_list[next_item-1][48];
-             dig_desc.innerHTML=rst_list[next_item-1][49];
-             dise_his.innerHTML=rst_list[next_item-1][50];
-             exa_rec.innerHTML=rst_list[next_item-1][51];
-             inter_rec.innerHTML=rst_list[next_item-1][52];
-             media_rec.innerHTML=rst_list[next_item-1][53];
-             medi_rep.innerHTML=rst_list[next_item-1][54];
-             fam_his.innerHTML=rst_list[next_item-1][55];
-             prj_name.innerHTML=rst_list[next_item-1][57];
-             prj_id.innerHTML=rst_list[next_item-1][58];
-             prj_level.innerHTML=rst_list[next_item-1][59];
-             spon_org.innerHTML=rst_list[next_item-1][60];
-             in_level.innerHTML=rst_list[next_item-1][61];
-             prj_keyword.innerHTML=rst_list[next_item-1][62];
-             aim.innerHTML=rst_list[next_item-1][63];
-             mtd.innerHTML=rst_list[next_item-1][64];
-             total_amt.innerHTML=rst_list[next_item-1][65];
-             be_end_time.innerHTML=rst_list[next_item-1][66];
+            sam_uni_id.innerHTML=rst_list[next_item-1][1];
+            inv_id.innerHTML=rst_list[next_item-1][2];
+            sam_cate_name.innerHTML=rst_list[next_item-1][3];
+            ent_date.innerHTML=rst_list[next_item-1][4];
+            stor_meth.innerHTML=rst_list[next_item-1][5];
+            parent_id.innerHTML=rst_list[next_item-1][6];
+            batch_count.innerHTML=rst_list[next_item-1][7];
+            sam_qty.innerHTML=rst_list[next_item-1][8];
+            unit_amou.innerHTML=rst_list[next_item-1][9];
+             consent.innerHTML=rst_list[next_item-1][10];
+             sam_title.innerHTML=rst_list[next_item-1][11];
+             sam_desc.innerHTML=rst_list[next_item-1][12];
+             sam_keyword.innerHTML=rst_list[next_item-1][13];
+             sam_uses.innerHTML=rst_list[next_item-1][14];
+             acqui_pos.innerHTML=rst_list[next_item-1][15];
+             s_pre_c.innerHTML=rst_list[next_item-1][16];
+             acqui_mot.innerHTML=rst_list[next_item-1][17];
+             acqui_time.innerHTML=rst_list[next_item-1][18];
+             acqui_plan.innerHTML=rst_list[next_item-1][19];
+             acqui_org.innerHTML=rst_list[next_item-1][20];
+             acqui_assis.innerHTML=rst_list[next_item-1][21];
+             org_name.innerHTML=rst_list[next_item-1][22];
+             jur_per_name.innerHTML=rst_list[next_item-1][23];
+             jur_per_id.innerHTML=rst_list[next_item-1][24];
+             jur_per_type.innerHTML=rst_list[next_item-1][25];
+             org_intro.innerHTML=rst_list[next_item-1][26];
+             use_agr.innerHTML=rst_list[next_item-1][27];
+             share_rule.innerHTML=rst_list[next_item-1][28];
+             adr.innerHTML=rst_list[next_item-1][29];
+             post_code.innerHTML=rst_list[next_item-1][30];
+             manager_name.innerHTML=rst_list[next_item-1][31];
+             tel.innerHTML=rst_list[next_item-1][32];
+             email.innerHTML=rst_list[next_item-1][33];
+             don_id.innerHTML=rst_list[next_item-1][34];
+             col_obj.innerHTML=rst_list[next_item-1][35];
+             date_of_bir.innerHTML=rst_list[next_item-1][36];
+             eth_gro.innerHTML=rst_list[next_item-1][37];
+             nativ_pla.innerHTML=rst_list[next_item-1][38];
+             bir_pla.innerHTML=rst_list[next_item-1][39];
+             nation.innerHTML=rst_list[next_item-1][40];
+             occup.innerHTML=rst_list[next_item-1][41];
+             edu_lev.innerHTML=rst_list[next_item-1][42];
+             mari_sta.innerHTML=rst_list[next_item-1][43];
+             donate_way.innerHTML=rst_list[next_item-1][44];
+             dise_name.innerHTML=rst_list[next_item-1][45];
+             dise_id.innerHTML=rst_list[next_item-1][46];
+             dig_desc.innerHTML=rst_list[next_item-1][47];
+             dise_his.innerHTML=rst_list[next_item-1][48];
+             exa_rec.innerHTML=rst_list[next_item-1][49];
+             inter_rec.innerHTML=rst_list[next_item-1][50];
+             media_rec.innerHTML=rst_list[next_item-1][51];
+             medi_rep.innerHTML=rst_list[next_item-1][52];
+             fam_his.innerHTML=rst_list[next_item-1][53];
+             prj_name.innerHTML=rst_list[next_item-1][54];
+             prj_id.innerHTML=rst_list[next_item-1][55];
+             prj_level.innerHTML=rst_list[next_item-1][56];
+             spon_org.innerHTML=rst_list[next_item-1][57];
+             in_level.innerHTML=rst_list[next_item-1][58];
+             prj_keyword.innerHTML=rst_list[next_item-1][59];
+             aim.innerHTML=rst_list[next_item-1][60];
+             mtd.innerHTML=rst_list[next_item-1][61];
+             total_amt.innerHTML=rst_list[next_item-1][62];
+             be_time.innerHTML=rst_list[next_item-1][63];
+             end_time.innerHTML=rst_list[next_item-1][64];
 
              document.getElementById('item_idx').innerHTML=next_item;
+
+             scroll(0,0);
         }
         else
         {
@@ -578,73 +602,78 @@
             var aim=document.getElementById('aim');
             var mtd=document.getElementById('mtd');
             var total_amt=document.getElementById('total_amt');
-            var be_end_time=document.getElementById('be_end_time');
+            var be_time=document.getElementById('be_time');
+            var end_time=document.getElementById('end_time');
 
-            sam_uni_id.innerHTML=rst_list[pre_item-1][0];
-            inv_id.innerHTML=rst_list[pre_item-1][1];
-            sam_cate_name.innerHTML=rst_list[pre_item-1][2];
-            ent_date.innerHTML=rst_list[pre_item-1][3];
-            stor_meth.innerHTML=rst_list[pre_item-1][4];
-            parent_id.innerHTML=rst_list[pre_item-1][5];
-            batch_count.innerHTML=rst_list[pre_item-1][6];
-            sam_qty.innerHTML=rst_list[pre_item-1][7];
-            unit_amou.innerHTML=rst_list[pre_item-1][8];
-             consent.innerHTML=rst_list[pre_item-1][9];
-             sam_title.innerHTML=rst_list[pre_item-1][10];
-             sam_desc.innerHTML=rst_list[pre_item-1][11];
-             sam_keyword.innerHTML=rst_list[pre_item-1][12];
-             sam_uses.innerHTML=rst_list[pre_item-1][13];
-             acqui_pos.innerHTML=rst_list[pre_item-1][14];
-             s_pre_c.innerHTML=rst_list[pre_item-1][15];
-             acqui_mot.innerHTML=rst_list[pre_item-1][16];
-             acqui_time.innerHTML=rst_list[pre_item-1][17];
-             acqui_plan.innerHTML=rst_list[pre_item-1][18];
-             acqui_org.innerHTML=rst_list[pre_item-1][19];
-             acqui_assis.innerHTML=rst_list[pre_item-1][20];
-             org_name.innerHTML=rst_list[pre_item-1][24];
-             jur_per_name.innerHTML=rst_list[pre_item-1][25];
-             jur_per_id.innerHTML=rst_list[pre_item-1][26];
-             jur_per_type.innerHTML=rst_list[pre_item-1][27];
-             org_intro.innerHTML=rst_list[pre_item-1][28];
-             use_agr.innerHTML=rst_list[pre_item-1][29];
-             share_rule.innerHTML=rst_list[pre_item-1][30];
-             adr.innerHTML=rst_list[pre_item-1][31];
-             post_code.innerHTML=rst_list[pre_item-1][32];
-             manager_name.innerHTML=rst_list[pre_item-1][33];
-             tel.innerHTML=rst_list[pre_item-1][34];
-             email.innerHTML=rst_list[pre_item-1][35];
-             don_id.innerHTML=rst_list[pre_item-1][36];
-             col_obj.innerHTML=rst_list[pre_item-1][37];
-             date_of_bir.innerHTML=rst_list[pre_item-1][38];
-             eth_gro.innerHTML=rst_list[pre_item-1][39];
-             nativ_pla.innerHTML=rst_list[pre_item-1][40];
-             bir_pla.innerHTML=rst_list[pre_item-1][41];
-             nation.innerHTML=rst_list[pre_item-1][42];
-             occup.innerHTML=rst_list[pre_item-1][43];
-             edu_lev.innerHTML=rst_list[pre_item-1][44];
-             mari_sta.innerHTML=rst_list[pre_item-1][45];
-             donate_way.innerHTML=rst_list[pre_item-1][46];
-             dise_name.innerHTML=rst_list[pre_item-1][47];
-             dise_id.innerHTML=rst_list[pre_item-1][48];
-             dig_desc.innerHTML=rst_list[pre_item-1][49];
-             dise_his.innerHTML=rst_list[pre_item-1][50];
-             exa_rec.innerHTML=rst_list[pre_item-1][51];
-             inter_rec.innerHTML=rst_list[pre_item-1][52];
-             media_rec.innerHTML=rst_list[pre_item-1][53];
-             medi_rep.innerHTML=rst_list[pre_item-1][54];
-             fam_his.innerHTML=rst_list[pre_item-1][55];
-             prj_name.innerHTML=rst_list[pre_item-1][57];
-             prj_id.innerHTML=rst_list[pre_item-1][58];
-             prj_level.innerHTML=rst_list[pre_item-1][59];
-             spon_org.innerHTML=rst_list[pre_item-1][60];
-             in_level.innerHTML=rst_list[pre_item-1][61];
-             prj_keyword.innerHTML=rst_list[pre_item-1][62];
-             aim.innerHTML=rst_list[pre_item-1][63];
-             mtd.innerHTML=rst_list[pre_item-1][64];
-             total_amt.innerHTML=rst_list[pre_item-1][65];
-             be_end_time.innerHTML=rst_list[pre_item-1][66];
+            sam_uni_id.innerHTML=rst_list[pre_item-1][1];
+            inv_id.innerHTML=rst_list[pre_item-1][2];
+            sam_cate_name.innerHTML=rst_list[pre_item-1][3];
+            ent_date.innerHTML=rst_list[pre_item-1][4];
+            stor_meth.innerHTML=rst_list[pre_item-1][5];
+            parent_id.innerHTML=rst_list[pre_item-1][6];
+            batch_count.innerHTML=rst_list[pre_item-1][7];
+            sam_qty.innerHTML=rst_list[pre_item-1][8];
+            unit_amou.innerHTML=rst_list[pre_item-1][9];
+             consent.innerHTML=rst_list[pre_item-1][10];
+             sam_title.innerHTML=rst_list[pre_item-1][11];
+             sam_desc.innerHTML=rst_list[pre_item-1][12];
+             sam_keyword.innerHTML=rst_list[pre_item-1][13];
+             sam_uses.innerHTML=rst_list[pre_item-1][14];
+             acqui_pos.innerHTML=rst_list[pre_item-1][15];
+             s_pre_c.innerHTML=rst_list[pre_item-1][16];
+             acqui_mot.innerHTML=rst_list[pre_item-1][17];
+             acqui_time.innerHTML=rst_list[pre_item-1][18];
+             acqui_plan.innerHTML=rst_list[pre_item-1][19];
+             acqui_org.innerHTML=rst_list[pre_item-1][20];
+             acqui_assis.innerHTML=rst_list[pre_item-1][21];
+             org_name.innerHTML=rst_list[pre_item-1][22];
+             jur_per_name.innerHTML=rst_list[pre_item-1][23];
+             jur_per_id.innerHTML=rst_list[pre_item-1][24];
+             jur_per_type.innerHTML=rst_list[pre_item-1][25];
+             org_intro.innerHTML=rst_list[pre_item-1][26];
+             use_agr.innerHTML=rst_list[pre_item-1][27];
+             share_rule.innerHTML=rst_list[pre_item-1][28];
+             adr.innerHTML=rst_list[pre_item-1][29];
+             post_code.innerHTML=rst_list[pre_item-1][30];
+             manager_name.innerHTML=rst_list[pre_item-1][31];
+             tel.innerHTML=rst_list[pre_item-1][32];
+             email.innerHTML=rst_list[pre_item-1][33];
+             don_id.innerHTML=rst_list[pre_item-1][34];
+             col_obj.innerHTML=rst_list[pre_item-1][35];
+             date_of_bir.innerHTML=rst_list[pre_item-1][36];
+             eth_gro.innerHTML=rst_list[pre_item-1][37];
+             nativ_pla.innerHTML=rst_list[pre_item-1][38];
+             bir_pla.innerHTML=rst_list[pre_item-1][39];
+             nation.innerHTML=rst_list[pre_item-1][40];
+             occup.innerHTML=rst_list[pre_item-1][41];
+             edu_lev.innerHTML=rst_list[pre_item-1][42];
+             mari_sta.innerHTML=rst_list[pre_item-1][43];
+             donate_way.innerHTML=rst_list[pre_item-1][44];
+             dise_name.innerHTML=rst_list[pre_item-1][45];
+             dise_id.innerHTML=rst_list[pre_item-1][46];
+             dig_desc.innerHTML=rst_list[pre_item-1][47];
+             dise_his.innerHTML=rst_list[pre_item-1][48];
+             exa_rec.innerHTML=rst_list[pre_item-1][49];
+             inter_rec.innerHTML=rst_list[pre_item-1][50];
+             media_rec.innerHTML=rst_list[pre_item-1][51];
+             medi_rep.innerHTML=rst_list[pre_item-1][52];
+             fam_his.innerHTML=rst_list[pre_item-1][53];
+             prj_name.innerHTML=rst_list[pre_item-1][54];
+             prj_id.innerHTML=rst_list[pre_item-1][55];
+             prj_level.innerHTML=rst_list[pre_item-1][56];
+             spon_org.innerHTML=rst_list[pre_item-1][57];
+             in_level.innerHTML=rst_list[pre_item-1][58];
+             prj_keyword.innerHTML=rst_list[pre_item-1][59];
+             aim.innerHTML=rst_list[pre_item-1][60];
+             mtd.innerHTML=rst_list[pre_item-1][61];
+             total_amt.innerHTML=rst_list[pre_item-1][62];
+             be_time.innerHTML=rst_list[pre_item-1][63];
+             end_time.innerHTML=rst_list[pre_item-1][64];
 
              document.getElementById('item_idx').innerHTML=pre_item;
+
+             scroll(0,0);
+
         }
         else
         {
@@ -723,73 +752,78 @@
             var aim=document.getElementById('aim');
             var mtd=document.getElementById('mtd');
             var total_amt=document.getElementById('total_amt');
-            var be_end_time=document.getElementById('be_end_time');
+            var be_time=document.getElementById('be_time');
+            var end_time=document.getElementById('end_time');
 
-            sam_uni_id.innerHTML=rst_list[target_item-1][0];
-            inv_id.innerHTML=rst_list[target_item-1][1];
-            sam_cate_name.innerHTML=rst_list[target_item-1][2];
-            ent_date.innerHTML=rst_list[target_item-1][3];
-            stor_meth.innerHTML=rst_list[target_item-1][4];
-            parent_id.innerHTML=rst_list[target_item-1][5];
-            batch_count.innerHTML=rst_list[target_item-1][6];
-            sam_qty.innerHTML=rst_list[target_item-1][7];
-            unit_amou.innerHTML=rst_list[target_item-1][8];
-             consent.innerHTML=rst_list[target_item-1][9];
-             sam_title.innerHTML=rst_list[target_item-1][10];
-             sam_desc.innerHTML=rst_list[target_item-1][11];
-             sam_keyword.innerHTML=rst_list[target_item-1][12];
-             sam_uses.innerHTML=rst_list[target_item-1][13];
-             acqui_pos.innerHTML=rst_list[target_item-1][14];
-             s_pre_c.innerHTML=rst_list[target_item-1][15];
-             acqui_mot.innerHTML=rst_list[target_item-1][16];
-             acqui_time.innerHTML=rst_list[target_item-1][17];
-             acqui_plan.innerHTML=rst_list[target_item-1][18];
-             acqui_org.innerHTML=rst_list[target_item-1][19];
-             acqui_assis.innerHTML=rst_list[target_item-1][20];
-             org_name.innerHTML=rst_list[target_item-1][24];
-             jur_per_name.innerHTML=rst_list[target_item-1][25];
-             jur_per_id.innerHTML=rst_list[target_item-1][26];
-             jur_per_type.innerHTML=rst_list[target_item-1][27];
-             org_intro.innerHTML=rst_list[target_item-1][28];
-             use_agr.innerHTML=rst_list[target_item-1][29];
-             share_rule.innerHTML=rst_list[target_item-1][30];
-             adr.innerHTML=rst_list[target_item-1][31];
-             post_code.innerHTML=rst_list[target_item-1][32];
-             manager_name.innerHTML=rst_list[target_item-1][33];
-             tel.innerHTML=rst_list[target_item-1][34];
-             email.innerHTML=rst_list[target_item-1][35];
-             don_id.innerHTML=rst_list[target_item-1][36];
-             col_obj.innerHTML=rst_list[target_item-1][37];
-             date_of_bir.innerHTML=rst_list[target_item-1][38];
-             eth_gro.innerHTML=rst_list[target_item-1][39];
-             nativ_pla.innerHTML=rst_list[target_item-1][40];
-             bir_pla.innerHTML=rst_list[target_item-1][41];
-             nation.innerHTML=rst_list[target_item-1][42];
-             occup.innerHTML=rst_list[target_item-1][43];
-             edu_lev.innerHTML=rst_list[target_item-1][44];
-             mari_sta.innerHTML=rst_list[target_item-1][45];
-             donate_way.innerHTML=rst_list[target_item-1][46];
-             dise_name.innerHTML=rst_list[target_item-1][47];
-             dise_id.innerHTML=rst_list[target_item-1][48];
-             dig_desc.innerHTML=rst_list[target_item-1][49];
-             dise_his.innerHTML=rst_list[target_item-1][50];
-             exa_rec.innerHTML=rst_list[target_item-1][51];
-             inter_rec.innerHTML=rst_list[target_item-1][52];
-             media_rec.innerHTML=rst_list[target_item-1][53];
-             medi_rep.innerHTML=rst_list[target_item-1][54];
-             fam_his.innerHTML=rst_list[target_item-1][55];
-             prj_name.innerHTML=rst_list[target_item-1][57];
-             prj_id.innerHTML=rst_list[target_item-1][58];
-             prj_level.innerHTML=rst_list[target_item-1][59];
-             spon_org.innerHTML=rst_list[target_item-1][60];
-             in_level.innerHTML=rst_list[target_item-1][61];
-             prj_keyword.innerHTML=rst_list[target_item-1][62];
-             aim.innerHTML=rst_list[target_item-1][63];
-             mtd.innerHTML=rst_list[target_item-1][64];
-             total_amt.innerHTML=rst_list[target_item-1][65];
-             be_end_time.innerHTML=rst_list[target_item-1][66];
+
+            sam_uni_id.innerHTML=rst_list[target_item-1][1];
+            inv_id.innerHTML=rst_list[target_item-1][2];
+            sam_cate_name.innerHTML=rst_list[target_item-1][3];
+            ent_date.innerHTML=rst_list[target_item-1][4];
+            stor_meth.innerHTML=rst_list[target_item-1][5];
+            parent_id.innerHTML=rst_list[target_item-1][6];
+            batch_count.innerHTML=rst_list[target_item-1][7];
+            sam_qty.innerHTML=rst_list[target_item-1][8];
+            unit_amou.innerHTML=rst_list[target_item-1][9];
+             consent.innerHTML=rst_list[target_item-1][10];
+             sam_title.innerHTML=rst_list[target_item-1][11];
+             sam_desc.innerHTML=rst_list[target_item-1][12];
+             sam_keyword.innerHTML=rst_list[target_item-1][13];
+             sam_uses.innerHTML=rst_list[target_item-1][14];
+             acqui_pos.innerHTML=rst_list[target_item-1][15];
+             s_pre_c.innerHTML=rst_list[target_item-1][16];
+             acqui_mot.innerHTML=rst_list[target_item-1][17];
+             acqui_time.innerHTML=rst_list[target_item-1][18];
+             acqui_plan.innerHTML=rst_list[target_item-1][19];
+             acqui_org.innerHTML=rst_list[target_item-1][20];
+             acqui_assis.innerHTML=rst_list[target_item-1][21];
+             org_name.innerHTML=rst_list[target_item-1][22];
+             jur_per_name.innerHTML=rst_list[target_item-1][23];
+             jur_per_id.innerHTML=rst_list[target_item-1][24];
+             jur_per_type.innerHTML=rst_list[target_item-1][25];
+             org_intro.innerHTML=rst_list[target_item-1][26];
+             use_agr.innerHTML=rst_list[target_item-1][27];
+             share_rule.innerHTML=rst_list[target_item-1][28];
+             adr.innerHTML=rst_list[target_item-1][29];
+             post_code.innerHTML=rst_list[target_item-1][30];
+             manager_name.innerHTML=rst_list[target_item-1][31];
+             tel.innerHTML=rst_list[target_item-1][32];
+             email.innerHTML=rst_list[target_item-1][33];
+             don_id.innerHTML=rst_list[target_item-1][34];
+             col_obj.innerHTML=rst_list[target_item-1][35];
+             date_of_bir.innerHTML=rst_list[target_item-1][36];
+             eth_gro.innerHTML=rst_list[target_item-1][37];
+             nativ_pla.innerHTML=rst_list[target_item-1][38];
+             bir_pla.innerHTML=rst_list[target_item-1][39];
+             nation.innerHTML=rst_list[target_item-1][40];
+             occup.innerHTML=rst_list[target_item-1][41];
+             edu_lev.innerHTML=rst_list[target_item-1][42];
+             mari_sta.innerHTML=rst_list[target_item-1][43];
+             donate_way.innerHTML=rst_list[target_item-1][44];
+             dise_name.innerHTML=rst_list[target_item-1][45];
+             dise_id.innerHTML=rst_list[target_item-1][46];
+             dig_desc.innerHTML=rst_list[target_item-1][47];
+             dise_his.innerHTML=rst_list[target_item-1][48];
+             exa_rec.innerHTML=rst_list[target_item-1][49];
+             inter_rec.innerHTML=rst_list[target_item-1][50];
+             media_rec.innerHTML=rst_list[target_item-1][51];
+             medi_rep.innerHTML=rst_list[target_item-1][52];
+             fam_his.innerHTML=rst_list[target_item-1][53];
+             prj_name.innerHTML=rst_list[target_item-1][54];
+             prj_id.innerHTML=rst_list[target_item-1][55];
+             prj_level.innerHTML=rst_list[target_item-1][56];
+             spon_org.innerHTML=rst_list[target_item-1][57];
+             in_level.innerHTML=rst_list[target_item-1][58];
+             prj_keyword.innerHTML=rst_list[target_item-1][59];
+             aim.innerHTML=rst_list[target_item-1][60];
+             mtd.innerHTML=rst_list[target_item-1][61];
+             total_amt.innerHTML=rst_list[target_item-1][62];
+             be_time.innerHTML=rst_list[target_item-1][63];
+             end_time.innerHTML=rst_list[target_item-1][64];
 
              document.getElementById('item_idx').innerHTML=target_item;
+            scroll(0,0);
+
 
     }
 

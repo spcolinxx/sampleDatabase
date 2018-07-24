@@ -1,0 +1,48 @@
+{% extends "log_base.html" %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('log.static',filename='css/user_info.css') }}">
+
+{% endblock %}
+
+
+{% block pagecontent %}
+<div class="container-fluid col-md-6 col-md-offset-3">
+    <div class="jumbotron screen_style">
+        <div class="container-fluid">
+            <div class="row col-md-8 col-md-offset-2">
+                <p class="cap_style">账号详细信息</p>
+            </div>
+
+            <div class="row col-md-6 col-md-offset-3">
+                <div class="container_fluid">
+                    <div class="row item_style">
+                        <span>用户账号:</span>
+                        <span>{{ userinfo['user_account'] }}</span>
+                    </div>
+                    <div class="row item_style">
+                        <span>账号持有单位:</span>
+                        <span>{{ userinfo['account_owner'] }}</span>
+                    </div>
+                    <div class="row item_style">
+                        <span>密码:</span>
+                        <span>{{ userinfo['user_psd'] }}</span>
+                    </div>
+                    <div class="row item_style">
+                        <span>权限等级:</span>
+                        <span>{{ userinfo['user_lv'] }}</span>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

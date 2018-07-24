@@ -1,0 +1,445 @@
+{% extends "index_base.html" %}
+
+
+{% block head  %}
+<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+		<!-- Import google fonts - Heading first/ text second -->
+{#        <link rel='stylesheet' type='text/css' href='http://fonts.useso.com/css?family=Open+Sans:400,700|Droid+Sans:400,700' />#}
+        <!--[if lt IE 9]>
+<link href="http://fonts.useso.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.useso.com/css?family=Open+Sans:700" rel="stylesheet" type="text/css" />
+<link href="http://fonts.useso.com/css?family=Droid+Sans:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.useso.com/css?family=Droid+Sans:700" rel="stylesheet" type="text/css" />
+<![endif]-->
+
+		<!-- Fav and touch icons -->
+{#		<link rel="shortcut icon" href="/index/static/ico/favicon.ico" type="image/x-icon" />#}
+
+	    <!-- Css files -->
+	    <link href="/index/static/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/index/static/css/jquery.mmenu.css" rel="stylesheet">
+		<link href="/index/static/css/font-awesome.min.css" rel="stylesheet">
+		<link href="/index/static/css/climacons-font.css" rel="stylesheet">
+		<link href="/index/static/plugins/xcharts/css/xcharts.min.css" rel=" stylesheet">
+		<link href="/index/static/plugins/fullcalendar/css/fullcalendar.css" rel="stylesheet">
+		<link href="/index/static/plugins/morris/css/morris.css" rel="stylesheet">
+		<link href="/index/static/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+		<link href="/index/static/plugins/jvectormap/css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+	    <link href="/index/static/css/style.css" rel="stylesheet">
+		<link href="/index/static/css/add-ons.min.css" rel="stylesheet">
+
+	    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+ <link rel="stylesheet" href="{{ url_for('index.static',filename='css/map_page.css') }}">
+    <script src="{{ url_for('index.static',filename="js/echarts.min.js") }}"></script>
+    <script src="{{ url_for('index.static',filename="js/china.js") }}"></script>
+
+
+{% endblock %}
+
+
+{% block pagecontent %}
+<div class="container-fluid content" style="padding-right: 0px;padding-left: 0px;">
+        <div class="row" style="margin-top: -30px">
+            <div class="row col-md-10 col-md-offset-1" style="margin-top: 30px;">
+				<div class="col-md-12">
+					<ol class="breadcrumb" >
+						<li><i class="fa fa-home"></i><a href="index.html">首页</a></li>
+					</ol>
+				</div>
+			</div>
+
+        </div>
+
+		<div class="row">
+
+		<!-- start: Content -->
+		<div class="main col-md-10 col-md-offset-1" >
+
+            <div class="row col-md-12">
+				<div class="col-md-12">
+                    <div class="row col-md-12" >
+
+                            <div id="myCarousel" class="carousel slide col-md-10 col-md-offset-1 ">
+                            <!-- 轮播（Carousel）指标 -->
+                            <ol class="carousel-indicators" >
+                                <li data-target="#myCarousel" data-slide-to="0" class="active" style="background-color: #1b6d85"></li>
+                                <li data-target="#myCarousel" data-slide-to="1" style="background-color: #1b6d85"></li>
+                                <li data-target="#myCarousel" data-slide-to="2" style="background-color: #1b6d85"></li>
+                            </ol>
+                            <!-- 轮播（Carousel）项目 -->
+                            <div class="carousel-inner col-md-12">
+                                <div class="item active col-md-12 " >
+                                    <a href="#">
+                                        <img src="{{ url_for('index.static',filename='img/1.jpeg') }}"  class="itemimg"  >
+                                    </a>
+                                    <div class="carousel-caption">新闻 1</div>
+                                </div>
+                                <div class="item col-md-12 "  >
+                                    <a href="#">
+                                        <img src="{{ url_for('index.static',filename='img/2.jpeg') }}" class="itemimg" >
+                                    </a>
+                                    <div class="carousel-caption">新闻 2</div>
+                                </div>
+                                <div class="item col-md-12 "  >
+                                    <a href="#">
+                                        <img src="{{ url_for('index.static',filename='img/3.jpeg') }}" class="itemimg">
+                                    </a>
+                                    <div class="carousel-caption">新闻 3</div>
+                                </div>
+                            </div>
+                            <!-- 轮播（Carousel）导航 -->
+                            <a class="carousel-control left" href="#myCarousel"
+                               data-slide="prev">&lsaquo;</a>
+                            <a class="carousel-control right" href="#myCarousel"
+                               data-slide="next">&rsaquo;</a>
+
+                            </div>
+
+                        </div>
+				</div>
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-6">
+					<div class="info-box red-bg">
+						<i class="fa fa-thumbs-o-up"></i>
+						<div class="count">10000</div>
+						<div class="title">录入样本量</div>
+					</div><!--/.info-box-->
+				</div><!--/.col-->
+
+				<div class="col-lg-6 col-md-63 col-sm-12 col-xs-12">
+					<div class="info-box green-bg">
+						<i class="fa fa-cubes"></i>
+						<div class="count">1238</div>
+						<div class="title">合作医院总数</div>
+					</div><!--/.info-box-->
+				</div><!--/.col-->
+
+			</div><!--/.row-->
+
+
+            <div class="row">
+
+				<div class=" col-md-12">
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h2><i class="fa fa-map-marker red"></i><strong>样本数量地区分布</strong></h2>
+                            <div class="row col-md-12" style="margin-top: 3px">
+                                   <div class="col-md-10">
+                                       <div id="main" class="col-md-12" style="height: 700px;"></div>
+                                        <script>
+                                        function randomData() {
+                                            return Math.round(Math.random()*500);
+                                        }
+
+                                        var mydata = [
+                                                    {name: '北京',value: 1000 },{name: '天津',value: 1000 },
+                                                    {name: '上海',value: 10000 },{name: '重庆',value: 10000 },
+                                                    {name: '河北',value: 100000 },{name: '河南',value: 100000 },
+                                                    {name: '云南',value: 1000000 },{name: '辽宁',value: 1000000 },
+                                                    {name: '黑龙江',value: 10000000 },{name: '湖南',value: 10000000 },
+                                                    {name: '安徽',value: 10000000 },{name: '山东',value: 10000000 },
+                                                    {name: '新疆',value: 1000000 },{name: '江苏',value: 1000000 },
+                                                    {name: '浙江',value: 100000 },{name: '江西',value: 1000000 },
+                                                    {name: '湖北',value: 10000000 },{name: '广西',value: 100000 },
+                                                    {name: '甘肃',value: 1090900 },{name: '山西',value: 1298371},
+                                                    {name: '内蒙古',value: 141 },{name: '陕西',value: 1235345 },
+                                                    {name: '吉林',value: 12341451 },{name: '福建',value: 1234123 },
+                                                    {name: '贵州',value: 123412 },{name: '广东',value: 123413412 },
+                                                    {name: '青海',value: 1234121 },{name: '西藏',value: 12341234 },
+                                                    {name: '四川',value: 123213421 },{name: '宁夏',value: 1234123 },
+                                                    {name: '海南',value: 1234123 },{name: '台湾',value: 1234123 },
+                                                    {name: '香港',value: 1234132 },{name: '澳门',value: 1234 }
+                                                ];
+
+                                        var option = {
+
+                                                backgroundColor: '#FFFFFF',
+                                                    title: {
+
+                                                        subtext: '',
+                                                        x:'center'
+                                                    },
+                                                    tooltip : {
+                                                        trigger: 'item'
+                                                    },
+
+                                                    //左侧小导航图标
+                                                    visualMap: {
+                                                        show : false,
+                                                        x: 'left',
+                                                        y: 'center',
+                                                        splitList: [
+                                                            {start: 0, end:10000},{start: 10000, end: 100000},
+                                                            {start: 100000, end: 1000000},{start: 1000000, end: 10000000},
+                                                            {start: 10000000, end: 100000000},{start: 100000000, end: 1000000000},
+                                                        ],
+                                                        color: ['#5475f5', '#9feaa5', '#85daef','#74e2ca', '#e6ac53', '#9fb5ea']
+                                                    },
+
+                                                    //配置属性
+                                                    series: [{
+                                                        name: '数据',
+                                                        type: 'map',
+                                                        mapType: 'china',
+                                                        zoom:1.2,
+                                                        roam: true,
+                                                        label: {
+                                                            normal: {
+                                                                show: true  //省份名称
+                                                            },
+                                                            emphasis: {
+                                                                show: false
+                                                            }
+                                                        },
+                                                        data:mydata  //数据
+                                                    }]
+                                        };
+                                        var chart = echarts.init(document.getElementById('main'));
+                                        chart.setOption(option);
+                                        </script>
+                                   </div>
+                                   <div class="col-md-2">
+                                       <div class="container-fluid" style="margin-top: 120px">
+                                           <div class="row ">
+                                               <div style="background-color:#5475f5;height: 20px " class="col-md-3"></div>
+                                                <span>&nbsp;</span>
+                                               <span >0～10<sup style="font-size: 3px">4</sup></span>
+                                           </div>
+                                            <div class="row " style="margin-top: 5px;">
+                                               <div style="background-color:#9feaa5;height: 20px " class="col-md-3"></div>
+                                                <span>&nbsp;</span>
+                                               <span>10<sup style="font-size: 3px">4</sup>～10<sup style="font-size: 3px">5</sup></span>
+                                           </div>
+                                            <div class="row" style="margin-top: 5px;">
+                                               <div style="background-color:#85daef;height: 20px " class="col-md-3"></div>
+                                                <span>&nbsp;</span>
+                                               <span>10<sup style="font-size: 3px">5</sup>～10<sup style="font-size: 3px">6</sup></span>
+                                           </div>
+                                            <div class="row" style="margin-top: 5px;">
+                                               <div style="background-color:#74e2ca;height: 20px " class="col-md-3"></div>
+                                                <span>&nbsp;</span>
+                                               <span>10<sup style="font-size: 3px">6</sup>～10<sup style="font-size: 3px">7</sup></span>
+                                           </div>
+                                            <div class="row" style="margin-top: 5px;">
+                                               <div style="background-color:#e6ac53;height: 20px " class="col-md-3"></div>
+                                                <span>&nbsp;</span>
+                                               <span>10<sup style="font-size: 3px">7</sup>～10<sup style="font-size: 3px">8</sup></span>
+                                           </div>
+                                            <div class="row" style="margin-top: 5px;">
+                                               <div style="background-color:#9fb5ea;height: 20px " class="col-md-3"></div>
+                                               <span>&nbsp;</span>
+                                               <span>10<sup style="font-size: 3px">8</sup>～10<sup style="font-size: 3px">9</sup></span>
+                                           </div>
+
+                                       </div>
+
+                                   </div>
+                               </div>
+
+
+						</div>
+						<div class="panel-body">
+							<div id="map" style="height:286px;"></div>
+						</div>
+                    </div>
+
+                </div><!--/col-->
+            </div><!--/row-->
+
+			<div class="row">
+
+				<div class="col-md-7">
+
+					<div class="panel panel-default">
+
+						<div class="panel-heading">
+							<i class="fa fa-refresh red"></i><h2><strong>样本数量机构分布</strong></h2>
+
+						</div>
+                         <div  class="row col-md-12 "  >
+                            <div id="show_part" style="height: 300px;margin-left: 10px;"></div>
+                              <script type="text/javascript">
+
+
+                                 //获取DOM
+                                 var myecharts=echarts.init(document.getElementById("show_part"));
+                                 var option=({
+                                     title:{
+                                         text:'饼形图',//主标题文本，支持\n换行
+                                         subtext: '各个机构数据比例展示',//副文本
+                                         left:'center',//离容器左侧的距离
+                                         top:'top'//距离容器上测的距离
+                                     },
+                                      tooltip : {
+                                          trigger: 'item',
+                                          formatter:function (params) {
+
+                                              return ("数据来源:"+params['name']+
+                                              '</br>'+"样本所占比例:"+params['value']+"%");
+
+                                          }
+                                                    },
+                                     backgroundColor: '#FFFFFF',//背景颜色
+                                     textStyle: {
+                                                 color: 'rgba(0，0，0, 0.3)'//文字的颜色
+                                             },
+                                     series : [
+                                         {
+                                             name: '比例',
+                                             type: 'pie',   //每个系列，通过type决定自己的系列型号
+                                             radius: '55%',
+                                             data:[
+                                                 {value:10, name:"北京大学第一医院" },
+                                                 {value:20, name:"协和医院" },
+                                                 {value:20, name:"上海交通大学医学院附属瑞金医院" },
+                                                  {value:40, name:"复旦大学附属中山医院" },
+                                                  {value:10, name:"中国医科大学附属第一医院" }
+
+
+                                             ],
+
+                                             itemStyle: {//图形样式 normal，emphasis
+                                                 emphasis: {
+                                                     shadowBlur: 200,
+                                                     shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                                 }
+                                             },
+                                             label: {//饼形图上的文本标签
+                                                 normal: {
+                                                     textStyle: {
+                                                         color: 'rgba(0，0，0, 0.3)'
+                                                     }
+                                                 }
+                                             },
+                                             labelLine: {//标签的视觉引导线
+                                                 normal: {
+                                                     lineStyle: {
+                                                         color: 'rgba(0，0，0, 0.3)'
+                                                     }
+                                                 }
+                                             }
+
+                                         }
+                                     ]
+                                 });
+                                 myecharts.setOption(option);
+                                 </script>
+
+                        </div>
+
+						<div class="panel-body">
+							</br/>
+							<div id="realtime-update" style="height:200px;color:#484848;"></div>
+						</div>
+					</div>
+                </div><!--/col-->
+                <div class="col-md-5">
+
+					<div class="panel panel-default">
+
+						<div class="panel-heading">
+                            <h2><strong>样本增加统计</strong></h2>
+
+						</div>
+                        <div class="row col-md-12">
+                            <div id="bar" style="height: 300px;margin-left: 10px">
+                            </div>
+                            <script type="text/javascript">
+                                var dt=[['2018-07-01','2018-07-02','2018-07-03','2018-07-04','2018-07-05','2018-07-06'],[1000,2000,3000,4000,3500,2000]];
+                                var dom = document.getElementById("bar");
+                                var myChart = echarts.init(dom);
+                                var app = {};
+                                option = null;
+
+                                option = {
+                                    tooltip: {
+                                        trigger: 'item',
+                                        axisPointer: {
+                                            type: 'cross',
+                                            crossStyle: {
+                                                color: '#999'
+                                            }
+                                        }
+                                    },
+                                    xAxis: [
+                                        {
+                                            type: 'category',
+                                            data: dt[0],
+                                        }
+                                    ],
+                                    yAxis: [
+                                        {
+                                            type: 'value',
+
+                                            axisLabel: {
+                                                formatter: '{value} '
+                                            }
+                                        }
+
+                                    ],
+                                    dataZoom: [{
+                                        startValue: dt[0][0]
+                                    }, {
+                                        type: 'inside'
+                                    }],
+                                    series: [
+                                        {
+                                            name:'上传数据量',
+                                            type:'bar',
+                                            barMaxWidth: '30',
+                                            data:dt[1],
+                                        }
+                                        ,
+                                        {
+                                             name:'数据趋势',
+                                             type:'line',
+                                             data:dt[1],
+                                             smooth:true,
+                                         }
+                                    ]
+                                };
+                                ;
+                                if (option && typeof option === "object") {
+                                    myChart.setOption(option, true);
+    }
+
+
+
+                            </script>
+
+                        </div>
+
+
+						<div class="panel-body">
+							</br/>
+							<div id="realtime-update" style="height:200px;color:#484848;"></div>
+						</div>
+					</div>
+                </div><!--/col-->
+
+
+			</div><!--/.row-->
+
+
+        </div>
+		<!-- end: Content -->
+		<br><br><br>
+        </div><!--/container-->
+
+    </div>
+
+
+
+{% endblock %}

@@ -4,17 +4,86 @@ import datetime
 from flask import request
 from . import read_file
 import xlrd
-from . import db_op
 from flask.ext.login import LoginManager,login_user, logout_user,login_required
 from . import schema_validate
 import exts
-import datetime
+import datetime,time
+from . import list_to_dict
+from . import mongo
+import re,threading
+# from sampleDatabase import app
+from . import path_op
+import os
 
-# @sample.route('/sample/addSample')
-# @login_required
-# def render_addSample():
-#     current_year=datetime.datetime.now().year
-#     return render_template('addSample.html',current_year=current_year)
+
+def batch_add_thread(file,filename,file_path,user_id):
+
+    if (file_path==False)&(file!=False):
+        file_trans = xlrd.open_workbook(filename=None, file_contents=file.read())
+    else:
+        file_trans=xlrd.open_workbook(file_path)
+
+    upload_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+
+    read_rst = read_file.read_file(file_trans)
+
+    if read_rst[0] == False:
+        err_info = []
+
+        for i in read_rst[1]:
+            err_info.append(i)
+
+        cnn = exts.create_mongo_cnn()
+        mongo.insert_op_rc(
+            {'account': user_id, 'filename': filename, 'uploadtime': upload_time, 'rst': '入库不成功',
+             'info': err_info}, cnn)
+        cnn.close()
+
+        # flash("正在检查样本信息格式及完成入库，结果详情请稍后在操作记录模块中查看！")
+    else:
+
+        excel_data = read_rst[1]
+        err_log = schema_validate.schema_check(excel_data)
+
+        if len(err_log) > 0:
+            err_info = []
+            for i in err_log:
+                for j in i[1]:
+                    err_info.append("第" + str(i[0] + 1) + "条记录错误信息：" + str(j))
+
+
+
+            cnn = exts.create_mongo_cnn()
+            mongo.insert_op_rc(
+                {'account': user_id, 'filename': filename, 'uploadtime': upload_time, 'rst': '入库不成功',
+                 'info': err_info}, cnn)
+            cnn.close()
+
+        else:
+
+            to_upload_data = []
+
+            for i in excel_data:
+                i.append(upload_time)
+                i[6]=str(i[6])
+                i[7]=str(i[7])
+                i[9]=str(i[9])
+                i[31]=str(i[31])
+                i[35]=str(i[35])
+                i[61]=str(i[61])
+                to_upload_data.append(i)
+
+            std_data = list_to_dict.trans_to_dict(to_upload_data)
+            sample_count = len(std_data)
+
+            cnn = exts.create_mongo_cnn()
+            mongo.add_info(std_data, cnn)
+            mongo.insert_op_rc(
+                {'account': user_id, 'filename': filename, 'uploadtime': upload_time, 'rst': '入库成功',
+                 'info': ['该次入库操作成功，样本已添加到样本库中。'], 'count': sample_count}, cnn)
+
+            cnn.close()
 
 
 
@@ -29,77 +98,132 @@ def render_batchAdd():
         return render_template('batchAdd.html')
     else:
         file=request.files['file_input']
-        file_trans=xlrd.open_workbook(filename=None,file_contents=file.read())
+        filename = file.filename.split(".")
 
-        read_rst=read_file.read_file(file_trans)
+        target_path=path_op.get_save_path()
 
-
-
-        if read_rst[0]==False:
-            for i in read_rst[1]:
-                flash(i)
-
-
-
-            return redirect(url_for('sample.render_batchAdd'))
-        else:
-            excel_data=read_rst[1]
-            err_log=schema_validate.schema_check(excel_data)
-
-            if len(err_log)>0:
-                flash("添加样本失败，样本格式与规定格式不符！")
-                for i in err_log:
-                    for j in i[1]:
-                        flash("第"+str(i[0]+1)+"条记录错误信息："+str(j))
+        if target_path==False:
+            if (filename[-1] != "xls") & (filename[-1] != "xlsx")& (filename[-1] != "xlsm"):
+                flash("只能上传excel文件，请重新上传！")
+                return redirect(url_for('sample.render_batchAdd'))
             else:
 
-                sp_rst=db_op.sp_data(excel_data)
-                sampleinfo_data=sp_rst[0]
-                orginfo_data=sp_rst[1]
-                donorinfo_data=sp_rst[2]
-                projectinfo_data=sp_rst[3]
+                # with app.app_context():
+                add_thread = threading.Thread(target=batch_add_thread, args=(file,file.filename,False,session['user_id']))
+                add_thread.start()
 
+                flash("正在校验样本信息及完成入库，结果详情请稍后在样本增加记录模块中查看！")
+                flash("文件备份路径错误，本次上传样本未备份，请通知管理员查看！")
 
-                sqldb=exts.create_sqldb_conn()
-
-                db_op.sampleinfo_insert(sampleinfo_data,sqldb)
-                db_op.orginfo_insert(orginfo_data,sqldb)
-                db_op.donorinfo_insert(donorinfo_data,sqldb)
-                db_op.projectinfo_insert(projectinfo_data,sqldb)
-
-
-                sqldb.close()
-
-                flash("批量样本添加完成！")
-
+                return redirect(url_for('sample.render_batchAdd'))
 
             return redirect(url_for('sample.render_batchAdd'))
-
-
-
-@sample.route('/sample/search',methods=['GET','POST'])
-@login_required
-def render_search():
-    if request.method=='GET':
-        orgls=db_op.search_org()
-
-        return render_template('search.html',orgls=orgls)
-    else:
-        inv_id=request.form.get('inv_id')
-        org_name=request.form.get('org_name')
-
-        search_rst=db_op.search_info(inv_id,org_name)
-
-        if search_rst==None:
-            flash("无此样本编号，请重新输入！")
-            return redirect(url_for('sample.render_search'))
         else:
-            session['sam_uni_id']=search_rst[0]
-            session['inv_id']=search_rst[1]
-            session['org_name']=search_rst[21]
+            now_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            format_time = now_time.replace('-', '')
+            format_time = format_time.replace(' ', '')
+            format_time = format_time.replace(':', '')
+
+            target_file_name = filename[0] + format_time + '.' + filename[1]
+            user_path = target_path + '/' + session['user_id']
+
+            if os.path.exists(user_path):
+                file_path = user_path + '/' + target_file_name
+                file.save(file_path)
+
+            else:
+                os.makedirs(user_path)
+                file_path = user_path + '/' + target_file_name
+                file.save(file_path)
+
+            if (filename[-1] != "xls") & (filename[-1] != "xlsx")& (filename[-1] != "xlsm"):
+                flash("只能上传excel文件，请重新上传！")
+                return redirect(url_for('sample.render_batchAdd'))
+            else:
+
+                # with app.app_context():
+                add_thread = threading.Thread(target=batch_add_thread, args=(False,file.filename,file_path,session['user_id']))
+                add_thread.start()
+
+                flash("正在校验样本信息及完成入库，结果详情请稍后在样本增加记录模块中查看！")
+                return redirect(url_for('sample.render_batchAdd'))
 
 
-            return  render_template('search_rst.html' ,search_rst=search_rst)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # upload_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        # file_trans=xlrd.open_workbook(filename=None,file_contents=file.read())
+        #
+        # read_rst=read_file.read_file(file_trans)
+        #
+        #
+        # if read_rst[0]==False:
+        #     err_info = []
+        #
+        #     for i in read_rst[1]:
+        #         err_info.append(i)
+        #
+        #     cnn=exts.create_mongo_cnn()
+        #     mongo.insert_op_rc({'account':session['user_id'],'filename':file.filename,'uploadtime':upload_time,'rst':'入库不成功','info':err_info},cnn)
+        #     cnn.close()
+        #
+        #     flash("正在检查样本信息格式及完成入库，结果详情请稍后在操作记录模块中查看！")
+        # else:
+        #
+        #
+        #     excel_data=read_rst[1]
+        #     err_log=schema_validate.schema_check(excel_data)
+        #
+        #
+        #     if len(err_log)>0:
+        #         err_info=[]
+        #         for i in err_log:
+        #             for j in i[1]:
+        #                 err_info.append("第"+str(i[0]+1)+"条记录错误信息："+str(j))
+        #
+        #         cnn = exts.create_mongo_cnn()
+        #         mongo.insert_op_rc({'account': session['user_id'], 'filename': file.filename, 'uploadtime': upload_time,'rst':'入库不成功',
+        #                             'info': err_info}, cnn)
+        #         cnn.close()
+        #
+        #     else:
+        #
+        #         to_upload_data=[]
+        #
+        #         for i in excel_data:
+        #             i.append(upload_time)
+        #             to_upload_data.append(i)
+        #
+        #         std_data=list_to_dict.trans_to_dict(to_upload_data)
+        #         sample_count=len(std_data)
+        #
+        #
+        #         cnn=exts.create_mongo_cnn()
+        #         mongo.add_info(std_data,cnn)
+        #         mongo.insert_op_rc({'account': session['user_id'], 'filename': file.filename, 'uploadtime': upload_time,'rst':'入库成功',
+        #                             'info': ['该次入库操作成功，样本已添加到样本库中。'],'count':sample_count}, cnn)
+        #
+        #         cnn.close()
+        #
+        #     flash("正在检查样本信息格式及完成入库，结果详情请稍后在操作记录模块中查看！")
+
+
+
+
+
+
 
 @sample.route('/sample/ele_search',methods=['POST','GET'])
 @login_required
@@ -111,42 +235,63 @@ def render_ele_search():
                    "邮政编码", "管理员", "联系电话", "电子信箱", "捐献者匿名编号", "性别"
         , "年龄", "民族", "籍贯", "出生地", "国籍", "职业", "教育程度", "婚姻状况", "捐献途径", "疾病类目名称", "疾病类目代码", "主要诊断", "现病史", "检验记录",
                    "随访记录", "影像资料", "病例报告", "家系信息"
-        , "课题名称", "课题编号", "课题级别", "资助机构", "纳入标准", "课题关键词", "收集目的", "收集方法", "收集数量", "起止时间"]
+        , "课题名称", "课题编号", "课题级别", "资助机构", "纳入标准", "课题关键词", "收集目的", "收集方法", "收集数量", "课题开始时间","课题结束时间"]
     if request.method=='GET':
 
         return render_template('ele_search.html',search_item=search_item)
 
     else:
-        dt=request.form.to_dict()
-        item_name=list(dt.keys())
-        item_value=list(dt.values())
+        dt={}
+        receive_data=request.form.to_dict()
+
+        for i in receive_data:
+            if receive_data[i]!="":
+                dt[i]=receive_data[i]
+
+
+        for ky,vl in dt.items():
+            dt[ky]=re.compile(vl)
+
+
+        if len(dt)>0:
+            # t1=time.time()
+            cnn = exts.create_mongo_cnn()
+            dict_rst = mongo.info_search(dt, cnn)
+
+            # rst为数组形式，需遍历才能取出数据
+            # 每条数据为字典形式，需要转化为数组
+
+            cnn.close()
 
 
 
-        if len(item_name)>0:
+            search_rst = []
+            for i in dict_rst:
+                search_rst.append(list(i.values()))
 
-            sqldb = exts.create_sqldb_conn()
+            if len(search_rst)>100:
+                search_rst=search_rst[:100]
 
-            search_rst=db_op.ele_search(item_name,item_value,sqldb)
+
             ln=len(search_rst)
 
 
 
-            sqldb.close()
-
             if ln>0:
 
                 for i in search_rst:
-                    if i[9] == 0:
-                        i[9] = "不同意"
+                    if i[10] == '0':
+                        i[10] = "不同意"
                     else:
-                        i[9] = "同意"
+                        i[10] = "同意"
 
                 return render_template('search_rst.html',search_rst=search_rst[0],rst=search_rst,ln=ln)
+
             else:
                 flash("无符合条件的记录！")
 
                 return  redirect(url_for('sample.render_ele_search'))
+
         else:
             flash("请添加搜索关键词！")
 
@@ -154,44 +299,43 @@ def render_ele_search():
 
 
 
-@sample.route('/to_update',methods=['POST','GET'])
-def to_update():
-    inv_id=request.form.get("inv_id")
-    org_name=request.form.get("org_name")
-    session["inv_id"]=inv_id
-    session["org_name"]=org_name
-
-
-    return ""
-
-@sample.route('/to_delete',methods=['POST','GET'])
-def to_delete():
-
-    sam_uni_id=request.form.get('sam_uni_id')
-    session['sam_uni_id']=sam_uni_id
-
-    return ""
 
 
 
-@sample.route('/sample/smpUpdate/',methods=['POST','GET'])
+
+
+
+@sample.route('/sample/smpUpdate/<inv_id>/<org_name>/<jur_per_id>',methods=['POST','GET'])
 @login_required
-def render_update():
+def render_update(inv_id,org_name,jur_per_id):
     if request.method=='GET':
 
+        dt={'inv_id':inv_id,'org_name':org_name,'jur_per_id':jur_per_id}
 
-        search_rst = db_op.search_info(session.get('inv_id'),session.get('org_name'))
-        print(search_rst)
+
+        cnn=exts.create_mongo_cnn()
+        search_rst=list(mongo.info_search(dt,cnn)[0].values())
+        cate_ls=mongo.get_catecode(cnn)
+
+
+        cnn.close()
+
+
         current_year = datetime.datetime.now().year
 
 
-        cate_ls=db_op.get_cate()
         l1=cate_ls[0]
         l2=cate_ls[1]
         l3=cate_ls[2]
         l4=cate_ls[3]
 
-        tmp=str(search_rst[3])
+
+
+
+
+
+
+        tmp=str(search_rst[4])
         in_date=tmp.split('-')
         in_year_ls=[]
         in_month_ls=[]
@@ -215,15 +359,15 @@ def render_update():
 
 
 
-        temp=search_rst[4]
+        temp=search_rst[5]
         temp_ls=["室温","2°C～10°C","-35°C～-18°C","-85°C～-60°C","-196°C～-150°C","液氮","其它方式"]
         if temp in temp_ls:
             temp_ls.remove(temp)
 
         agr=[]
         nagr=[]
-        agr.append(search_rst[9])
-        if agr[0]==True:
+        agr.append(search_rst[10])
+        if agr[0]=='1':
             agr.append("同意")
             nagr.append("False")
             nagr.append("不同意")
@@ -234,13 +378,13 @@ def render_update():
 
 
         sx=[]
-        sx.append(search_rst[34])
+        sx.append(search_rst[35])
         if sx[0]=="男":
             sx.append("女")
         else:
             sx.append("男")
 
-        age=search_rst[35]
+        age=search_rst[36]
 
         age_ls=[]
 
@@ -251,7 +395,7 @@ def render_update():
             age_ls.remove(age)
 
 
-        ac_tmp=str(search_rst[17])
+        ac_tmp=str(search_rst[18])
         ac_date=ac_tmp.split('-')
 
         ac_year=[]
@@ -275,218 +419,168 @@ def render_update():
 
 
 
+        be_tmp = str(search_rst[63])
+        be_date = be_tmp.split('-')
+        be_year_ls = []
+        be_month_ls = []
+        be_day_ls = []
+
+        for i in range(1970, current_year + 1):
+            be_year_ls.append(str(i))
+        for i in range(1, 13):
+            be_month_ls.append(str(i).zfill(2))
+        for i in range(1, 32):
+            be_day_ls.append(str(i).zfill(2))
+
+        if be_date[0] in be_year_ls:
+            be_year_ls.remove(be_date[0])
+        if be_date[1] in be_month_ls:
+            be_month_ls.remove(be_date[1])
+        if be_date[2] in be_day_ls:
+            be_day_ls.remove(be_date[2])
+
+        end_tmp = str(search_rst[64])
+        end_date = end_tmp.split('-')
+        end_year_ls = []
+        end_month_ls = []
+        end_day_ls = []
+
+        for i in range(1970, current_year + 1):
+            end_year_ls.append(str(i))
+        for i in range(1, 13):
+            end_month_ls.append(str(i).zfill(2))
+        for i in range(1, 32):
+            end_day_ls.append(str(i).zfill(2))
+
+        if end_date[0] in end_year_ls:
+            end_year_ls.remove(end_date[0])
+        if end_date[1] in end_month_ls:
+            end_month_ls.remove(end_date[1])
+        if end_date[2] in end_day_ls:
+            end_day_ls.remove(end_date[2])
+
 
         return render_template('smpUpdate.html',search_rst=search_rst,l1=l1,l2=l2,l3=l3,l4=l4,in_date=in_date,in_year_ls=in_year_ls,in_month_ls=in_month_ls,
                                in_day_ls=in_day_ls,temp=temp,temp_ls=temp_ls,agr=agr,nagr=nagr,sx=sx,age=age,age_ls=age_ls,ac_date=ac_date,
-                               ac_year=ac_year,ac_month=ac_month,ac_day=ac_day)
+                               ac_year=ac_year,ac_month=ac_month,ac_day=ac_day,be_date=be_date,be_year_ls=be_year_ls,be_month_ls=be_month_ls,
+                               be_day_ls=be_day_ls,end_date=end_date,end_year_ls=end_year_ls,end_month_ls=end_month_ls,end_day_ls=end_day_ls)
+
+
     else:
 
-        ps_ls=[]
-        ps_ls.append(request.form.get('sam_uni_id'))
-        ps_ls.append(request.form.get('inv_id'))
+        rc=request.form.to_dict()
+        inv_id=rc['inv_id']
+        org_name=rc['org_name']
+        jur_per_id=rc['jur_per_id']
 
+        query_dt={'inv_id':inv_id,'org_name':org_name,'jur_per_id':jur_per_id}
 
-        if request.form.get('new_cate_code')=="":
+        cnn=exts.create_mongo_cnn()
 
-            ps_ls.append(request.form.get('smp_cate'))
+        exists=mongo.info_search(query_dt,cnn).count()
+
+        cnn.close()
+
+        if (~((inv_id==session['inv_id'])&(org_name==session['org_name'])&(jur_per_id==session['jur_per_id'])))&(exists>0):
+            flash("所修改样本的样本编码、保存机构名称和法人机构代码与样本库中已有样本重复，请重新修改！")
         else:
-            ps_ls.append(request.form.get('new_cate_code'))
 
-        submit_date=str(request.form.get('submit_year'))+"-"+str(request.form.get('submit_month'))+"-"+str(request.form.get('submit_day'))
-        ps_ls.append(datetime.datetime.strptime(submit_date,'%Y-%m-%d'))
-        ps_ls.append(request.form.get('temperature'))
-        ps_ls.append(request.form.get('parent_id'))
-        ps_ls.append(request.form.get('same_batch_count'))
-        ps_ls.append(request.form.get('smp_count'))
-        ps_ls.append(request.form.get('unit'))
-        agr=request.form.get('awareness')
-        if agr=='True':
-            ps_ls.append(True)
-        else:
-            ps_ls.append(False)
-
-        ps_ls.append(request.form.get('smp_name'))
-        ps_ls.append(request.form.get('smp_desc'))
-        ps_ls.append(request.form.get('keyword'))
-        ps_ls.append(request.form.get('uses'))
-        ps_ls.append(request.form.get('part'))
-        ps_ls.append(request.form.get('pre_variable'))
-        ps_ls.append(request.form.get('reason'))
-        ac_date=str(request.form.get('collect_year'))+"-"+str(request.form.get('collect_month'))+"-"+str(request.form.get('collect_day'))
-        ps_ls.append(datetime.datetime.strptime(ac_date,'%Y-%m-%d'))
-        ps_ls.append(request.form.get('collect_plan'))
-        ps_ls.append(request.form.get('collect_org'))
-        ps_ls.append(request.form.get('other_collector'))
-        ps_ls.append(request.form.get('org_name'))
-        ps_ls.append(request.form.get('jur_name'))
-        ps_ls.append(request.form.get('jur_id'))
-        ps_ls.append(request.form.get('jur_type'))
-        ps_ls.append(request.form.get('org_intro'))
-        ps_ls.append(request.form.get('agr'))
-        ps_ls.append(request.form.get('share_way'))
-        ps_ls.append(request.form.get('adr'))
-        ps_ls.append(request.form.get('post_code'))
-        ps_ls.append(request.form.get('manager'))
-        ps_ls.append(request.form.get('tel'))
-        ps_ls.append(request.form.get('email'))
-        ps_ls.append(request.form.get('donor_id'))
-        ps_ls.append(request.form.get('sex'))
-        ps_ls.append(request.form.get('age'))
-        ps_ls.append(request.form.get('eth_group'))
-        ps_ls.append(request.form.get('nativ_pla'))
-        ps_ls.append(request.form.get('bir_pla'))
-        ps_ls.append(request.form.get('nation'))
-        ps_ls.append(request.form.get('occup'))
-        ps_ls.append(request.form.get('edu'))
-        ps_ls.append(request.form.get('mari'))
-        ps_ls.append(request.form.get('donate_way'))
-        ps_ls.append(request.form.get('dise_name'))
-        ps_ls.append(request.form.get('dise_id'))
-        ps_ls.append(request.form.get('diag'))
-        ps_ls.append(request.form.get('dise_his'))
-        ps_ls.append(request.form.get('exam_rec'))
-        ps_ls.append(request.form.get('itv_rec'))
-        ps_ls.append(request.form.get('media_rec'))
-        ps_ls.append(request.form.get('medi_rec'))
-        ps_ls.append(request.form.get('fam_his'))
-        ps_ls.append(request.form.get('prj_name'))
-        ps_ls.append(request.form.get('prj_id'))
-        ps_ls.append(request.form.get('prj_level'))
-        ps_ls.append(request.form.get('spon_org'))
-        ps_ls.append(request.form.get('in_std'))
-        ps_ls.append(request.form.get('prj_kw'))
-        ps_ls.append(request.form.get('aim'))
-        ps_ls.append(request.form.get('collect_way'))
-        ps_ls.append(request.form.get('collect_count'))
-        ps_ls.append(request.form.get('be_end_time'))
-
-
-        sam_uni_id=request.form.get('sam_uni_id')
-
-        smp=db_op.uni_search(sam_uni_id)
-
-        inv_id=smp.inv_id
-        org_name=smp.org_name
-        don_id=smp.don_id
-        proj_id=smp.proj_id
-
-        smp_check=db_op.up_sam_check(sam_uni_id,ps_ls[1],ps_ls[21])
-
-        if smp_check==True:
-            flash("所修改样本的样本编码和保存机构名称与样本库中已有样本重复，请重新修改！")
-            return redirect(url_for('sample.render_search'))
-        else:
-            db_op.sampleinfo_update(sam_uni_id,ps_ls)
-
-
-            org=db_op.org_search(ps_ls[21])
-
-            if org!=None:
-                db_op.orginfo_update(ps_ls)
+            update_dt={}
+            update_dt['inv_id']=rc['inv_id']
+            if rc['sam_cate_name']=="":
+                update_dt['sam_cate_name']=rc['pre_sam_cate_name']
             else:
-                sqldb = exts.create_sqldb_conn()
+                update_dt['sam_cate_name']=rc['sam_cate_name']
 
-                org_data = ps_ls[21:33]
-                db_op.orginfo_insert([org_data],sqldb)
+            update_dt['ent_date']=rc['submit_year']+'-'+rc['submit_month']+'-'+rc['submit_day']
+            update_dt['stor_meth']=rc['stor_meth']
+            update_dt['parent_id']=rc['parent_id']
+            update_dt['batch_count']=rc['batch_count']
+            update_dt['sam_qty']=rc['sam_qty']
+            update_dt['uni_amou']=rc['uni_amou']
+            update_dt['consent']=rc['consent']
+            update_dt['sam_title']=rc['sam_title']
+            update_dt['sam_desc']=rc['sam_desc']
+            update_dt['keyword']=rc['keyword']
+            update_dt['sam_uses']=rc['sam_uses']
+            update_dt['acqui_pos']=rc['acqui_pos']
+            update_dt['s_pre_c']=rc['s_pre_c']
+            update_dt['acqui_mot']=rc['acqui_mot']
+            update_dt['acqui_time']=rc['collect_year']+'-'+rc['collect_month']+'-'+rc['collect_day']
+            update_dt['acqui_plan']=rc['acqui_plan']
+            update_dt['acqui_org']=rc['acqui_org']
+            update_dt['acqui_assis']=rc['acqui_assis']
+            update_dt['org_name']=rc['org_name']
+            update_dt['jur_per_name']=rc['jur_per_name']
+            update_dt['jur_per_id']=rc['jur_per_id']
+            update_dt['jur_per_type']=rc['jur_per_type']
+            update_dt['org_intro']=rc['org_intro']
+            update_dt['use_agr']=rc['use_agr']
+            update_dt['share_rule']=rc['share_rule']
+            update_dt['adr']=rc['adr']
+            update_dt['post_code']=rc['post_code']
+            update_dt['manager_name']=rc['manager_name']
+            update_dt['tel']=rc['tel']
+            update_dt['email']=rc['email']
+            update_dt['don_id']=rc['don_id']
+            update_dt['gender']=rc['gender']
+            update_dt['date_of_bir']=rc['date_of_bir']
+            update_dt['eth_gro']=rc['eth_gro']
+            update_dt['nativ_pla']=rc['nativ_pla']
+            update_dt['bir_pla']=rc['bir_pla']
+            update_dt['nation']=rc['nation']
+            update_dt['occup']=rc['occup']
+            update_dt['edu_lev']=rc['edu_lev']
+            update_dt['mari_sta']=rc['mari_sta']
+            update_dt['donate_way']=rc['donate_way']
+            update_dt['dise_name']=rc['dise_name']
+            update_dt['dise_id']=rc['dise_id']
+            update_dt['dig_desc']=rc['dig_desc']
+            update_dt['dise_his']=rc['dise_his']
+            update_dt['exa_rec']=rc['exa_rec']
+            update_dt['inter_rec']=rc['inter_rec']
+            update_dt['media_rec']=rc['media_rec']
+            update_dt['medi_rep']=rc['medi_rep']
+            update_dt['fam_his']=rc['fam_his']
+            update_dt['prj_name']=rc['prj_name']
+            update_dt['prj_id']=rc['prj_id']
+            update_dt['prj_level']=rc['prj_level']
+            update_dt['spon_org']=rc['spon_org']
+            update_dt['in_level']=rc['in_level']
+            update_dt['prj_keyword']=rc['prj_keyword']
+            update_dt['aim']=rc['aim']
+            update_dt['mtd']=rc['mtd']
+            update_dt['total_amt']=rc['total_amt']
+            update_dt['be_time']=rc['be_year']+'-'+rc['be_month']+'-'+rc['be_day']
+            update_dt['end_time']=rc['end_year']+'-'+rc['end_month']+'-'+rc['end_day']
 
-                sqldb.close()
 
-
-            don=db_op.donor_search(ps_ls[33],ps_ls[21])
-
-            if don!=None:
-                db_op.donorinfo_update(ps_ls)
-            else:
-                sqldb = exts.create_sqldb_conn()
-
-                donor_data=ps_ls[33:53]
-                donor_data.append(ps_ls[21])
-                db_op.donorinfo_insert([donor_data],sqldb)
-
-                sqldb.close()
-
-
-            proj=db_op.proj_search(ps_ls[54],ps_ls[21])
-
-            if proj!=None:
-                db_op.projinfo_update(ps_ls)
-            else:
-                sqldb = exts.create_sqldb_conn()
-
-                prj_data=ps_ls[53:]
-                prj_data.append(ps_ls[21])
-                db_op.projectinfo_insert([prj_data],sqldb)
-                sqldb.close()
-
-
-            dn_exist=db_op.donor_exist_check(don_id,org_name)
-
-            if dn_exist==None:
-                sqldb = exts.create_sqldb_conn()
-
-                db_op.delete_dn_info(don_id,org_name,sqldb)
-
-                sqldb.close()
-
-
-            proj_exist=db_op.proj_exist_check(proj_id,org_name)
-            if proj_exist==None:
-                sqldb = exts.create_sqldb_conn()
-                db_op.delete_prj_info(proj_id,org_name,sqldb)
-                sqldb.close()
-
-
-            org_exist=db_op.org_exist_check(org_name)
-            if org_exist==None:
-                sqldb = exts.create_sqldb_conn()
-                db_op.delete_org_info(org_name,sqldb)
-                sqldb.close()
-
-
-            flash("样本信息修改完成！")
-
-            return redirect(url_for('sample.render_ele_search'))
+            cnn=exts.create_mongo_cnn()
+            mongo.info_update(query_dt,update_dt,cnn)
+            cnn.close()
+            flash("样本信息修改成功！")
 
 
 
-@sample.route('/sample/smpdelete/',methods=['POST','GET'])
+
+        return redirect(url_for('sample.render_ele_search'))
+
+
+
+
+
+@sample.route('/sample/smpdelete/<inv_id>/<org_name>/<jur_per_id>',methods=['POST','GET'])
 @login_required
-def render_delete():
+def render_delete(inv_id,org_name,jur_per_id):
 
     if request.method=='GET':
-        sam_uni_id=session.get('sam_uni_id')
-        smp=db_op.uni_search(sam_uni_id)
 
-        org_name=smp.org_name
-        don_id=smp.don_id
-        proj_id=smp.proj_id
+        delete_dt={'inv_id':inv_id,'org_name':org_name,'jur_per_id':jur_per_id}
 
-        db_op.delete_sampleinfo(sam_uni_id)
 
-        dn_exist = db_op.donor_exist_check(don_id, org_name)
-
-        if dn_exist == None:
-            sqldb = exts.create_sqldb_conn()
-
-            db_op.delete_dn_info(don_id, org_name, sqldb)
-
-            sqldb.close()
-
-            # db_op.delete_dn_info(don_id, org_name)
-
-        proj_exist = db_op.proj_exist_check(proj_id, org_name)
-        if proj_exist == None:
-            sqldb = exts.create_sqldb_conn()
-            db_op.delete_prj_info(proj_id, org_name, sqldb)
-            sqldb.close()
-            # db_op.delete_prj_info(proj_id, org_name)
-
-        org_exist = db_op.org_exist_check(org_name)
-        if org_exist == None:
-            sqldb = exts.create_sqldb_conn()
-            db_op.delete_org_info(org_name, sqldb)
-            sqldb.close()
-            # db_op.delete_org_info(org_name)
+        cnn=exts.create_mongo_cnn()
+        mongo.info_delete(delete_dt,cnn)
+        cnn.close()
 
 
         flash("样本已删除！")

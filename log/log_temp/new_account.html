@@ -16,17 +16,24 @@
                     <p class="cap_style">添加新用户</p>
                 </div>
                 <div class="row col-md-10 col-md-offset-1">
-                    <form class="form-horizontal" action="" method="post" onsubmit="return check()">
+                    <form class="form-horizontal" action="" method="post" onsubmit="return check({{ session['user_lv'] }})">
                         <div class="form-group">
                             <label  class="col-md-4 control-label lb_style">新账号：</label>
                             <div class="col-md-8">
-                              <input type="text" class="form-control" id="new_account" name="new_account" placeholder="请输入新账号">
+                              <input type="text" class="form-control" id="user_account" name="user_account" placeholder="请输入新账号">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-md-4 control-label lb_style">账号持有单位：</label>
+                            <div class="col-md-8">
+                              <input type="text" class="form-control" id="account_owner" name="account_owner" placeholder="请输入持有单位">
                             </div>
                         </div>
                         <div class="form-group">
                             <label  class="col-md-4 control-label lb_style">密码：</label>
                             <div class="col-md-8">
-                              <input type="password" class="form-control" id="psd" name="psd" placeholder="请输入密码">
+                              <input type="password" class="form-control" id="user_psd" name="user_psd" placeholder="请输入密码">
                             </div>
                         </div>
                         <div class="form-group">
@@ -38,9 +45,13 @@
                         <div class="form-group">
                             <label  class="col-md-4 control-label lb_style">权限等级：</label>
                             <div class="col-md-8">
-                                <select name="account_lv" id="account_lv" class="form-control">
+                                <select name="user_lv" id="user_lv" class="form-control">
+                                    <option value="2">游客</option>
                                     <option value="1">普通用户</option>
-                                    <option value="0">管理员</option>
+                                    <option value="4">样本管理员</option>
+                                    <option value="3">账号管理员</option>
+                                    <option value="0">超级管理员</option>
+
                                 </select>
                             </div>
                         </div>

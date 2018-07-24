@@ -7,7 +7,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:complexType >
 		<xs:all>
 			<!-- 样本编码，必填项，string类型，最小长度为1 -->
-			<xs:element name="invId" minOccurs="1" >
+			<xs:element name="样本编码" minOccurs="1" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>			  
@@ -15,7 +15,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="samCateName"  minOccurs="0" >
+            <xs:element name="样本类别"  minOccurs="0" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
                         <xs:enumeration value="GNG0"/>
@@ -222,7 +222,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 
 
 			<!-- 入库日期，必填项，date类型 -->
-			<xs:element name="entDate" minOccurs="1" >
+			<xs:element name="入库日期" minOccurs="1" >
 				<xs:simpleType>
 					<xs:restriction base="xs:date">
 					   	  
@@ -231,7 +231,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			</xs:element>
 			
 			<!-- 保存温度，必填项，string类型，按照文档要求，此项的值只能取enumeration中列出的项 -->
-			<xs:element name="storMeth" minOccurs="1">
+			<xs:element name="保存温度" minOccurs="1">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:enumeration value="室温"/>
@@ -246,7 +246,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="parentId" minOccurs="0"  >
+            <xs:element name="母本编码" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -254,7 +254,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="batchCount" minOccurs="0" >
+            <xs:element name="分管数" minOccurs="0" >
 				<xs:simpleType>
 					<xs:restriction base="xs:integer">
 					</xs:restriction>
@@ -264,9 +264,9 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 
 			
 			<!-- 样本数量，必填项，integer类型 -->
-			<xs:element name="samQTY" type="xs:integer" minOccurs="1"/>
+			<xs:element name="样本量" type="xs:integer" minOccurs="1"/>
 
-            <xs:element name="unit" minOccurs="0">
+            <xs:element name="量单位" minOccurs="0">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -277,17 +277,17 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 
 
 			<!-- 知情同意，必填项 -->
-			<xs:element name="consent" minOccurs="1">
+			<xs:element name="知情同意" minOccurs="1">
 				<xs:simpleType>
-					<xs:restriction base="xs:boolean">
-					   <!--  <xs:enumeration value="False" />
-                        <xs:enumeration value="True" /> -->
+					<xs:restriction base="xs:integer">
+					    <xs:enumeration value="0" />
+                        <xs:enumeration value="1" />
 					</xs:restriction>
 				</xs:simpleType>	
 			</xs:element>
 			
 			<!-- 样本别称，必填项，string 类型，最小长度1 -->
-			<xs:element name="samTitle" minOccurs="1" >
+			<xs:element name="样本别称" minOccurs="1" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -295,7 +295,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>	
 			</xs:element>
 
-            <xs:element name="samDesc" minOccurs="0" >
+            <xs:element name="样本描述" minOccurs="0" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -303,7 +303,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="keyWord" minOccurs="0"  >
+            <xs:element name="关键词" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -311,7 +311,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="samUse" minOccurs="0"  >
+            <xs:element name="样本用途" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -320,7 +320,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			</xs:element>
 
 			<!-- 采集部位，必填项，string类型，最小长度1 -->
-			<xs:element name="organ" minOccurs="1">
+			<xs:element name="采集部位" minOccurs="1">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -328,7 +328,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>	
 			</xs:element>
 
-            <xs:element name="sPreC" minOccurs="0"  >
+            <xs:element name="分析前变量" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -337,7 +337,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			</xs:element>
 
 
-            <xs:element name="acquiFor" minOccurs="0"  >
+            <xs:element name="采集动因" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -345,14 +345,14 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="acquiDate" minOccurs="0"  >
+            <xs:element name="采集时间" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:date">
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="acquiPlan" minOccurs="0" >
+            <xs:element name="采集计划" minOccurs="0" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -360,7 +360,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="acquiOrg" minOccurs="0"  >
+            <xs:element name="采集机构" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -368,7 +368,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="acquiAssis"  minOccurs="0" >
+            <xs:element name="其他采集者"  minOccurs="0" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -377,7 +377,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			</xs:element>
 
 			<!-- 保存机构名称，必填项，string类型，最小长度1 -->
-			<xs:element name="orgName"  minOccurs="1">
+			<xs:element name="保存机构名称"  minOccurs="1">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -386,7 +386,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			</xs:element>
 
 			<!-- 法人机构名称，必填项，string类型，最小长度1 -->
-			<xs:element name="jurPerName" minOccurs="1" >
+			<xs:element name="法人机构名称" minOccurs="1" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -396,7 +396,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 
 
 			<!-- 法人机构代码，必填项，string类型，最小长度1 -->
-			<xs:element name="jurPerId" minOccurs="1" >
+			<xs:element name="法人机构代码" minOccurs="1" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -404,7 +404,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>	
 			</xs:element>
 
-            <xs:element name="jurPerType" minOccurs="0"  >
+            <xs:element name="法人机构类型" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -413,7 +413,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			</xs:element>
 
 
-            <xs:element name="orgIntro" minOccurs="0"  >
+            <xs:element name="保存机构简介" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -421,7 +421,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="usePerm" minOccurs="0" >
+            <xs:element name="使用许可" minOccurs="0" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -429,32 +429,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="shareWay" minOccurs="1"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-
-            <xs:element name="addr" minOccurs="0" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-            <xs:element name="postCode" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-            <xs:element name="manager" minOccurs="0" >
+            <xs:element name="共享方式" minOccurs="1"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -463,14 +438,39 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			</xs:element>
 
 
-            <xs:element name="tel" minOccurs="0"  >
+            <xs:element name="通信地址" minOccurs="0" >
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					  <xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+            <xs:element name="邮政编码" minOccurs="0"  >
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					  <xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+            <xs:element name="管理员" minOccurs="0" >
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					  <xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+
+            <xs:element name="联系电话" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:integer">
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="email" minOccurs="0"  >
+            <xs:element name="电子信箱" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -480,7 +480,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 
 
 			<!-- 捐献者匿名编号，必填项，string类型，最小长度1 -->
-			<xs:element name="donId" minOccurs="1" >
+			<xs:element name="捐献者匿名编号" minOccurs="1" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -490,7 +490,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 
 
 			<!-- 性别，必填项，string类型，从‘男’、‘女’中选择，最小长度1 -->
-			<xs:element name="sex" minOccurs="1">
+			<xs:element name="性别" minOccurs="1">
 				<xs:simpleType >
 					<xs:restriction base="xs:string">
 						<xs:enumeration value="男" />
@@ -502,7 +502,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			
 
 			<!-- 年龄，必填项，integer类型，最小值0，最大值150 -->
-			<xs:element name="age" minOccurs="1">
+			<xs:element name="年龄" minOccurs="1">
 				<xs:simpleType>
 					<xs:restriction base="xs:integer">
 					  <xs:minInclusive value="0"/>
@@ -512,7 +512,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="ethGroup" minOccurs="0"  >
+            <xs:element name="民族" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -520,7 +520,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="nativePla" minOccurs="0"  >
+            <xs:element name="籍贯" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -528,7 +528,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="birPla" minOccurs="0"  >
+            <xs:element name="出生地" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -536,16 +536,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="nation" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-
-            <xs:element name="occup" minOccurs="0"  >
+            <xs:element name="国籍" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -554,7 +545,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			</xs:element>
 
 
-            <xs:element name="edu" minOccurs="0"  >
+            <xs:element name="职业" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -563,7 +554,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			</xs:element>
 
 
-            <xs:element name="mariState" minOccurs="0"  >
+            <xs:element name="教育程度" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -571,70 +562,8 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="donWay" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="diseName" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="diseId" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="diag" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="diseHis" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="exaRec" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="interRec" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="mediaRec" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="mediRep" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="famHis" minOccurs="0"  >
+
+            <xs:element name="婚姻状况" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -642,7 +571,78 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="projName" minOccurs="0"  >
+            <xs:element name="捐献途径" minOccurs="0"  >
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					  <xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+            <xs:element name="疾病类目名称" minOccurs="0"  >
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					  <xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+            <xs:element name="疾病类目代码" minOccurs="0"  >
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					  <xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+            <xs:element name="主要诊断" minOccurs="0"  >
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					  <xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+            <xs:element name="现病史" minOccurs="0"  >
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					  <xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+            <xs:element name="检验记录" minOccurs="0"  >
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					  <xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+            <xs:element name="随访记录" minOccurs="0"  >
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					  <xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+            <xs:element name="影像资料" minOccurs="0"  >
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					  <xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+            <xs:element name="病例报告" minOccurs="0"  >
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					  <xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+            <xs:element name="家系信息" minOccurs="0"  >
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					  <xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+            <xs:element name="课题名称" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -652,7 +652,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 
 
 			<!-- 课题编号，必填项，string类型，最小长度1 -->
-			<xs:element name="projId" minOccurs="1">
+			<xs:element name="课题编号" minOccurs="1">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -660,7 +660,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>	
 			</xs:element>
 
-            <xs:element name="projLevel" minOccurs="0"  >
+            <xs:element name="课题级别" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -668,35 +668,35 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="sponOrg" minOccurs="0"  >
+            <xs:element name="资助机构" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
-            <xs:element name="intakeLevel" minOccurs="0"  >
+            <xs:element name="纳入标准" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
-            <xs:element name="projKeyword" minOccurs="0"  >
+            <xs:element name="课题关键词" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
-            <xs:element name="aim" minOccurs="0"  >
+            <xs:element name="收集目的" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
-            <xs:element name="mtd" minOccurs="0"  >
+            <xs:element name="收集方法" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 					  <xs:minLength value="1"/>
@@ -704,17 +704,24 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="total_amt" minOccurs="0"  >
+            <xs:element name="收集数量" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:integer">
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="beEndTime" minOccurs="0"  >
+            <xs:element name="课题开始时间" minOccurs="0"  >
 				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
+					<xs:restriction base="xs:date">
+
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+            <xs:element name="课题结束时间" minOccurs="0"  >
+				<xs:simpleType>
+					<xs:restriction base="xs:date">
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>

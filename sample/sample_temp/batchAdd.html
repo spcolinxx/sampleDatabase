@@ -18,13 +18,13 @@
    <div class="jumbotron screen_style">
        <div class="container-fluid">
            <div class="row">
-               <p class="cap_style">批量添加样本</p>
+               <p class="cap_style">添加样本信息</p>
            </div>
             <div class="row">
                 <form action="" enctype='multipart/form-data' method="POST" onsubmit="return sub_check()">
                     <div class="form-group">
 
-                        <input  name="file_input" id="file_input" type="file" style="display: none">
+                        <input  name="file_input" id="file_input" type="file" style="display: none" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
 
                         <label for="lastname" class="input_display col-md-2 col-md-offset-2 control-label">选择源文件:</label>
                         <div class="col-md-4">
@@ -46,6 +46,17 @@
 
                     </div>
 
+
+
+
+                    <div class="row form-group">
+                        <div class="col-md-4 col-md-offset-4">
+                            <button  type="submit" class="btn btn-primary btn-block btn_style" >样本上传与校验</button>
+
+                        </div>
+
+                    </div>
+
                     <div class="col-md-10 col-md-offset-1" style="margin-top: 30px;">
                                 {% for message in get_flashed_messages() %}
                                     <div class="alert alert-warning">
@@ -55,15 +66,6 @@
                                 {% endfor %}
                         </div>
 
-
-
-                    <div class="row form-group">
-                        <div class="col-md-6 col-md-offset-3">
-                            <button  type="submit" class="btn btn-primary btn-block btn_style" > 检查并添加样本</button>
-
-                        </div>
-
-                    </div>
 
                 </form>
             </div>

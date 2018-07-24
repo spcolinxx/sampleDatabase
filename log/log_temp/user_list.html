@@ -1,0 +1,48 @@
+{% extends "log_base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('log.static',filename='css/user_list.css') }}">
+
+{% endblock %}
+
+{% block pagecontent %}
+<div class="container-fluid col-md-6 col-md-offset-3">
+    <div class="jumbotron screen_style">
+        <div class="container-fluid">
+            <div class="row col-md-8 col-md-offset-2">
+                <p class="cap_style">账号信息</p>
+            </div>
+            <div class="row">
+                <table class="table_style table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th class="cap_style">账号</th>
+                            <th class="cap_style">账号持有单位</th>
+                            <th class="cap_style">权限等级</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in user_list %}
+                            {#  此处url_for的功能很强大，参数注意跟视图函数中的参数匹配   #}
+                            <tr>
+                                <td class="cap_style"><a href="{{ url_for('log.render_userinfo',user_account=i['user_account']) }}">{{ i['user_account'] }}</a></td>
+                                <td class="cap_style">{{ i['account_owner'] }}</td>
+                                <td class="cap_style">{{ i['user_lv'] }}</td>
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{% endblock %}

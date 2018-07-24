@@ -1,0 +1,82 @@
+{% extends "oprecord_base.html" %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('oprecord.static',filename="css/record_detail.css") }}">
+
+{% endblock %}
+
+
+
+{% block pagecontent %}
+<div class="container-fluid col-md-6 col-md-offset-3">
+    <div class="jumbotron screen_style">
+        <div class="container-fluid ">
+            <div class="row col-md-6 col-md-offset-3">
+                <p class="cap_style">操作详细信息</p>
+            </div>
+
+            <div class="row col-md-7 col-md-offset-3" style="margin-top: 20px;">
+                <span>操作用户账号:</span>
+                <span>{{ record['account'] }}</span>
+            </div>
+            <div class="row col-md-7 col-md-offset-3" style="margin-top: 20px;">
+                <span>上传文件名称:</span>
+                <span>{{ record['filename'] }}</span>
+            </div>
+            <div class="row col-md-7 col-md-offset-3" style="margin-top: 20px;">
+                <span>上传时间:</span>
+                <span>{{ record['uploadtime'] }}</span>
+            </div>
+            <div class="row col-md-7 col-md-offset-3" style="margin-top: 20px;">
+                <span>上传结果:</span>
+                <span>{{ record['rst'] }}</span>
+            </div>
+
+            <div class="row col-md-12 " style="border:1px dashed lightgrey;margin-top: 30px"></div>
+
+            <div class="row col-md-12" style="margin-top: 20px;">
+                <span>上传结果详细信息:</span>
+            </div>
+            <div class="row col-md-12">
+                {% for i in record['info'] %}
+                    <div class=" col-md-10 col-md-offset-1" style="margin-top: 10px;">
+                        {{ i }}
+                    </div>
+                {% endfor %}
+
+                    <div class=" col-md-12 " style="margin-top: 30px;color:grey;">
+                        *只显示前100条错误提示信息，请仔细检查后再提交样本文件！
+                    </div>
+
+            </div>
+
+
+            <div class="row col-md-12 " style="border:1px dashed lightgrey;margin-top: 30px"></div>
+             <div class="row col-md-12 note_style" style="margin-top: 20px;">
+                <span>错误提示:</span>
+            </div>
+            <div class="row col-md-11 col-md-offset-1 note_style" style="margin-top: 5px;">
+                <span>Missing child element(s):缺少必填项所导致的错误。</span>
+            </div>
+
+            <div class="row col-md-11 col-md-offset-1 note_style" style="margin-top: 5px;">
+                <span>facet 'enumeration':给定取值范围以外的取值所导致的错误。</span>
+            </div>
+
+             <div class="row col-md-11 col-md-offset-1 note_style" style="margin-top: 5px;">
+                <span>'xxxx' is not a valid value of the local atomic type:字段类型不是正确的取值类型所导致的错误。</span>
+            </div>
+
+
+
+
+        </div>
+      </p>
+   </div>
+
+
+
+</div>
+
+{% endblock %}

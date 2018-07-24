@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    {# 针对bootstrap的cdn引用 #}
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+
+    {#    bootstrap中为保持触屏元素缩放设置的标签 #}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{{ url_for('log.static',filename='css/log_base.css') }}">
+
+    {% block head %}
+
+    {% endblock %}
+</head>
+<body>
+
+
+{#头部展示部分#}
+<div class="container-fluid userinfo_dis">
+    <div class="row col-md-12">
+        <span class="glyphicon glyphicon-user  col-md-offset-10"></span> <span>{{ session['user_id'] }}</span>
+        &nbsp;&nbsp;&nbsp;
+        <span class="glyphicon glyphicon-log-out"></span> <span><a class="logout_style" href="{{ url_for('log.render_logout') }}">退出登录</a></span>
+    </div>
+</div>
+
+
+<div class="container-fluid head_style">
+    <div class="row col-md-12">
+        <h1 class="col-md-8 col-md-offset-1 headcap_style">
+            中国人类遗传资源样本信息管理平台
+        </h1>
+        <h4 class="col-md-8 col-md-offset-1 headcap_en_style">
+            Chinese Human Genetic Resource Samples Infomation Management Platform
+        </h4>
+    </div>
+
+</div>
+
+<div class="container-fluid">
+    <div class="row  ln">
+
+    </div>
+</div>
+<div class="container-fluid navbar navbar-default">
+    <div class="row col-md-offset-1">
+        <ul class="nav navbar-nav ul_style">
+
+            <li  ><a href="{{ url_for('index.render_index') }}">首页</a></li>
+            <li  ><a href="#">新闻动态</a></li>
+
+            <li  ><a onclick="batch_add_check({{ session['user_lv'] }})">样本信息上传</a></li>
+            <li  ><a onclick="oprecord_check({{ session['user_lv'] }})">上传结果查看</a></li>
+
+            <li  ><a onclick="sample_search_check({{ session['user_lv'] }})">样本信息搜索</a></li>
+            <li class="dropdown ">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    样本数据统计
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ url_for('statistics.render_distribution') }}">样本信息占比(按机构)</a></li>
+                    <li><a href="{{ url_for('statistics.render_org_statistics') }}">机构样本提交统计</a></li>
+
+                </ul>
+            </li>
+
+             <li class="dropdown ">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    用户管理
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a onclick="new_account_check({{ session['user_lv'] }})">新增用户</a></li>
+                    <li><a href="{{ url_for('log.render_psd_change') }}">修改密码</a></li>
+                    <li><a onclick="lv_change_check({{ session['user_lv'] }})">修改用户权限</a></li>
+                    <li><a onclick="userlist_check({{ session['user_lv'] }})">查看所有账号信息</a></li>
+                    <li><a onclick="delete_account_check({{ session['user_lv'] }})">删除用户</a></li>
+
+                </ul>
+            </li>
+            <li class="dropdown ">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    关于我们
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">中国人类遗传资源样本平台项目介绍</a></li>
+                    <li><a href="#">合作机构</a></li>
+                    <li><a href="#">技术支持</a></li>
+
+                </ul>
+            </li>
+
+
+
+        </ul>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+     function oprecord_check(lv) {
+        if (lv>1)
+        {
+            alert("当前用户没有权限执行此操作!");
+
+        }
+        else
+        {
+            window.location.href="{{ url_for('oprecord.render_record_list') }}";
+
+        }
+
+    }
+
+    function sample_search_check(lv) {
+
+        if ((lv!='0')&&(lv!='1')&&(lv!='2')&&(lv!='4'))
+        {
+
+            alert("当前用户没有权限执行此操作!");
+
+        }
+        else
+        {
+            window.location.href="{{ url_for('sample.render_ele_search') }}";
+
+        }
+
+    }
+
+
+
+
+    function delete_account_check(lv) {
+        if ((lv!='0')&&(lv!='3'))
+        {
+            alert("当前用户没有权限执行此操作!");
+        }
+        else
+        {
+            window.location.href="{{ url_for('log.render_delete_account') }}";
+        }
+
+    }
+
+    function new_account_check(lv)
+    {
+        if ((lv!='0')&&(lv!='3'))
+        {
+            alert("当前用户没有权限执行此操作！");
+        }
+        else
+        {
+            window.location.href="{{ url_for('log.render_new_account') }}";
+        }
+    }
+
+
+    function lv_change_check(lv)
+    {
+        if ((lv!=0)&&(lv!=3))
+        {
+            alert("当前用户没有权限执行此操作！");
+        }
+        else
+        {
+            window.location.href="{{ url_for('log.render_lv_change') }}";
+        }
+    }
+
+    function batch_add_check(lv) {
+
+        if (lv>1)
+        {
+            alert("当前用户没有权限执行此操作");
+        }
+        else
+        {
+            window.location.href="{{ url_for('sample.render_batchAdd') }}";
+        }
+
+    }
+
+    function userlist_check(lv)
+    {
+        if ((lv!='0')&&(lv!='3'))
+        {
+            alert("当前用户没有权限执行此操作！");
+        }
+        else
+        {
+            window.location.href="{{ url_for('log.render_userlist') }}";
+        }
+    }
+
+
+
+
+</script>
+
+
+
+<div class="container-fluid content_style">
+
+    {% block pagecontent %}
+
+    {% endblock %}
+</div>
+
+
+<div class="col-md-12" style="height: 1px;background-color:grey;margin-top: 0px;"></div>
+
+
+    <p class="col-md-12"></p>
+    <p class="col-md-12"></p>
+    <p class="col-md-12"></p>
+
+    <div class="container-fluid" style="background-color:white; ">
+        <div class="row col-md-12">
+            <div class="col-md-5 col-md-offset-2">
+                <h4 style="color: grey;">联系我们：</h4>
+                <span class="col-md-12" style="color: grey">地址:</span>
+                <span class="col-md-12" style="color: grey">中国北京市</span>
+                <span class="col-md-12" style="color: grey">海淀区复兴路15号</span>
+                <span class="col-md-12" style="color: grey">中国科学技术信息研究所</span>
+                <span class="col-md-12" style="color: grey">联系电话:</span>
+                <span class="col-md-12" style="color: grey">xxxx-xxxxxxxx</span>
+            </div>
+            <div class="col-md-3 col-md-offset-2">
+                <img src="{{ url_for('index.static',filename='img/zhongxinsuo.jpg') }}"  style="height: 150px;width:150px;" >
+            </div>
+
+        </div>
+
+
+    </div>
+    <p class="col-md-12"></p>
+    <p class="col-md-12"></p>
+
+<div class="col-md-12" >
+    <hr style="border:1px dashed grey"/>
+</div>
+
+
+
+
+    <div class="container-fluid" style="background-color:white;">
+
+        <p class="col-md-12"></p>
+
+        <p class="col-md-12"></p>
+
+
+        <div class="row col-md-12">
+
+             <p class="pgbottom">中国人类遗传资源样本信息管理平台&nbsp&nbsp&nbsp版权所有2018@All right reserved</p>
+
+        </div>
+        <div class="row col-md-12">
+             <p  class="pgbottom">技术支持:哈尔滨工业大学</p>
+        </div>
+
+
+
+
+
+        <p class="col-md-12"></p>
+        <p class="col-md-12"></p>
+
+    </div>
+
+
+
+
+</body>
+</html>
+
+
+</body>
+</html>

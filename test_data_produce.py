@@ -17,7 +17,7 @@ file = xlwt.Workbook() #注意这里的Workbook首字母是大写，无语吧
 
 table = file.add_sheet('sheet1')
 
-for i in range(100):
+for i in range(200):
     # table.write(i, 0,''.join(random.sample(string.ascii_letters + string.digits, 20)) )             #唯一标识码
     table.write(i, 0,"样本编码"+str(i) )              #样本编码
     table.write(i, 1,"GNG0" )             #样本类别
@@ -32,7 +32,6 @@ for i in range(100):
     table.write(i, 10,"样本描述"+str(i))             #样本描述
     table.write(i, 11,"关键词"+str(i) )             #关键词
     table.write(i, 12,"样本用途"+str(i) )             #样本用途
-
     table.write(i, 13,"采集部位"+str(i))             #采集部位
     table.write(i, 14,"分析前变量"+str(i) )             #分析前变量
     table.write(i, 15,"采集动因"+str(i) )             #采集动因
@@ -40,7 +39,7 @@ for i in range(100):
     table.write(i, 17,"采集计划"+str(i) )             #采集计划
     table.write(i, 18,"采集机构"+str(i) )             #采集机构
     table.write(i, 19,"其他采集者"+str(i) )             #其他采集者
-    table.write(i, 20,"保存机构名称"+str(i) )             #保存机构名称
+    table.write(i, 20,"保存机构名称test")             #保存机构名称
     table.write(i, 21,"法人机构名称"+str(i) )             #法人机构名称
     table.write(i, 22,"法人机构代码"+str(i) )             #法人机构代码
     table.write(i, 23,"法人机构类型"+str(i) )             #法人机构类型
@@ -53,7 +52,7 @@ for i in range(100):
     table.write(i, 30,random.randint(1, 254) )                                                      #联系电话
     table.write(i, 31,"电子信箱"+str(i) )             #电子邮箱
     table.write(i, 32,"捐献者匿名编号"+str(i) )             #捐献者匿名编号
-    table.write(i, 33,"男" )             #性别
+    table.write(i, 33,"男" )                         #性别
     table.write(i, 34,random.randint(1, 150) )                                                       #年龄
     table.write(i, 35,"民族"+str(i) )             #民族
     table.write(i, 36,"籍贯"+str(i) )             #籍贯
@@ -81,19 +80,10 @@ for i in range(100):
     table.write(i, 58,"收集目的"+str(i) )             #收集目的
     table.write(i, 59,"收集方法"+str(i))             #收集方法
     table.write(i, 60,random.randint(1, 255) )                                                       #收集数量
-    table.write(i, 61,"起止时间"+str(i))             #起止时间
+    table.write(i, 61,time.strftime("%Y-%m-%d",time.localtime(random.randint(start,end))) )          #课题开始时间
+    table.write(i, 62,time.strftime("%Y-%m-%d",time.localtime(random.randint(start,end))) )          #课题结束时间
 
 
-
-file.save('showdemo.xls')
-
+file.save('baddemo2.xls')
 
 
-
-#
-# #随机生成10个日期字符串
-# for i in range(10):
-#     t=random.randint(start,end)    #在开始和结束时间戳中随机取出一个
-#     date_touple=time.localtime(t)          #将时间戳生成时间元组
-#     date=time.strftime("%Y-%m-%d",date_touple)  #将时间元组转成格式化字符串（1976-05-21）
-#     print(date)

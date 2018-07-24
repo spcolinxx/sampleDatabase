@@ -106,3 +106,31 @@ class User_info(ormdb.Model,UserMixin):
     def id(self):
         return self.user_account
 
+
+#
+# class User_obj(UserMixin):
+#
+#     def __init__(self,account,psd,lv):
+#         self.user_account=account
+#         self.user_psd=psd
+#         self.user_lv=lv
+#
+#     @property
+#     def id(self):
+#         return self.user_account
+
+
+
+class User_obj(UserMixin):
+
+    def __init__(self,account,psd,lv):
+        self.user_account=account
+        self.user_psd=psd
+        self.user_lv=lv
+
+    # @property
+    # def id(self):
+    #     return self.user_account
+
+    def get_id(self):
+        return self.user_account

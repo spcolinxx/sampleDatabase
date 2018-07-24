@@ -240,7 +240,7 @@ function add_ele() {
         var inner_div=document.createElement('div');
         inner_div.setAttribute('class','col-md-7');
         var ele_input=document.createElement('input');
-        ele_input.setAttribute('name','unit_amou');
+        ele_input.setAttribute('name','uni_amou');
         ele_input.setAttribute('type','text');
         ele_input.setAttribute('class','form-control');
 
@@ -324,7 +324,7 @@ function add_ele() {
         var inner_div=document.createElement('div');
         inner_div.setAttribute('class','col-md-7');
         var ele_input=document.createElement('input');
-        ele_input.setAttribute('name','sampleinfo.keyword');
+        ele_input.setAttribute('name','keyword');
 
         ele_input.setAttribute('type','text');
         ele_input.setAttribute('class','form-control');
@@ -583,7 +583,7 @@ function add_ele() {
         var inner_div=document.createElement('div');
         inner_div.setAttribute('class','col-md-7');
         var ele_input=document.createElement('input');
-        ele_input.setAttribute('name','sampleinfo.org_name');
+        ele_input.setAttribute('name','org_name');
         ele_input.setAttribute('type','text');
         ele_input.setAttribute('class','form-control');
 
@@ -834,7 +834,7 @@ function add_ele() {
         var inner_div=document.createElement('div');
         inner_div.setAttribute('class','col-md-7');
         var ele_input=document.createElement('input');
-        ele_input.setAttribute('name','sample.don_id');
+        ele_input.setAttribute('name','don_id');
         ele_input.setAttribute('type','text');
         ele_input.setAttribute('class','form-control');
 
@@ -855,7 +855,7 @@ function add_ele() {
         var inner_div=document.createElement('div');
         inner_div.setAttribute('class','col-md-7');
         var sex_select=document.createElement('select');
-        sex_select.setAttribute('name','col_obj');
+        sex_select.setAttribute('name','gender');
         sex_select.setAttribute('class','form-control');
         sex_select.options.add(new Option('男','男'));
         sex_select.options.add(new Option('女','女'));
@@ -1274,7 +1274,7 @@ function add_ele() {
         var inner_div=document.createElement('div');
         inner_div.setAttribute('class','col-md-7');
         var ele_input=document.createElement('input');
-        ele_input.setAttribute('name','sampleinfo.proj_id');
+        ele_input.setAttribute('name','prj_id');
         ele_input.setAttribute('type','text');
         ele_input.setAttribute('class','form-control');
 
@@ -1358,7 +1358,7 @@ function add_ele() {
         var inner_div=document.createElement('div');
         inner_div.setAttribute('class','col-md-7');
         var ele_input=document.createElement('input');
-        ele_input.setAttribute('name','projectinfo.keyword');
+        ele_input.setAttribute('name','prj_keyword');
         ele_input.setAttribute('type','text');
         ele_input.setAttribute('class','form-control');
 
@@ -1432,7 +1432,28 @@ function add_ele() {
 
         fm.appendChild(ele_div);
     }
-    else if(item=="起止时间")
+    // else if(item=="起止时间")
+    // {
+    //     var ele_div=document.createElement('div');
+    //     ele_div.setAttribute('class','form-group');
+    //     var ele_label=document.createElement('label');
+    //     ele_label.setAttribute('class','col-md-4 lb_style');
+    //     ele_label.innerHTML=item;
+    //     var inner_div=document.createElement('div');
+    //     inner_div.setAttribute('class','col-md-7');
+    //     var ele_input=document.createElement('input');
+    //     ele_input.setAttribute('name','be_end_time');
+    //     ele_input.setAttribute('type','text');
+    //     ele_input.setAttribute('class','form-control');
+    //
+    //
+    //     inner_div.appendChild(ele_input);
+    //     ele_div.appendChild(ele_label);
+    //     ele_div.appendChild(inner_div);
+    //
+    //     fm.appendChild(ele_div);
+    // }
+    else if(item=="课题开始时间")
     {
         var ele_div=document.createElement('div');
         ele_div.setAttribute('class','form-group');
@@ -1441,17 +1462,104 @@ function add_ele() {
         ele_label.innerHTML=item;
         var inner_div=document.createElement('div');
         inner_div.setAttribute('class','col-md-7');
-        var ele_input=document.createElement('input');
-        ele_input.setAttribute('name','be_end_time');
-        ele_input.setAttribute('type','text');
-        ele_input.setAttribute('class','form-control');
+
+        var year_select=document.createElement('select');
+        year_select.setAttribute('id','be_year');
+        year_select.setAttribute('style','margin-right:5px;');
+        year_select.setAttribute('onchange','get_be_year()');
+        var date=new Date();
+        var this_year=date.getFullYear();
+        for(var i=1970;i<=this_year;i++)
+        {
+            year_select.options.add(new Option(i, i));
+        }
+        var year_lb=document.createElement('label');
+        year_lb.innerHTML="年";
+        year_lb.setAttribute('style','margin-right:5px;');
 
 
-        inner_div.appendChild(ele_input);
+        var be_time_stor=document.createElement('input');
+        be_time_stor.setAttribute('style','display:none;');
+        be_time_stor.setAttribute('type','text');
+        be_time_stor.setAttribute('name','be_time');
+        be_time_stor.setAttribute('id','be_time');
+
+
+
+        inner_div.appendChild(year_select);
+        inner_div.appendChild(year_lb);
+
+
+
+        inner_div.appendChild(be_time_stor);
         ele_div.appendChild(ele_label);
         ele_div.appendChild(inner_div);
 
         fm.appendChild(ele_div);
+
+
+
+        var year=document.getElementById('be_year').value;
+
+        be_time_stor.value=year;
+
+
+
+
+    }
+    else if(item=="课题结束时间")
+    {
+        var ele_div=document.createElement('div');
+        ele_div.setAttribute('class','form-group');
+        var ele_label=document.createElement('label');
+        ele_label.setAttribute('class','col-md-4 lb_style');
+        ele_label.innerHTML=item;
+        var inner_div=document.createElement('div');
+        inner_div.setAttribute('class','col-md-7');
+
+        var year_select=document.createElement('select');
+        year_select.setAttribute('id','end_year');
+        year_select.setAttribute('style','margin-right:5px;');
+        year_select.setAttribute('onchange','get_end_year()');
+        var date=new Date();
+        var this_year=date.getFullYear();
+        for(var i=1970;i<=this_year;i++)
+        {
+            year_select.options.add(new Option(i, i));
+        }
+        var year_lb=document.createElement('label');
+        year_lb.innerHTML="年";
+        year_lb.setAttribute('style','margin-right:5px;');
+
+
+        var end_time_stor=document.createElement('input');
+        end_time_stor.setAttribute('style','display:none;');
+        end_time_stor.setAttribute('type','text');
+        end_time_stor.setAttribute('name','end_time');
+        end_time_stor.setAttribute('id','end_time');
+
+
+
+        inner_div.appendChild(year_select);
+        inner_div.appendChild(year_lb);
+
+
+
+        inner_div.appendChild(end_time_stor);
+        ele_div.appendChild(ele_label);
+        ele_div.appendChild(inner_div);
+
+        fm.appendChild(ele_div);
+
+
+
+        var year=document.getElementById('end_year').value;
+
+        end_time_stor.value=year;
+
+
+
+
     }
     else
     {}
@@ -1459,29 +1567,7 @@ function add_ele() {
     var sl=document.getElementById('select_item');
     sl.options[sl.selectedIndex]=null;
 
-    // var bt=document.getElementById('submit_bt');
-    //
-    // if (bt==null)
-    // {
-    //     var ele_div=document.createElement('div');
-    //     ele_div.setAttribute('class','form-group');
-    //     var inner_div=document.createElement('div');
-    //     inner_div.setAttribute('class','col-md-6 col-md-offset-3');
-    //     var bt=document.createElement('button');
-    //     bt.setAttribute('type','submit');
-    //     bt.setAttribute('class','btn btn-primary btn-block');
-    //     bt.innerHTML="搜索";
-    //     bt.setAttribute('id','submit_bt');
-    //     inner_div.appendChild(bt);
-    //     ele_div.appendChild(inner_div);
-    //     fm.appendChild(ele_div);
-    //
-    //
-    // }
-    // else
-    // {
-    //     alert("123");
-    // }
+
 
 
 
@@ -1532,19 +1618,28 @@ function get_acqui_time() {
 
 }
 
+function get_be_year() {
 
-// function test() {
-//
-//     $.ajax({
-//     type: "POST",
-//     url: 'test',
-//     data: {},
-//     dataType: "json",
-//     success: function (result) {
-//         alert(result);
-//     }
-// })
-//
-//
-//
-// }
+    var be_time=document.getElementById('be_time');
+    var year=document.getElementById('be_year').value;
+    be_time.value=year;
+
+
+
+}
+
+function get_end_year() {
+
+    var end_time=document.getElementById('end_time');
+    var year=document.getElementById('end_year').value;
+    end_time.value=year;
+
+
+
+}
+
+function reset_item() {
+
+    window.location="/sample/ele_search";
+
+}

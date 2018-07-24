@@ -1,0 +1,124 @@
+{% extends "statistics_base.html" %}
+
+{% block head %}
+    <script src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+    <link rel="stylesheet" href="{{ url_for('statistics.static',filename='css/distribution.css') }}">
+
+{% endblock %}
+{% block pagecontent %}
+    <div class="container-fluid col-md-8 col-md-offset-2">
+    <div class="jumbotron screen_style">
+        <div class="container-fluid graph_style">
+            <div class="row col-md-6 col-md-offset-3">
+                <p class="cap_style">样本数据分布展示</p>
+            </div>
+            <div  class="row col-md-12 graph_style"  >
+                <div id="show_part" style="height: 500px;width: 800px;"></div>
+
+            </div>
+
+             <div class="row col-md-12 graph_style" style="border:1px dashed lightgrey"></div>
+
+            <div class="col-md-10 col-md-offset-1" style="margin-top: 30px">
+                <table class="table table-striped table-bordered">
+                  <caption class="cap_style">各机构样本数量统计</caption>
+                  <thead>
+                    <tr>
+                      <th>保存机构</th>
+                      <th>机构上传样本总数</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for i in org_dict %}
+                    <tr>
+                      <td>{{ i['org_name'] }}</td>
+                      <td>{{ i['count'] }}</td>
+                    </tr>
+                  {% endfor %}
+
+                  <tr>
+                      <td>总样本量</td>
+                      <td>{{ sample_sum }}</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+
+
+            </div>
+            <script type="text/javascript">
+
+
+                 //获取DOM
+                 var myecharts=echarts.init(document.getElementById("show_part"));
+                 var option=({
+                     title:{
+                         {#text:'饼形图',//主标题文本，支持\n换行#}
+                         {#subtext: '各个机构数据比例展示',//副文本#}
+                         {#left:'center',//离容器左侧的距离#}
+                         {#top:'top'//距离容器上测的距离#}
+                     },
+                     tooltip : {
+                                              trigger: 'item',
+                                              formatter:function (params) {
+
+                                                  return ("数据来源:"+params['name']+
+                                                  '</br>'+"样本数量:"+params['value']);
+
+                                              }
+                                                        },
+                     backgroundColor: '#FFFFFF',//背景颜色
+                     textStyle: {
+                                 color: 'rgba(0，0，0, 0.3)'//文字的颜色
+                             },
+                     series : [
+                         {
+                             name: '访问来源',
+                             type: 'pie',   //每个系列，通过type决定自己的系列型号
+                             radius: '55%',
+                             data:[
+                                 {% for i in org_dict %}
+
+                                 {value:{{ i['count'] }}, name:"{{ i['org_name'] }}" },
+
+                                 {% endfor %}
+                             ],
+
+                             {#roseType: 'angle',#}
+
+                             itemStyle: {//图形样式 normal，emphasis
+                                 emphasis: {
+                                     shadowBlur: 200,
+                                     shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                 }
+                             },
+                             label: {//饼形图上的文本标签
+                                 normal: {
+                                     textStyle: {
+                                         color: 'rgba(0，0，0, 0.3)'
+                                     }
+                                 }
+                             },
+                             labelLine: {//标签的视觉引导线
+                                 normal: {
+                                     lineStyle: {
+                                         color: 'rgba(0，0，0, 0.3)'
+                                     }
+                                 }
+                             }
+
+                         }
+                     ]
+                 });
+                 myecharts.setOption(option);
+                 </script>
+
+        </div>
+   </div>
+
+
+
+</div>
+
+
+{% endblock %}

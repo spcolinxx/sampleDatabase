@@ -1,5 +1,7 @@
 {% extends "log_base.html" %}
 
+
+
 {% block head %}
 
     <link rel="stylesheet" href="{{ url_for('log.static',filename='css/psd_change.css') }}">
@@ -19,7 +21,7 @@
                     <div class="form-group">
                         <label for="" class="col-md-4 control-label lb_style">当前用户：</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" id="account" name="account" value="{{ user_account }}" readonly="readonly">
+                            <input type="text" class="form-control" id="user_account" name="user_account" value="{{ user_account }}" readonly="readonly">
                         </div>
                     </div>
                     <div class="form-group">
@@ -31,7 +33,7 @@
                    <div class="form-group">
                         <label for="" class="col-md-4 control-label lb_style">新密码：</label>
                         <div class="col-md-8">
-                            <input type="password" class="form-control" id="psd" name="psd" >
+                            <input type="password" class="form-control" id="user_psd" name="user_psd" >
                         </div>
                     </div>
                     <div class="form-group">

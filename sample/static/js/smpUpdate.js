@@ -91,17 +91,7 @@ function check()
                 return true;
             }
 
-        // if (upform.user.value=="")
-        // {
-        //     alert("请填写用户");
-        //     myform.user.focus();
-        //     return false;
-        // }
-        // if (myform.title.value.length<5)
-        // {
-        //     alert("标题不能少于五个字符");
-        //     myform.title.focus();
-        // }
+
     }
 
 

@@ -1,0 +1,54 @@
+{% extends "oprecord_base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('oprecord.static',filename="css/record_list.css") }}">
+{% endblock %}
+
+
+{% block pagecontent %}
+<div class="container-fluid col-md-8 col-md-offset-2">
+    <div class="jumbotron screen_style">
+        <div class="container-fluid graph_style">
+            <div class="row col-md-6 col-md-offset-3">
+                <p class="cap_style">上传结果查看</p>
+            </div>
+
+            <div class="row" style="margin-top: 50px">
+                <table class="table_style table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th class="cap_style">文件名</th>
+                            <th class="cap_style">上传时间</th>
+                            <th class="cap_style">上传结果</th>
+                            <th class="cap_style">结果详情</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in record_list %}
+                            <tr>
+                                <td class="cap_style">{{ i['filename'] }}</td>
+                                <td class="cap_style">{{ i['uploadtime'] }}</td>
+                                <td class="cap_style">{{ i['rst'] }}</td>
+                                <td class="cap_style"><a href="{{ url_for('oprecord.render_record_detail',user_account=i['account'],filename=i['filename'],uploadtime=i['uploadtime']) }}">点击查看详情</a></td>
+
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+            </div>
+
+
+
+
+
+        </div>
+      </p>
+   </div>
+
+
+
+</div>
+
+{% endblock %}
