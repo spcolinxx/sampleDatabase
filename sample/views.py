@@ -14,6 +14,8 @@ import re,threading
 # from sampleDatabase import app
 from . import path_op
 import os
+from flask import make_response,send_file
+from urllib.parse import quote
 
 
 def batch_add_thread(file,filename,file_path,user_id):
@@ -26,7 +28,7 @@ def batch_add_thread(file,filename,file_path,user_id):
     upload_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
-    read_rst = read_file.read_file(file_trans)
+    read_rst = read_file.read_file(file_trans,upload_time)
 
     if read_rst[0] == False:
         err_info = []
@@ -66,12 +68,6 @@ def batch_add_thread(file,filename,file_path,user_id):
 
             for i in excel_data:
                 i.append(upload_time)
-                i[6]=str(i[6])
-                i[7]=str(i[7])
-                i[9]=str(i[9])
-                i[31]=str(i[31])
-                i[35]=str(i[35])
-                i[61]=str(i[61])
                 to_upload_data.append(i)
 
             std_data = list_to_dict.trans_to_dict(to_upload_data)
@@ -108,7 +104,6 @@ def render_batchAdd():
                 return redirect(url_for('sample.render_batchAdd'))
             else:
 
-                # with app.app_context():
                 add_thread = threading.Thread(target=batch_add_thread, args=(file,file.filename,False,session['user_id']))
                 add_thread.start()
 
@@ -141,101 +136,21 @@ def render_batchAdd():
                 return redirect(url_for('sample.render_batchAdd'))
             else:
 
-                # with app.app_context():
                 add_thread = threading.Thread(target=batch_add_thread, args=(False,file.filename,file_path,session['user_id']))
                 add_thread.start()
 
                 flash("正在校验样本信息及完成入库，结果详情请稍后在样本增加记录模块中查看！")
+                flash("样本文件已备份！")
                 return redirect(url_for('sample.render_batchAdd'))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # upload_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        # file_trans=xlrd.open_workbook(filename=None,file_contents=file.read())
-        #
-        # read_rst=read_file.read_file(file_trans)
-        #
-        #
-        # if read_rst[0]==False:
-        #     err_info = []
-        #
-        #     for i in read_rst[1]:
-        #         err_info.append(i)
-        #
-        #     cnn=exts.create_mongo_cnn()
-        #     mongo.insert_op_rc({'account':session['user_id'],'filename':file.filename,'uploadtime':upload_time,'rst':'入库不成功','info':err_info},cnn)
-        #     cnn.close()
-        #
-        #     flash("正在检查样本信息格式及完成入库，结果详情请稍后在操作记录模块中查看！")
-        # else:
-        #
-        #
-        #     excel_data=read_rst[1]
-        #     err_log=schema_validate.schema_check(excel_data)
-        #
-        #
-        #     if len(err_log)>0:
-        #         err_info=[]
-        #         for i in err_log:
-        #             for j in i[1]:
-        #                 err_info.append("第"+str(i[0]+1)+"条记录错误信息："+str(j))
-        #
-        #         cnn = exts.create_mongo_cnn()
-        #         mongo.insert_op_rc({'account': session['user_id'], 'filename': file.filename, 'uploadtime': upload_time,'rst':'入库不成功',
-        #                             'info': err_info}, cnn)
-        #         cnn.close()
-        #
-        #     else:
-        #
-        #         to_upload_data=[]
-        #
-        #         for i in excel_data:
-        #             i.append(upload_time)
-        #             to_upload_data.append(i)
-        #
-        #         std_data=list_to_dict.trans_to_dict(to_upload_data)
-        #         sample_count=len(std_data)
-        #
-        #
-        #         cnn=exts.create_mongo_cnn()
-        #         mongo.add_info(std_data,cnn)
-        #         mongo.insert_op_rc({'account': session['user_id'], 'filename': file.filename, 'uploadtime': upload_time,'rst':'入库成功',
-        #                             'info': ['该次入库操作成功，样本已添加到样本库中。'],'count':sample_count}, cnn)
-        #
-        #         cnn.close()
-        #
-        #     flash("正在检查样本信息格式及完成入库，结果详情请稍后在操作记录模块中查看！")
-
-
-
-
 
 
 
 @sample.route('/sample/ele_search',methods=['POST','GET'])
 @login_required
 def render_ele_search():
-    search_item = ["样本编码", "样本类别", "入库日期", "保存温度", "母本编码", "分管数", "样本量", "量单位", "知情同意", "样本别称", "样本描述", "关键词", "样本用途",
-                   "采集部位", "分析前变量"
-        , "采集动因", "采集时间", "采集计划", "采集机构", "其他采集者", "保存机构名称", "法人机构名称", "法人机构代码", "法人机构类型", "保存机构简介", "使用许可", "共享方式",
-                   "通信地址",
-                   "邮政编码", "管理员", "联系电话", "电子信箱", "捐献者匿名编号", "性别"
-        , "年龄", "民族", "籍贯", "出生地", "国籍", "职业", "教育程度", "婚姻状况", "捐献途径", "疾病类目名称", "疾病类目代码", "主要诊断", "现病史", "检验记录",
-                   "随访记录", "影像资料", "病例报告", "家系信息"
-        , "课题名称", "课题编号", "课题级别", "资助机构", "纳入标准", "课题关键词", "收集目的", "收集方法", "收集数量", "课题开始时间","课题结束时间"]
+    search_item = ["库存编码", "样本类别", "保存方式","每份样本数量","采集时间","保存机构名称", "法人机构代码", "法人机构类型",
+                   "保存机构简介", "通讯地址","邮政编码", "联系人姓名", "联系电话", "电子邮箱", "捐献人编号", "性别", "年龄",
+                   "民族", "籍贯", "出生地", "疾病名称", "正常人群"]
     if request.method=='GET':
 
         return render_template('ele_search.html',search_item=search_item)
@@ -247,49 +162,56 @@ def render_ele_search():
         for i in receive_data:
             if receive_data[i]!="":
                 dt[i]=receive_data[i]
-
-
-        for ky,vl in dt.items():
-            dt[ky]=re.compile(vl)
-
+            if i.endswith('date_of_bir'):
+                dt[i]=int(receive_data[i])
 
         if len(dt)>0:
-            # t1=time.time()
+
+            and_ls=[]
+            or_ls=[]
+            nor_ls=[]
+
+            for ky,vl in dt.items():
+                if ky.startswith('and'):
+                    if ky.endswith('date_of_bir'):
+                        and_ls.append({ky[7:]: vl})
+                    else:
+                        and_ls.append({ky[7:]:re.compile(vl)})
+                elif ky.startswith('or'):
+                    if ky.endswith('date_of_bir'):
+                        or_ls.append({ky[6:]:re.compile(vl)})
+                    else:
+                        or_ls.append({ky[6:]:re.compile(vl)})
+                else:
+                    if ky.endswith('date_of_bir'):
+                        nor_ls.append({ky[7:]:re.compile(vl)})
+                    else:
+                        nor_ls.append({ky[7:]:re.compile(vl)})
+
+
             cnn = exts.create_mongo_cnn()
-            dict_rst = mongo.info_search(dt, cnn)
+            dict_rst = mongo.info_search(and_ls,or_ls,nor_ls, cnn)
 
             # rst为数组形式，需遍历才能取出数据
             # 每条数据为字典形式，需要转化为数组
 
             cnn.close()
 
-
-
             search_rst = []
             for i in dict_rst:
                 search_rst.append(list(i.values()))
 
-            if len(search_rst)>100:
-                search_rst=search_rst[:100]
-
+            if len(search_rst)>1000:
+                search_rst=search_rst[:1000]
 
             ln=len(search_rst)
 
 
-
             if ln>0:
-
-                for i in search_rst:
-                    if i[10] == '0':
-                        i[10] = "不同意"
-                    else:
-                        i[10] = "同意"
-
-                return render_template('search_rst.html',search_rst=search_rst[0],rst=search_rst,ln=ln)
+                return render_template('search_list.html',search_rst=search_rst)
 
             else:
                 flash("无符合条件的记录！")
-
                 return  redirect(url_for('sample.render_ele_search'))
 
         else:
@@ -299,7 +221,13 @@ def render_ele_search():
 
 
 
-
+@sample.route('/sample/<sam_uni_id>',methods=['POST','GET'])
+@login_required
+def render_sampleinfo(sam_uni_id):
+    if request.method=='GET':
+        return sam_uni_id
+    else:
+        pass
 
 
 
@@ -328,10 +256,6 @@ def render_update(inv_id,org_name,jur_per_id):
         l2=cate_ls[1]
         l3=cate_ls[2]
         l4=cate_ls[3]
-
-
-
-
 
 
 
@@ -596,6 +520,18 @@ def render_delete(inv_id,org_name,jur_per_id):
 
 
 
+@sample.route('/download_data_template',methods=['GET'])
+def render_data_template():
+    file_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    file_name=file_path+'/'+"样本信息收集表.xlsx"
+    response = make_response(send_file(file_name))
+    basename = os.path.basename(file_name)
+    response.headers["Content-Disposition"] = \
+        "attachment;" \
+        "filename*=UTF-8''{utf_filename}".format(
+            utf_filename=quote(basename.encode('utf-8'))
+        )
+    return response
 
 
 

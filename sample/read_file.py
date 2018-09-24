@@ -1,15 +1,16 @@
 import xlrd
 import time,random
+from datetime import datetime
+from xlrd import xldate_as_datetime
 
 
-
-def read_file(file):
+def read_file(file,upload_time):
     table=file.sheets()[0]
     rows=table.nrows
     cols=table.ncols
 
 
-    if cols<63:
+    if cols<22:
         return [False,["数据字段数少于规定字段数，请检查！"]]
     else:
         #用于返回提示信息的数组
@@ -28,11 +29,8 @@ def read_file(file):
             return [False,["excel文件格式有问题，请按照规范格式导入excel文件！"]]
 
 
-        comp_item=["样本编码","样本类别","入库日期","保存温度","母本编码","分管数","样本量","量单位","知情同意","样本别称","样本描述","关键词","样本用途","采集部位","分析前变量"
-            , "采集动因","采集时间","采集计划","采集机构","其他采集者","保存机构名称","法人机构名称","法人机构代码","法人机构类型","保存机构简介","使用许可","共享方式","通信地址",
-                   "邮政编码","管理员","联系电话","电子信箱","捐献者匿名编号","性别"
-            , "年龄","民族","籍贯","出生地","国籍","职业","教育程度","婚姻状况","捐献途径","疾病类目名称","疾病类目代码","主要诊断","现病史","检验记录","随访记录","影像资料","病例报告","家系信息"
-            , "课题名称","课题编号","课题级别","资助机构","纳入标准","课题关键词","收集目的","收集方法","收集数量","课题开始时间","课题结束时间"]
+        comp_item=["库存编码","样本类别","保存方式","每份样本数量","采集时间","保存机构名称","法人机构代码","法人机构类型","保存机构简介","通讯地址",
+                   "邮政编码","联系人姓名","联系电话","电子邮箱","捐献人编号","性别", "年龄","民族","籍贯","出生地","疾病名称","正常人群"]
         complete_cap=True
 
 
@@ -49,7 +47,7 @@ def read_file(file):
                 rowValues = table.row_values(i)  # 某一行数据
                 tmp=[]
 
-                st=str(rowValues[0])+str(rowValues[20])
+                st=str(rowValues[0])+str(rowValues[5])+str(upload_time).replace(' ','')
                 tmp.append(st)
 
                 for item in rowValues:
@@ -63,32 +61,22 @@ def read_file(file):
             for i in range(ln):
 
                 #excel读进来会将所有数字转化为浮点数，需要手动转化为整数
+
                 try:
-                    if int(ls[i][6])==ls[i][6]:
-                        ls[i][6]=int(ls[i][6])
+                    if int(ls[i][11])==ls[i][11]:
+                        ls[i][11]=int(ls[i][11])
                 except:
                     pass
 
                 try:
-                    if int(ls[i][7])==ls[i][7]:
-                        ls[i][7]=int(ls[i][7])
+                    if int(ls[i][17])==ls[i][17]:
+                        ls[i][17]=int(ls[i][17])
                 except:
                     pass
 
+                # print(ls[i][5])
                 try:
-                    if int(ls[i][31])==ls[i][31]:
-                        ls[i][31]=int(ls[i][31])
-                except:
-                    pass
-                try:
-                    if int(ls[i][35])==ls[i][35]:
-                        ls[i][35]=int(ls[i][35])
-                except:
-                    pass
-
-                try:
-                    if int(ls[i][61])==ls[i][61]:
-                        ls[i][61]=int(ls[i][61])
+                    ls[i][5]=xldate_as_datetime(ls[i][5],0).strftime("%Y-%m-%d")
                 except:
                     pass
 

@@ -6,508 +6,145 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 <xs:element name="sampleinfo" >
 	<xs:complexType >
 		<xs:all>
-			<!-- 样本编码，必填项，string类型，最小长度为1 -->
-			<xs:element name="样本编码" minOccurs="1" >
+			<xs:element name="库存编码" minOccurs="1" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>			  
+					  <xs:maxLength value="30"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="样本类别"  minOccurs="0" >
+            <xs:element name="样本类别"  minOccurs="1" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-                        <xs:enumeration value="GNG0"/>
-                        <xs:enumeration value="GPG0"/>
-                        <xs:enumeration value="TTF0"/>
-                        <xs:enumeration value="TTF1"/>
-                        <xs:enumeration value="TTF2"/>
-                        <xs:enumeration value="TTF3"/>
-                        <xs:enumeration value="TTR0"/>
-                        <xs:enumeration value="TTR1"/>
-                        <xs:enumeration value="TTR2"/>
-                        <xs:enumeration value="TTR3"/>
-                        <xs:enumeration value="TTO0"/>
-                        <xs:enumeration value="TTO1"/>
-                        <xs:enumeration value="TTO2"/>
-                        <xs:enumeration value="TTO3"/>
-                        <xs:enumeration value="TTA0"/>
-                        <xs:enumeration value="TTA1"/>
-                        <xs:enumeration value="TTA2"/>
-                        <xs:enumeration value="TTA3"/>
-                        <xs:enumeration value="TPF0"/>
-                        <xs:enumeration value="TPF1"/>
-                        <xs:enumeration value="TPF2"/>
-                        <xs:enumeration value="TPF3"/>
-                        <xs:enumeration value="TPR0"/>
-                        <xs:enumeration value="TPR1"/>
-                        <xs:enumeration value="TPR2"/>
-                        <xs:enumeration value="TPR3"/>
-                        <xs:enumeration value="TPO0"/>
-                        <xs:enumeration value="TPO1"/>
-                        <xs:enumeration value="TPO2"/>
-                        <xs:enumeration value="TPO3"/>
-                        <xs:enumeration value="TPA0"/>
-                        <xs:enumeration value="TPA1"/>
-                        <xs:enumeration value="TPA2"/>
-                        <xs:enumeration value="TPA3"/>
-                        <xs:enumeration value="TNF0"/>
-                        <xs:enumeration value="TNF1"/>
-                        <xs:enumeration value="TNF2"/>
-                        <xs:enumeration value="TNF3"/>
-                        <xs:enumeration value="TNR0"/>
-                        <xs:enumeration value="TNR1"/>
-                        <xs:enumeration value="TNR2"/>
-                        <xs:enumeration value="TNR3"/>
-                        <xs:enumeration value="TNO0"/>
-                        <xs:enumeration value="TNO1"/>
-                        <xs:enumeration value="TNO2"/>
-                        <xs:enumeration value="TNO3"/>
-                        <xs:enumeration value="TNA0"/>
-                        <xs:enumeration value="TNA1"/>
-                        <xs:enumeration value="TNA2"/>
-                        <xs:enumeration value="TNA3"/>
-                        <xs:enumeration value="TMF0"/>
-                        <xs:enumeration value="TMF1"/>
-                        <xs:enumeration value="TMF2"/>
-                        <xs:enumeration value="TMF3"/>
-                        <xs:enumeration value="TMR0"/>
-                        <xs:enumeration value="TMR1"/>
-                        <xs:enumeration value="TMR2"/>
-                        <xs:enumeration value="TMR3"/>
-                        <xs:enumeration value="TMO0"/>
-                        <xs:enumeration value="TMO1"/>
-                        <xs:enumeration value="TMO2"/>
-                        <xs:enumeration value="TMO3"/>
-                        <xs:enumeration value="TMA0"/>
-                        <xs:enumeration value="TMA1"/>
-                        <xs:enumeration value="TMA2"/>
-                        <xs:enumeration value="TMA3"/>
-                        <xs:enumeration value="BBB0"/>
-                        <xs:enumeration value="BBB1"/>
-                        <xs:enumeration value="BBB2"/>
-                        <xs:enumeration value="BBB3"/>
-                        <xs:enumeration value="BBP0"/>
-                        <xs:enumeration value="BBP3"/>
-                        <xs:enumeration value="BBW0"/>
-                        <xs:enumeration value="BBW1"/>
-                        <xs:enumeration value="BBW2"/>
-                        <xs:enumeration value="BBW3"/>
-                        <xs:enumeration value="BBS0"/>
-                        <xs:enumeration value="BBS3"/>
-                        <xs:enumeration value="BBE0"/>
-                        <xs:enumeration value="BBE2"/>
-                        <xs:enumeration value="BBE3"/>
-                        <xs:enumeration value="BBT0"/>
-                        <xs:enumeration value="BBT3"/>
-                        <xs:enumeration value="BBC0"/>
-                        <xs:enumeration value="HHA0"/>
-                        <xs:enumeration value="HHA1"/>
-                        <xs:enumeration value="HHA2"/>
-                        <xs:enumeration value="HHA3"/>
-                        <xs:enumeration value="HNA0"/>
-                        <xs:enumeration value="HNA1"/>
-                        <xs:enumeration value="HNA2"/>
-                        <xs:enumeration value="HNA3"/>
-                        <xs:enumeration value="CCE0"/>
-                        <xs:enumeration value="CCE3"/>
-                        <xs:enumeration value="CCS0"/>
-                        <xs:enumeration value="CCS3"/>
-                        <xs:enumeration value="CCC0"/>
-                        <xs:enumeration value="CCC1"/>
-                        <xs:enumeration value="CCC2"/>
-                        <xs:enumeration value="CCC3"/>
-                        <xs:enumeration value="CHH0"/>
-                        <xs:enumeration value="CHH3"/>
-                        <xs:enumeration value="CHS0"/>
-                        <xs:enumeration value="CHS3"/>
-                        <xs:enumeration value="CHC0"/>
-                        <xs:enumeration value="CHC1"/>
-                        <xs:enumeration value="CHC2"/>
-                        <xs:enumeration value="CHC3"/>
-                        <xs:enumeration value="CPE0"/>
-                        <xs:enumeration value="CPE3"/>
-                        <xs:enumeration value="CPS0"/>
-                        <xs:enumeration value="CPS3"/>
-                        <xs:enumeration value="CPC0"/>
-                        <xs:enumeration value="CPC1"/>
-                        <xs:enumeration value="CPC2"/>
-                        <xs:enumeration value="CPC3"/>
-                        <xs:enumeration value="CAB0"/>
-                        <xs:enumeration value="CAB3"/>
-                        <xs:enumeration value="CAS0"/>
-                        <xs:enumeration value="CAS3"/>
-                        <xs:enumeration value="CAC0"/>
-                        <xs:enumeration value="CAC1"/>
-                        <xs:enumeration value="CAC2"/>
-                        <xs:enumeration value="CAC3"/>
-                        <xs:enumeration value="CJO0"/>
-                        <xs:enumeration value="CJO3"/>
-                        <xs:enumeration value="CJS0"/>
-                        <xs:enumeration value="CJS3"/>
-                        <xs:enumeration value="CJC0"/>
-                        <xs:enumeration value="CJC1"/>
-                        <xs:enumeration value="CJC2"/>
-                        <xs:enumeration value="CJC3"/>
-                        <xs:enumeration value="EUR0"/>
-                        <xs:enumeration value="EUR3"/>
-                        <xs:enumeration value="EUS0"/>
-                        <xs:enumeration value="EUS3"/>
-                        <xs:enumeration value="EUA0"/>
-                        <xs:enumeration value="EFA0"/>
-                        <xs:enumeration value="EFA1"/>
-                        <xs:enumeration value="EFA2"/>
-                        <xs:enumeration value="EFA3"/>
-                        <xs:enumeration value="ESS0"/>
-                        <xs:enumeration value="ESS1"/>
-                        <xs:enumeration value="ESS2"/>
-                        <xs:enumeration value="ESS3"/>
-                        <xs:enumeration value="ESM0"/>
-                        <xs:enumeration value="ESM3"/>
-                        <xs:enumeration value="ESL0"/>
-                        <xs:enumeration value="ESL3"/>
-                        <xs:enumeration value="ESR0"/>
-                        <xs:enumeration value="ESR3"/>
-                        <xs:enumeration value="ELA0"/>
-                        <xs:enumeration value="ELA1"/>
-                        <xs:enumeration value="ELA2"/>
-                        <xs:enumeration value="ELA3"/>
-                        <xs:enumeration value="EHI0"/>
-                        <xs:enumeration value="SCE0"/>
-                        <xs:enumeration value="SCE3"/>
-                        <xs:enumeration value="SCC0"/>
-                        <xs:enumeration value="SCC1"/>
-                        <xs:enumeration value="SCC2"/>
-                        <xs:enumeration value="SCC3"/>
-                        <xs:enumeration value="SOS0"/>
-                        <xs:enumeration value="SOS3"/>
-                        <xs:enumeration value="SOC0"/>
-                        <xs:enumeration value="SOC1"/>
-                        <xs:enumeration value="SOC2"/>
-                        <xs:enumeration value="SOC3"/>
-                        <xs:enumeration value="MSE0"/>
-                        <xs:enumeration value="MSE1"/>
-                        <xs:enumeration value="MSE2"/>
-                        <xs:enumeration value="MSE3"/>
-                        <xs:enumeration value="MSP0"/>
-                        <xs:enumeration value="MSP1"/>
-                        <xs:enumeration value="MSP2"/>
-                        <xs:enumeration value="MSP3"/>
-                        <xs:enumeration value="MSM0"/>
-                        <xs:enumeration value="MSM1"/>
-                        <xs:enumeration value="MSM2"/>
-                        <xs:enumeration value="MSM3"/>
-                        <xs:enumeration value="TST0"/>
-                        <xs:enumeration value="TST1"/>
-                        <xs:enumeration value="TST2"/>
-                        <xs:enumeration value="TST3"/>
-                        <xs:enumeration value="TAS0"/>
-                        <xs:enumeration value="TAS1"/>
-                        <xs:enumeration value="TAS2"/>
-                        <xs:enumeration value="TAS3"/>
-                        <xs:enumeration value="THS0"/>
-                        <xs:enumeration value="THS1"/>
-                        <xs:enumeration value="THS2"/>
-                        <xs:enumeration value="THS3"/>
-                        <xs:enumeration value="TNS0"/>
-                        <xs:enumeration value="TNS1"/>
-                        <xs:enumeration value="TNS2"/>
-                        <xs:enumeration value="TNS3"/>
-
+                        <xs:maxLength value="100"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
-
-
-			<!-- 入库日期，必填项，date类型 -->
-			<xs:element name="入库日期" minOccurs="1" >
-				<xs:simpleType>
-					<xs:restriction base="xs:date">
-					   	  
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-			
-			<!-- 保存温度，必填项，string类型，按照文档要求，此项的值只能取enumeration中列出的项 -->
-			<xs:element name="保存温度" minOccurs="1">
+			<xs:element name="保存方式" minOccurs="1">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-					  <xs:enumeration value="室温"/>
-					  <xs:enumeration value="2℃~10℃"/>
-					  <xs:enumeration value="-35℃~-18℃"/>
-					  <xs:enumeration value="-85℃~-60℃"/>
-					  <xs:enumeration value="液氮"/>
-					  <xs:enumeration value="-196℃~-150℃"/>
-					  <xs:enumeration value="其他方式"/>
-					  <xs:minLength value="1"/>
+					  <xs:maxLength value="100"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="母本编码" minOccurs="0"  >
+            <xs:element name="每份样本数量" minOccurs="0">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
+					  <xs:maxLength value="10"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="分管数" minOccurs="0" >
-				<xs:simpleType>
-					<xs:restriction base="xs:integer">
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-
-			
-			<!-- 样本数量，必填项，integer类型 -->
-			<xs:element name="样本量" type="xs:integer" minOccurs="1"/>
-
-            <xs:element name="量单位" minOccurs="0">
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-
-
-			<!-- 知情同意，必填项 -->
-			<xs:element name="知情同意" minOccurs="1">
-				<xs:simpleType>
-					<xs:restriction base="xs:integer">
-					    <xs:enumeration value="0" />
-                        <xs:enumeration value="1" />
-					</xs:restriction>
-				</xs:simpleType>	
-			</xs:element>
-			
-			<!-- 样本别称，必填项，string 类型，最小长度1 -->
-			<xs:element name="样本别称" minOccurs="1" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>	
-			</xs:element>
-
-            <xs:element name="样本描述" minOccurs="0" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-            <xs:element name="关键词" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-            <xs:element name="样本用途" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-			<!-- 采集部位，必填项，string类型，最小长度1 -->
-			<xs:element name="采集部位" minOccurs="1">
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>	
-			</xs:element>
-
-            <xs:element name="分析前变量" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-
-            <xs:element name="采集动因" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-            <xs:element name="采集时间" minOccurs="0"  >
+            <xs:element name="采集时间" minOccurs="1"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:date">
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="采集计划" minOccurs="0" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-            <xs:element name="采集机构" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-            <xs:element name="其他采集者"  minOccurs="0" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
 
 			<!-- 保存机构名称，必填项，string类型，最小长度1 -->
 			<xs:element name="保存机构名称"  minOccurs="1">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
+					  <xs:maxLength value="100"/>
 					</xs:restriction>
 				</xs:simpleType>	
 			</xs:element>
-
-			<!-- 法人机构名称，必填项，string类型，最小长度1 -->
-			<xs:element name="法人机构名称" minOccurs="1" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>	
-			</xs:element>
-
 
 			<!-- 法人机构代码，必填项，string类型，最小长度1 -->
 			<xs:element name="法人机构代码" minOccurs="1" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
+					  <xs:maxLength value="30"/>
 					</xs:restriction>
 				</xs:simpleType>	
 			</xs:element>
 
-            <xs:element name="法人机构类型" minOccurs="0"  >
+            <xs:element name="法人机构类型" minOccurs="1"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
+					  <xs:maxLength value="30"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
 
-            <xs:element name="保存机构简介" minOccurs="0"  >
+            <xs:element name="保存机构简介" minOccurs="1"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
+					  <xs:maxLength value="1000"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="使用许可" minOccurs="0" >
+            <xs:element name="通讯地址" minOccurs="1" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
+					  <xs:maxLength value="200"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="共享方式" minOccurs="1"  >
+            <xs:element name="邮政编码" minOccurs="1"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
+					  <xs:maxLength value="6"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
-
-            <xs:element name="通信地址" minOccurs="0" >
+            <xs:element name="联系人姓名" minOccurs="1" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-            <xs:element name="邮政编码" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-            <xs:element name="管理员" minOccurs="0" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
+					  <xs:maxLength value="10"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
 
-            <xs:element name="联系电话" minOccurs="0"  >
+            <xs:element name="联系电话" minOccurs="1"  >
 				<xs:simpleType>
-					<xs:restriction base="xs:integer">
+					<xs:restriction base="xs:string">
+                        <xs:maxLength value="20"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
-            <xs:element name="电子信箱" minOccurs="0"  >
+            <xs:element name="电子邮箱" minOccurs="1"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
+					  <xs:maxLength value="50"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
 
-			<!-- 捐献者匿名编号，必填项，string类型，最小长度1 -->
-			<xs:element name="捐献者匿名编号" minOccurs="1" >
+			<xs:element name="捐献人编号" minOccurs="1" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
+					  <xs:maxLength value="100"/>
 					</xs:restriction>
 				</xs:simpleType>	
 			</xs:element>
 
 
-			<!-- 性别，必填项，string类型，从‘男’、‘女’中选择，最小长度1 -->
-			<xs:element name="性别" minOccurs="1">
+			<xs:element name="性别" minOccurs="0">
 				<xs:simpleType >
 					<xs:restriction base="xs:string">
-						<xs:enumeration value="男" />
-						<xs:enumeration value="女" />
-						<xs:minLength value="1"/>
+						<xs:maxLength value="2"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 			
 
-			<!-- 年龄，必填项，integer类型，最小值0，最大值150 -->
-			<xs:element name="年龄" minOccurs="1">
+			<xs:element name="年龄" minOccurs="0">
 				<xs:simpleType>
 					<xs:restriction base="xs:integer">
-					  <xs:minInclusive value="0"/>
-					  <xs:maxInclusive value="150"/>
-					    
+                        <xs:totalDigits value="10"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -515,7 +152,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
             <xs:element name="民族" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
+					  <xs:maxLength value="10"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -523,7 +160,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
             <xs:element name="籍贯" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
+					  <xs:maxLength value="100"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -531,200 +168,31 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
             <xs:element name="出生地" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-            <xs:element name="国籍" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
+					  <xs:maxLength value="100"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
 
-            <xs:element name="职业" minOccurs="0"  >
+
+            <xs:element name="疾病名称" minOccurs="0"  >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
+					  <xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+             <xs:element name="正常人群" minOccurs="0"  >
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					  <xs:maxLength value="100"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 
 
-            <xs:element name="教育程度" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
 
-
-            <xs:element name="婚姻状况" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-            <xs:element name="捐献途径" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="疾病类目名称" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="疾病类目代码" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="主要诊断" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="现病史" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="检验记录" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="随访记录" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="影像资料" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="病例报告" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="家系信息" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-            <xs:element name="课题名称" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-
-			<!-- 课题编号，必填项，string类型，最小长度1 -->
-			<xs:element name="课题编号" minOccurs="1">
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>	
-			</xs:element>
-
-            <xs:element name="课题级别" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-            <xs:element name="资助机构" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="纳入标准" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="课题关键词" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="收集目的" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-            <xs:element name="收集方法" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					  <xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-            <xs:element name="收集数量" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:integer">
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-            <xs:element name="课题开始时间" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:date">
-
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-
-            <xs:element name="课题结束时间" minOccurs="0"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:date">
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
 
 			
 	

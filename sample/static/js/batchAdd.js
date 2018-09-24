@@ -13,3 +13,10 @@ function sub_check() {
 
 }
 
+function download_alert() {
+
+
+    alert("红色字段为必填字段，请勿遗漏！");
+
+}
+

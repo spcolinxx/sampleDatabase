@@ -12,11 +12,20 @@ def add_info(dt,cnn):
 
 
 
-def info_search(dt,cnn):
+def info_search(and_ls,or_ls,nor_ls,cnn):
+
+    if (len(and_ls) == 0):
+        and_ls = [{}]
+    if (len(or_ls) == 0):
+        or_ls = [{}]
 
     db=cnn.sampledb
     cl=db.saminfo
-    rst=cl.find(dt)
+    if(len(nor_ls)==0):
+        rst = cl.find({'$and': and_ls, '$or':or_ls})
+    else:
+        rst = cl.find({'$and': and_ls, '$or':or_ls,'$nor':nor_ls})
+
 
     return rst
 
